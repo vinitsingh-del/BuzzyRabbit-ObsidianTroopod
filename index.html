@@ -61,7 +61,10 @@
   }
 
   img{max-width:100%;display:block}
-  .wrap{max-width:520px;margin:0 auto;padding:0 18px;position:relative}
+  /* Shared content column — used by nav, breadcrumb, hero copy, sections, and the bag bar
+     so every part of the page lines up on the same left/right edges. Widens gently on very
+     large monitors (clamp) instead of staying a fixed 520px that looks lost on 1920px+/2560px+. */
+  .wrap{max-width:clamp(520px, 40vw, 680px);margin:0 auto;padding:0 18px;position:relative}
 
   /* ===== Ticker ===== */
   .ticker{
@@ -81,18 +84,22 @@
   /* ===== Nav ===== */
   nav{
     position:sticky;top:0;z-index:40;
+    padding:12px 0;
+  }
+  .nav-inner{
     display:flex;align-items:center;justify-content:space-between;
-    padding:12px 18px;
+    max-width:clamp(520px, 40vw, 680px);margin:0 auto;padding:0 18px;
   }
   nav img{height:20px;width:auto;position:relative;z-index:1}
   .bag-pill{
     display:flex;align-items:center;gap:6px;
-    padding:7px 13px;border-radius:999px;
+    min-height:44px;padding:0 16px;border-radius:999px;
     font:700 11px/1 Arial,sans-serif;letter-spacing:.03em;
     cursor:pointer;position:relative;z-index:1;
   }
   .bag-pill span{position:relative;z-index:1}
   .breadcrumb{
+    max-width:clamp(520px, 40vw, 680px);margin:0 auto;
     padding:14px 18px 2px;font:700 11px/1 Arial,sans-serif;
     color:#cfe6ff;letter-spacing:.03em;
   }
@@ -131,7 +138,10 @@
   }
 
   .hero-copy{
-    position:absolute;left:16px;right:16px;bottom:20px;z-index:6;
+    position:absolute;left:50%;bottom:20px;z-index:6;
+    width:calc(100% - 32px);
+    max-width:calc(clamp(520px, 40vw, 680px) - 32px);
+    transform:translateX(-50%);
     padding:22px 20px 26px;text-align:center;
     border-radius:26px;
     will-change:opacity,transform;
@@ -156,7 +166,8 @@
   .price-row .was{font-size:14px;color:#9fb3d6;text-decoration:line-through}
   .price-row .off{font-size:12px;color:#ffdf00;font-weight:700}
   .cta{
-    display:inline-flex;align-items:center;gap:8px;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    min-height:44px;
     padding:14px 30px;border-radius:999px;border:0;
     background:linear-gradient(135deg,#ffdf23,#ffafe3);
     color:#09205c;font:800 13px/1 Arial,sans-serif;letter-spacing:.02em;
@@ -260,14 +271,19 @@
   /* Sticky bottom bag bar */
   .bag-bar{
     position:sticky;bottom:0;left:0;right:0;z-index:30;
-    margin-top:40px;padding:12px 18px calc(12px + env(safe-area-inset-bottom));
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-top:40px;
+    padding:12px 0 calc(12px + env(safe-area-inset-bottom));
     border-radius:24px 24px 0 0;
   }
+  .bag-bar-inner{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    max-width:clamp(520px, 40vw, 680px);margin:0 auto;padding:0 18px;
+  }
   .bag-bar .price{font-weight:800;font-size:15px}
-  .bag-bar .cta{padding:12px 24px;font-size:12px}
+  .bag-bar .cta{padding:12px 24px;font-size:12px;min-height:44px}
 
   footer{
+    max-width:clamp(520px, 40vw, 680px);margin:0 auto;
     text-align:center;padding:40px 18px 30px;
     color:#9fb3d6;font-size:11px;line-height:1.6;
   }
@@ -288,8 +304,10 @@
   </div>
 
   <nav class="glass">
-    <img src="assets/durex-logo-white.png" alt="Durex" />
-    <div class="bag-pill glass"><span>Bag</span> <span id="bagCount">0</span></div>
+    <div class="nav-inner">
+      <img src="assets/durex-logo-white.png" alt="Durex" />
+      <div class="bag-pill glass"><span>Bag</span> <span id="bagCount">0</span></div>
+    </div>
   </nav>
 
   <div class="breadcrumb">Play / Buzzy Rabbit</div>
@@ -432,11 +450,13 @@
   </div>
 
   <div class="bag-bar glass">
-    <div style="position:relative;z-index:1">
-      <div style="font-size:11px;color:#c8ddff">Buzzy Rabbit</div>
-      <div class="price">₹3,999</div>
+    <div class="bag-bar-inner">
+      <div style="position:relative;z-index:1">
+        <div style="font-size:11px;color:#c8ddff">Buzzy Rabbit</div>
+        <div class="price">₹3,999</div>
+      </div>
+      <button class="cta" onclick="addToBag()" style="position:relative;z-index:1">Add to bag</button>
     </div>
-    <button class="cta" onclick="addToBag()" style="position:relative;z-index:1">Add to bag</button>
   </div>
 
   <footer>
@@ -471,7 +491,7 @@
     // copy fades and lifts away early
     const copyOpacity = clamp(1 - p / 0.35, 0, 1);
     heroCopy.style.opacity = copyOpacity.toFixed(2);
-    heroCopy.style.transform = `translateY(${(-p * 40).toFixed(1)}px)`;
+    heroCopy.style.transform = `translate(-50%, ${(-p * 40).toFixed(1)}px)`;
   }
 
   // ---- Bag counter ----
