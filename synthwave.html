@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Durex Play · Buzzy Rabbit — Retro Nights</title>
+<meta name="description" content="An immersive scroll-motion product story for Durex Play Buzzy Rabbit — synthwave retro edition."/>
+<meta name="theme-color" content="#170a33"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Durex One';src:url('fonts/DurexOne-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'Durex One';src:url('fonts/DurexOne-Bold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap;}
+@font-face{font-family:'Durex Assist';src:url('fonts/DurexAssist-Var.woff2') format('woff2');font-weight:300 800;font-style:normal;font-display:swap;}
+
+:root{
+  --navy-deep:#0a0118;
+  --navy-1:#170a33;
+  --navy-2:#1f0f45;
+  --navy-3:#2a1157;
+  --blue-mid:#3a1470;
+  --blue-mid2:#5a1690;
+  --blue-accent:#a239ff;
+  --blue-accent2:#ff2bd6;
+  --purple:#6b1fb0;
+  --pink:#ff6ec7;
+  --magenta:#ff2bd6;
+  --magenta2:#d5006d;
+  --yellow:#ffd23f;
+  --green:#00fff9;
+  --cyan:#00fff9;
+  --white:#fff8f0;
+  --ink:#0a0118;
+  --display-font:'Audiowide','Arial',sans-serif;
+  --body-font:'Rajdhani','Arial',sans-serif;
+  --max-w:1180px;
+  --edge-pad:clamp(20px,5vw,64px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--body-font);
+  font-weight:500;
+  background:var(--navy-deep);
+  color:var(--white);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:.01em;
+}
+.scanlines{
+  position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.5;mix-blend-mode:overlay;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.06) 0px,rgba(255,255,255,.06) 1px,transparent 1px,transparent 3px);
+}
+.grid-horizon{
+  position:relative;height:180px;overflow:hidden;
+  background:linear-gradient(180deg,transparent,rgba(162,57,255,.15));
+}
+.grid-horizon::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(0,255,249,.55) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,43,214,.5) 1px,transparent 1px);
+  background-size:100% 26px,52px 100%;
+  transform:perspective(220px) rotateX(58deg) scale(2.4);
+  transform-origin:50% 0%;
+  mask-image:linear-gradient(180deg,#000 0%,transparent 85%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 85%);
+}
+.grid-horizon .sun{
+  position:absolute;left:50%;top:10px;width:140px;height:140px;border-radius:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(180deg,var(--yellow),var(--magenta) 70%);
+  box-shadow:0 0 60px rgba(255,110,199,.6);
+}
+img{max-width:100%;display:block;}
+.container{max-width:var(--max-w);margin:0 auto;padding-left:var(--edge-pad);padding-right:var(--edge-pad);position:relative;}
+
+/* ---------- Marquee ---------- */
+.marquee{
+  background:linear-gradient(90deg,var(--cyan),var(--blue-accent) 50%,var(--magenta));
+  overflow:hidden;
+  position:relative;
+  height:38px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid rgba(0,255,249,.6);
+}
+.marquee-track span{color:var(--ink);}
+.marquee::before,.marquee::after{
+  content:'';position:absolute;top:0;bottom:0;width:40px;z-index:2;pointer-events:none;
+}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--blue-accent2),transparent);}
+.marquee::after{right:0;background:linear-gradient(270deg,var(--magenta2),transparent);}
+.marquee-track{display:flex;white-space:nowrap;animation:scroll-left 22s linear infinite;}
+.marquee-track span{
+  font-family:var(--display-font);font-weight:800;font-size:11px;letter-spacing:.08em;
+  padding:0 28px;text-transform:uppercase;display:inline-flex;align-items:center;gap:28px;
+}
+.marquee-track span::after{content:'✦';opacity:.7;font-size:9px;}
+@keyframes scroll-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:40;
+  background:rgba(10,1,24,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(0,255,249,.25);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo img{height:22px;width:auto;}
+.crumb{font-family:var(--display-font);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.85;}
+.bag{display:flex;align-items:center;gap:10px;font-family:var(--display-font);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;}
+.bag-count{width:22px;height:22px;border:1.5px solid var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;}
+
+/* ---------- Progress rail ---------- */
+.progress-rail{
+  position:fixed;right:calc(var(--edge-pad) - 8px);top:50%;transform:translateY(-50%);
+  z-index:30;display:flex;flex-direction:column;align-items:center;gap:14px;
+}
+.progress-rail .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s;}
+.progress-rail .dot.active{background:var(--white);transform:scale(1.4);}
+@media (max-width:860px){.progress-rail{display:none;}}
+
+/* ---------- Section base ---------- */
+section{position:relative;padding:96px 0;}
+.eyebrow{font-family:var(--display-font);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.75;text-align:center;margin-bottom:14px;color:var(--cyan);}
+h2{
+  font-family:var(--display-font);font-weight:400;font-size:clamp(26px,4.4vw,46px);
+  line-height:1.15;text-align:center;letter-spacing:0;margin-bottom:18px;
+  color:var(--white);text-shadow:0 0 18px rgba(255,110,199,.55),0 0 34px rgba(162,57,255,.4);
+}
+.sub{text-align:center;font-size:clamp(14px,1.6vw,17px);line-height:1.55;color:rgba(255,255,255,.78);max-width:560px;margin:0 auto 32px;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding-top:64px;padding-bottom:56px;
+  background:radial-gradient(circle at 50% 38%,var(--blue-accent) 0%,var(--magenta2) 34%,var(--navy-2) 68%,var(--navy-deep) 100%);
+}
+.hero-eyebrow{text-align:center;font-family:var(--display-font);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:16px;}
+.hero h1{
+  font-family:var(--display-font);font-weight:400;text-align:center;
+  font-size:clamp(30px,5.4vw,58px);line-height:1.15;letter-spacing:0;margin-bottom:18px;
+  color:var(--white);
+  text-shadow:0 0 4px #fff,0 0 22px var(--pink),0 0 46px var(--blue-accent),0 0 70px var(--blue-accent2);
+}
+.hero .sub{max-width:480px;margin-bottom:20px;}
+.rating{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;margin-bottom:14px;}
+.stars{color:var(--yellow);letter-spacing:2px;}
+.rating b{font-family:var(--display-font);}
+.rating .muted{opacity:.65;}
+.price-row{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+.price{font-family:var(--display-font);font-weight:400;font-size:28px;color:var(--white);text-shadow:0 0 12px rgba(0,255,249,.6);}
+.mrp{text-decoration:line-through;opacity:.55;font-size:15px;}
+.off{background:var(--green);color:#00230f;font-family:var(--display-font);font-weight:800;font-size:11px;padding:4px 10px;border-radius:999px;letter-spacing:.04em;}
+.btn-primary{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(90deg,var(--magenta),var(--blue-accent));
+  color:var(--white);font-family:var(--display-font);font-weight:400;font-size:13px;
+  letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);border-radius:999px;
+  padding:17px 30px;margin:0 auto;cursor:pointer;box-shadow:0 0 20px rgba(255,43,214,.55),0 0 40px rgba(162,57,255,.35);
+  transition:transform .2s ease;max-width:320px;
+}
+.btn-primary:hover{transform:translateY(-2px);}
+
+.hero-stage{
+  position:relative;max-width:920px;margin:36px auto 0;
+  display:flex;align-items:flex-end;justify-content:center;
+  min-height:340px;
+}
+.hero-stage .side-asset{
+  position:absolute;width:min(24vw,190px);opacity:.9;filter:drop-shadow(0 20px 30px rgba(0,0,0,.35));
+}
+.hero-stage .side-asset.left{left:0;bottom:6%;}
+.hero-stage .side-asset.right{right:0;bottom:10%;}
+.hero-stage .center-asset{width:min(46vw,300px);position:relative;z-index:2;}
+@media (max-width:640px){
+  .hero-stage{min-height:0;}
+  .hero-stage .side-asset{position:static;width:26vw;transform:none;opacity:.85;}
+  .hero-stage{display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:end;gap:6px;}
+  .hero-stage .center-asset{width:100%;}
+}
+.scroll-cue{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:40px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.65;}
+.scroll-cue .pill{width:26px;height:40px;border:1.5px solid rgba(255,255,255,.5);border-radius:20px;position:relative;}
+.scroll-cue .pill::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:8px;background:var(--white);border-radius:2px;animation:sc 1.6s infinite;}
+@keyframes sc{0%{opacity:1;top:6px}70%{opacity:0;top:20px}100%{opacity:0;top:6px}}
+
+/* ---------- Alt section backgrounds ---------- */
+.sec-01{background:linear-gradient(180deg,var(--navy-1),var(--blue-mid2) 55%,var(--blue-accent));}
+.sec-02{background:linear-gradient(180deg,var(--blue-accent),var(--blue-mid2));}
+.sec-03{background:linear-gradient(180deg,var(--blue-mid2),var(--purple) 60%,var(--blue-mid2));}
+.sec-04{background:linear-gradient(180deg,var(--blue-mid2),var(--blue-accent2) 50%,var(--purple));}
+.sec-05{background:linear-gradient(180deg,var(--purple),var(--blue-mid2));}
+.sec-06{background:linear-gradient(180deg,var(--blue-mid2),var(--blue-accent));}
+.sec-proof{background:linear-gradient(180deg,var(--navy-1),var(--navy-deep));}
+
+/* ---------- Pills ---------- */
+.pill-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:36px;}
+.tag-pill{
+  background:rgba(0,255,249,.08);border:1px solid rgba(0,255,249,.55);
+  color:var(--white);font-family:var(--display-font);font-weight:400;font-size:11px;
+  padding:12px 20px;border-radius:999px;text-align:center;letter-spacing:.04em;
+  box-shadow:0 0 14px rgba(0,255,249,.15);
+}
+.tag-pill.white{background:var(--white);color:var(--navy-1);border-color:transparent;box-shadow:0 0 14px rgba(255,255,255,.35);}
+.stat-card{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,110,199,.5);border-radius:20px;
+  padding:20px 26px;text-align:center;min-width:130px;box-shadow:0 0 20px rgba(255,110,199,.2);
+}
+.stat-card b{display:block;font-family:var(--display-font);font-weight:400;font-size:26px;color:var(--cyan);text-shadow:0 0 14px rgba(0,255,249,.7);}
+.stat-card span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.7;}
+.stat-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:8px;}
+
+.product-shot{max-width:340px;margin:0 auto;filter:drop-shadow(0 0 34px rgba(162,57,255,.45));}
+.product-shot.tall{max-width:280px;}
+.framed-shot{max-width:280px;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 0 40px rgba(255,43,214,.35);border:1px solid rgba(0,255,249,.4);}
+
+/* ---------- Feature grid ---------- */
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:52px;}
+.feature-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(0,255,249,.3);border-radius:18px;
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.feature-card .txt{padding:18px 18px 4px;}
+.feature-card h4{font-family:var(--display-font);font-weight:400;font-size:13px;line-height:1.3;margin-bottom:6px;color:var(--white);}
+.feature-card p{font-size:12px;opacity:.7;line-height:1.4;margin-bottom:14px;}
+.feature-card .imgwrap{aspect-ratio:3/3.4;overflow:hidden;position:relative;}
+.feature-card .imgwrap img{width:100%;height:100%;object-fit:cover;object-position:center;}
+@media (max-width:860px){.feature-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:480px){.feature-grid{grid-template-columns:1fr 1fr;gap:10px;}.feature-card h4{font-size:12px;}.feature-card p{font-size:11px;}}
+
+/* ---------- Angle gallery ---------- */
+.angle-gallery{max-width:420px;margin:0 auto;text-align:center;}
+.angle-track{position:relative;aspect-ratio:1/1;border-radius:24px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(255,110,199,.3);}
+.angle-track img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .4s ease;}
+.angle-track img.active{opacity:1;}
+.angle-nums{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:26px;font-family:var(--display-font);font-weight:400;font-size:12px;color:var(--cyan);}
+.angle-bar{width:120px;height:2px;background:rgba(255,255,255,.2);position:relative;border-radius:2px;overflow:hidden;}
+.angle-bar i{position:absolute;left:0;top:0;bottom:0;background:var(--cyan);width:25%;transition:width .4s ease;box-shadow:0 0 8px var(--cyan);}
+.angle-dots{display:flex;justify-content:center;gap:8px;margin-top:18px;}
+.angle-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;}
+.angle-dots button.active{background:var(--magenta);box-shadow:0 0 8px var(--magenta);}
+
+/* ---------- Proof / reviews ---------- */
+.proof-summary{text-align:center;margin-bottom:40px;}
+.proof-summary .big-stars{color:var(--yellow);font-size:20px;letter-spacing:4px;margin-bottom:8px;}
+.review-quote{font-size:15px;font-style:italic;opacity:.85;max-width:420px;margin:0 auto;line-height:1.5;}
+.review-track-wrap{overflow:hidden;margin-top:10px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+.review-track{display:flex;gap:18px;width:max-content;animation:review-scroll 28s linear infinite;}
+.review-card{
+  background:linear-gradient(135deg,var(--magenta),var(--blue-accent));
+  border-radius:18px;padding:22px;width:300px;flex-shrink:0;border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 0 24px rgba(255,43,214,.3);
+}
+.review-card .stars{color:var(--yellow);font-size:13px;display:block;margin-bottom:4px;}
+.review-card .score{font-family:var(--display-font);font-weight:400;font-size:12px;margin-left:6px;}
+.review-card p{font-size:13.5px;line-height:1.5;margin:10px 0;}
+.review-card .who{font-size:11px;opacity:.75;}
+@keyframes review-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+
+.feature-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px;}
+.feature-strip img{border-radius:16px;aspect-ratio:1/1;object-fit:cover;}
+@media (max-width:860px){.feature-strip{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- Sticky bar ---------- */
+.sticky-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:var(--navy-1);color:var(--white);
+  padding:14px var(--edge-pad);display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 -4px 30px rgba(255,43,214,.25);border-top:1px solid rgba(0,255,249,.4);
+  transform:translateY(100%);transition:transform .35s ease;
+}
+.sticky-bar.show{transform:translateY(0);}
+.sticky-bar .name{font-family:var(--display-font);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.06em;opacity:.7;}
+.sticky-bar .amt{font-family:var(--display-font);font-weight:400;font-size:17px;color:var(--cyan);}
+.sticky-bar button{
+  background:linear-gradient(90deg,var(--magenta),var(--blue-accent));color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;
+  padding:13px 24px;font-family:var(--display-font);font-weight:400;font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 0 16px rgba(255,43,214,.4);
+}
+
+/* ---------- Footer ---------- */
+footer{background:var(--navy-deep);padding:0 0 130px;text-align:center;position:relative;z-index:2;}
+footer .footer-content{padding:44px 0 0;}
+footer img{height:22px;margin:0 auto 18px;filter:brightness(0) invert(1) drop-shadow(0 0 8px rgba(0,255,249,.5));}
+footer p{font-size:12px;opacity:.55;margin-top:6px;font-family:var(--body-font);}
+
+@media (max-width:640px){
+  section{padding:64px 0;}
+  footer{padding:0 0 110px;}
+}
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<div class="marquee"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+<header>
+  <div class="container header-inner">
+    <a class="logo" href="#top"><img src="assets/durex-logo-white.png" alt="Durex"/></a>
+    <div class="crumb">Play / Buzzy Rabbit</div>
+    <div class="bag">Bag <span class="bag-count">0</span></div>
+  </div>
+</header>
+
+<div class="progress-rail" id="progressRail"></div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-eyebrow reveal in">Durex Play · Buzzy Rabbit</p>
+      <h1 class="reveal in">Meet your new<br/>favourite buzz.</h1>
+      <p class="sub reveal in">Powerful vibes meet soft-touch feels in one dual-action design.</p>
+      <div class="rating reveal in"><span class="stars">★★★★★</span> <b>4.6</b> <span class="muted">| 38 reviews</span></div>
+      <div class="price-row reveal in">
+        <span class="price">₹3,999</span>
+        <span class="mrp">₹5,624</span>
+        <span class="off">29% off</span>
+      </div>
+      <button class="btn-primary reveal in">Add to bag →</button>
+
+      <div class="hero-stage reveal in">
+        <img class="side-asset left" src="assets/buzzy-rabbit.png" alt=""/>
+        <img class="center-asset" src="assets/buzzy-pack-hero.png" alt="Durex Play Buzzy Rabbit pack"/>
+        <img class="side-asset right" src="assets/buzzy-rabbit.png" alt=""/>
+      </div>
+
+      <div class="scroll-cue reveal in"><span class="pill"></span> Scroll to feel the story</div>
+    </div>
+  </section>
+
+  <!-- 01 DUAL ACTION -->
+  <section class="sec-01" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">01 · Dual action</p>
+      <h2 class="reveal">Two ways to<br/>feel more.</h2>
+      <p class="sub reveal">5 tapping modes meet 8 intense vibrations in one dual-action design made to tease, thrill and explore.</p>
+      <div class="pill-row reveal">
+        <span class="tag-pill">5 Sensational Taps</span>
+        <span class="tag-pill">8 Powerful Vibrations</span>
+        <span class="tag-pill">Body Safe Silicone Material</span>
+      </div>
+      <img class="product-shot tall reveal" src="assets/buzzy-runtime-hero.png" alt="Buzzy Rabbit dual action"/>
+    </div>
+  </section>
+
+  <!-- 02 SOFT TOUCH -->
+  <section class="sec-02" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">02 · Soft touch</p>
+      <h2 class="reveal">Close control.<br/>Soft landing.</h2>
+      <p class="sub reveal">A smooth soft-touch finish and an easy-grip silhouette put every setting within reach.</p>
+      <div class="pill-row reveal">
+        <span class="tag-pill white">Soft-touch finish</span>
+        <span class="tag-pill white">Two-button control</span>
+      </div>
+      <div class="framed-shot reveal"><img src="assets/buzzy-rabbit-stage.png" alt="Buzzy Rabbit soft touch"/></div>
+    </div>
+  </section>
+
+  <!-- 03 WATERPROOF -->
+  <section class="sec-03" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">03 · Waterproof</p>
+      <h2 class="reveal">Take the buzz<br/>underwater.</h2>
+      <p class="sub reveal">100% waterproof, so the mood can move from the bed to the bath without missing a beat.</p>
+      <img class="product-shot reveal" src="assets/buzzy-water-hero.png" alt="Waterproof Buzzy Rabbit"/>
+      <div class="feature-grid">
+        <div class="feature-card reveal">
+          <div class="txt"><h4>100% Water Proof</h4><p>For steamy play beyond the sheets</p></div>
+          <div class="imgwrap"><img src="assets/buzzy-feature-waterproof.png" alt=""/></div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="txt"><h4>45 Minutes of Great Vibe</h4><p>For steamy play beyond the sheets</p></div>
+          <div class="imgwrap"><img src="assets/buzzy-feature-runtime.png" alt=""/></div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="txt"><h4>5 Sensational Modes</h4><p>For steamy play beyond the sheets</p></div>
+          <div class="imgwrap"><img src="assets/buzzy-feature-modes.png" alt=""/></div>
+        </div>
+        <div class="feature-card reveal">
+          <div class="txt"><h4>8 Powerful Vibrations</h4><p>For steamy play beyond the sheets</p></div>
+          <div class="imgwrap"><img src="assets/buzzy-feature-vibrations.png" alt=""/></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 RECHARGEABLE -->
+  <section class="sec-04" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">04 · Rechargeable</p>
+      <h2 class="reveal">45 minutes.<br/>No interruptions.</h2>
+      <p class="sub reveal">Recharge by USB in 2 hours, then enjoy up to 45 minutes of play-ready power.</p>
+      <div class="stat-row reveal">
+        <div class="stat-card"><b>45</b><span>mins play</span></div>
+        <div class="stat-card"><b>2</b><span>hour charge</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 EXPLORE -->
+  <section class="sec-05" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">05 · Made to explore</p>
+      <h2 class="reveal">Grip it. Explore it.<br/>Make it yours.</h2>
+      <p class="sub reveal">Multi-speed control makes it simple to start soft, dial it up, and follow wherever the mood takes you.</p>
+      <img class="product-shot reveal" src="assets/buzzy-runtime-hero.png" alt="Buzzy Rabbit grip"/>
+    </div>
+  </section>
+
+  <!-- 06 PRODUCT VIEW -->
+  <section class="sec-06" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">06 · Product view</p>
+      <h2 class="reveal">Every angle.<br/>One confident grip.</h2>
+      <p class="sub reveal">Scroll through four real product views to see the curved profile, dual motors and two-button control.</p>
+      <div class="angle-gallery reveal">
+        <div class="angle-nums"><span id="angleCur">01</span><div class="angle-bar"><i id="angleBar"></i></div><span>04</span></div>
+        <div class="angle-track" id="angleTrack">
+          <img class="active" src="assets/buzzy-angle-one.png" alt="Angle 1"/>
+          <img src="assets/buzzy-angle-two.png" alt="Angle 2"/>
+          <img src="assets/buzzy-angle-three.png" alt="Angle 3"/>
+          <img src="assets/buzzy-angle-four.png" alt="Angle 4"/>
+        </div>
+        <div class="angle-dots" id="angleDots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 PROOF -->
+  <section class="sec-proof" data-section>
+    <div class="container">
+      <p class="eyebrow reveal">07 · The proof</p>
+      <h2 class="reveal">A buzz worth<br/>talking about.</h2>
+      <div class="proof-summary reveal">
+        <div class="big-stars">★★★★★ 4.6/5</div>
+        <p class="review-quote">"Battery life kaafi achi hai iski. Highly satisfied with it." — Pooja N., Durex India review</p>
+      </div>
+      <div class="review-track-wrap reveal">
+        <div class="review-track" id="reviewTrack"></div>
+      </div>
+      <div class="feature-strip reveal">
+        <img src="assets/buzzy-feature-waterproof.png" alt=""/>
+        <img src="assets/buzzy-feature-runtime.png" alt=""/>
+        <img src="assets/buzzy-feature-modes.png" alt=""/>
+        <img src="assets/buzzy-feature-vibrations.png" alt=""/>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="sticky-bar" id="stickyBar">
+  <div>
+    <div class="name">Buzzy Rabbit</div>
+    <div class="amt">₹3,999</div>
+  </div>
+  <button>Add to bag</button>
+</div>
+
+<footer>
+  <div class="grid-horizon"><div class="sun"></div></div>
+  <div class="footer-content">
+  <img src="assets/durex-logo-white.png" alt="Durex"/>
+  <p>Designed for pleasure. Delivered discreetly.</p>
+  <p>Product facts sourced from Durex India.</p>
+  </div>
+</footer>
+
+<script>
+// Marquee content
+const marqueeItems = ["Discreet Delivery","100% Authentic","69 Store is Live"];
+const track = document.getElementById('marqueeTrack');
+track.innerHTML = Array(2).fill(marqueeItems.map(t=>`<span>${t}</span>`).join('')).join('');
+
+// Reviews
+const reviews = [
+  {q:"Battery life kaafi achi hai iski. Highly satisfied with it.", who:"Pooja N. · Durex India"},
+  {q:"Dono vibration modes kaafi ache hain, definitely recommend to all ladies. Very happy.", who:"Durex India customer"},
+];
+const rtrack = document.getElementById('reviewTrack');
+const reviewHtml = Array(3).fill(reviews.map(r=>`
+  <div class="review-card">
+    <span class="stars">★★★★★ <span class="score">4.6/5</span></span>
+    <p>"${r.q}"</p>
+    <div class="who">— ${r.who}</div>
+  </div>`).join('')).join('');
+rtrack.innerHTML = reviewHtml;
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal:not(.in)');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+
+// Progress rail dots
+const sections = document.querySelectorAll('[data-section]');
+const rail = document.getElementById('progressRail');
+sections.forEach((s,i)=>{ const d=document.createElement('div'); d.className='dot'; rail.appendChild(d); });
+const dots = rail.querySelectorAll('.dot');
+const secIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    const idx = Array.from(sections).indexOf(e.target);
+    if(e.isIntersecting){ dots.forEach(d=>d.classList.remove('active')); if(dots[idx]) dots[idx].classList.add('active'); }
+  });
+},{threshold:0.5});
+sections.forEach(s=>secIO.observe(s));
+
+// Sticky bar after hero
+const heroEl = document.querySelector('.hero');
+const stickyBar = document.getElementById('stickyBar');
+const heroIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ stickyBar.classList.toggle('show', !e.isIntersecting); });
+},{threshold:0});
+heroIO.observe(heroEl);
+
+// Angle gallery
+const angleImgs = document.querySelectorAll('#angleTrack img');
+const angleDots = document.getElementById('angleDots');
+const angleBar = document.getElementById('angleBar');
+const angleCur = document.getElementById('angleCur');
+angleImgs.forEach((_,i)=>{ const b=document.createElement('button'); if(i===0)b.classList.add('active'); b.addEventListener('click',()=>setAngle(i)); angleDots.appendChild(b); });
+function setAngle(i){
+  angleImgs.forEach((im,idx)=>im.classList.toggle('active', idx===i));
+  angleDots.querySelectorAll('button').forEach((b,idx)=>b.classList.toggle('active', idx===i));
+  angleBar.style.width = ((i+1)/angleImgs.length*100)+'%';
+  angleCur.textContent = String(i+1).padStart(2,'0');
+}
+let angleIdx=0;
+setInterval(()=>{ angleIdx=(angleIdx+1)%angleImgs.length; setAngle(angleIdx); },2600);
+</script>
+
+</body>
+</html>
