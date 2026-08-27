@@ -1,19 +1,478 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#06154a" />
-  <title>Buzzy Rabbit Obsidian Troopod</title>
-  <style>
-    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#06154a}
-    iframe{display:block;width:100%;height:100%;border:0;background:#06154a}
-    .fallback{position:fixed;inset:auto 16px 16px;z-index:2;text-align:center;font:600 13px/1.4 system-ui;color:white}
-    .fallback a{color:#ffdf00}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#06154a" />
+<meta name="description" content="An immersive scroll-motion product story for Durex Play Buzzy Rabbit." />
+<title>Durex Play · Buzzy Rabbit</title>
+<style>
+  :root{
+    --navy:#06154a;
+    --ink:#071d62;
+    --yellow:#ffdf00;
+    --pink:#ef86c0;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    min-height:100%;
+    font-family:"DM Sans",system-ui,-apple-system,Segoe UI,Arial,sans-serif;
+    color:#fff;
+    background:#04123f;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* ===== Background gradient — matched 1:1 to durex-bigbang-sale ===== */
+  body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background-image:
+      radial-gradient(ellipse at 8% 12%, #d9fbff73 0, transparent 30%),
+      radial-gradient(ellipse at 90% 80%, #b56bd673 0, transparent 35%),
+      radial-gradient(ellipse at 48% 48%, #08a9c850 0, transparent 42%),
+      linear-gradient(135deg,#04195f,#075d9d 52%,#402477 100%);
+    background-size:210% 210%;
+    animation:page-gradient-flow 11s linear infinite;
+    will-change:background-position;
+  }
+  @keyframes page-gradient-flow{
+    0%{background-position:0% 20%}
+    25%{background-position:90% 2%}
+    50%{background-position:100% 88%}
+    75%{background-position:15% 100%}
+    100%{background-position:0% 20%}
+  }
+
+  img{max-width:100%;display:block}
+  .wrap{max-width:520px;margin:0 auto;padding:0 18px;position:relative}
+
+  /* ===== Ticker ===== */
+  .ticker{
+    position:relative;z-index:5;
+    overflow:hidden;height:34px;
+    background:var(--yellow);color:var(--navy);
+    display:flex;align-items:center;
+  }
+  .ticker-track{
+    display:flex;width:max-content;white-space:nowrap;
+    animation:ticker-run 18s linear infinite;
+    font:800 10.5px/1 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .ticker-track span{padding:0 14px}
+  @keyframes ticker-run{to{transform:translateX(-50%)}}
+
+  /* ===== Nav ===== */
+  nav{
+    position:sticky;top:0;z-index:40;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 18px;
+    background:rgba(6,21,74,.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  nav img{height:20px;width:auto}
+  .bag-pill{
+    display:flex;align-items:center;gap:6px;
+    padding:7px 13px;border-radius:999px;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+    font:700 11px/1 Arial,sans-serif;letter-spacing:.03em;
+    cursor:pointer;
+  }
+  .breadcrumb{
+    padding:14px 18px 2px;font:700 11px/1 Arial,sans-serif;
+    color:#cfe6ff;letter-spacing:.03em;
+  }
+
+  /* ===== Hero — parallax stage ===== */
+  .hero{
+    position:relative;
+    height:88vh;min-height:520px;max-height:760px;
+    overflow:hidden;
+    border-radius:0 0 28px 28px;
+    isolation:isolate;
+    background:radial-gradient(ellipse at 50% 30%, #0b2c86 0%, #061a63 55%, #04123f 100%);
+  }
+  .hero-layer{
+    position:absolute;left:50%;top:50%;
+    width:min(92%,420px);
+    transform:translate(-50%,-50%);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hero-layer .parallax-el{will-change:transform}
+  .hero-layer img{width:100%;height:auto;object-fit:contain}
+  .hero-layer.tunnel{width:min(140%,620px);opacity:.55;filter:saturate(1.15)}
+  .hero-layer.silk{width:min(120%,540px);opacity:.4;mix-blend-mode:screen}
+  .hero-layer.water{width:min(64%,300px);top:44%}
+  .hero-layer.runtime{width:min(58%,270px);top:56%;opacity:.9}
+  .hero-layer.hand{width:min(96%,440px);top:80%;opacity:.85}
+  .hero-copy{
+    position:absolute;left:0;right:0;bottom:26px;z-index:6;
+    padding:0 20px;text-align:center;
+  }
+  .hero-kicker{
+    font:800 11px/1 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+    color:#d9f4ff;margin-bottom:6px;
+  }
+  .hero-title{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(28px,7vw,40px);line-height:1.08;margin:0 0 8px;
+    background:linear-gradient(180deg,#fff 6%,#bcefff 38%,#dca7ff 65%,#fff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{font-size:14px;color:#dff2ff;margin:0 0 14px;line-height:1.4}
+  .rating{font-size:12px;color:#ffdf00;margin-bottom:10px}
+  .rating b{color:#fff;margin-left:4px}
+  .price-row{
+    display:flex;align-items:baseline;justify-content:center;gap:8px;margin-bottom:16px;
+  }
+  .price-row .now{font-size:22px;font-weight:800}
+  .price-row .was{font-size:14px;color:#9fb3d6;text-decoration:line-through}
+  .price-row .off{font-size:12px;color:#ffdf00;font-weight:700}
+  .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 30px;border-radius:999px;border:0;
+    background:linear-gradient(135deg,#ffdf23,#ffafe3);
+    color:#09205c;font:800 13px/1 Arial,sans-serif;letter-spacing:.02em;
+    cursor:pointer;box-shadow:0 8px 20px #00105255;
+  }
+
+  /* ===== Sections ===== */
+  section.story{
+    position:relative;padding:70px 0 40px;overflow:hidden;
+  }
+  .eyebrow{
+    font:800 11px/1 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;
+    color:#ffd6ef;margin-bottom:10px;
+  }
+  h2.story-title{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(24px,6vw,32px);line-height:1.12;margin:0 0 12px;
+    color:#fff;text-shadow:0 2px 0 #062269,0 5px 12px #00155080;
+  }
+  .story-copy{font-size:14.5px;line-height:1.55;color:#dbeeff;max-width:400px;margin:0 0 22px}
+
+  .media-frame{
+    position:relative;
+    border-radius:22px;overflow:hidden;
+    background:#0a1f6e;
+    box-shadow:0 20px 44px #00104060, 0 0 0 1px rgba(255,255,255,.06) inset;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .media-frame img,.media-frame video{
+    width:100%;height:100%;object-fit:contain;
+  }
+  .media-frame.tall{aspect-ratio:3/4}
+  .media-frame.square{aspect-ratio:1/1}
+  .media-frame.wide{aspect-ratio:16/10}
+
+  .story .parallax-el{will-change:transform}
+
+  .stat-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .stat{
+    flex:1;min-width:110px;
+    padding:14px;border-radius:14px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    text-align:center;
+  }
+  .stat b{display:block;font-size:20px;font-weight:800;color:#fff}
+  .stat span{font-size:11px;color:#c8ddff;line-height:1.3;display:block;margin-top:2px}
+
+  /* Product view carousel */
+  .angle-rail{
+    display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:4px 18px 12px;scrollbar-width:none;margin:0 -18px;
+  }
+  .angle-rail::-webkit-scrollbar{display:none}
+  .angle-card{
+    flex:0 0 72%;scroll-snap-align:center;
+    aspect-ratio:1/1;border-radius:18px;overflow:hidden;
+    background:#0a1f6e;display:flex;align-items:center;justify-content:center;
+  }
+  .angle-card img{width:100%;height:100%;object-fit:contain;padding:10px}
+  .angle-count{text-align:center;font:700 11px/1 Arial;color:#9fb3d6;margin-top:8px}
+
+  /* Reviews */
+  .review-card{
+    padding:16px;border-radius:16px;margin-bottom:12px;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  }
+  .review-stars{color:#ffdf00;font-size:12px;margin-bottom:6px}
+  .review-quote{font-size:13.5px;line-height:1.5;color:#eaf3ff;margin:0 0 8px;font-style:italic}
+  .review-name{font-size:11.5px;color:#9fb3d6}
+
+  .feature-strip{display:flex;gap:10px;overflow-x:auto;padding:4px 18px 4px;margin:0 -18px;scrollbar-width:none}
+  .feature-strip::-webkit-scrollbar{display:none}
+  .feature-strip img{
+    flex:0 0 100px;aspect-ratio:296/406;object-fit:contain;
+    border-radius:12px;background:rgba(255,255,255,.05);
+  }
+
+  /* Sticky bottom bag bar */
+  .bag-bar{
+    position:sticky;bottom:0;left:0;right:0;z-index:30;
+    margin-top:40px;padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    background:linear-gradient(0deg,#071d67 0%,#071d67ee 70%,transparent 100%);
+    backdrop-filter:blur(10px);
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .bag-bar .price{font-weight:800;font-size:15px}
+  .bag-bar .cta{padding:12px 24px;font-size:12px}
+
+  footer{
+    text-align:center;padding:40px 18px 30px;
+    color:#9fb3d6;font-size:11px;line-height:1.6;
+  }
+  footer img{height:18px;margin:0 auto 10px}
+
+  @media(max-width:380px){
+    .hero{height:82vh;min-height:460px}
+  }
+</style>
 </head>
 <body>
-  <iframe src="https://buzzy-rabbit-obsidian-troopod.vinit-singh482832.chatgpt.site" title="Buzzy Rabbit Obsidian Troopod" allow="autoplay; fullscreen" loading="eager"></iframe>
-  <noscript><p class="fallback">Open the <a href="https://buzzy-rabbit-obsidian-troopod.vinit-singh482832.chatgpt.site">Buzzy Rabbit experience</a>.</p></noscript>
+
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>69 STORE IS LIVE ✦ DISCREET DELIVERY ✦ 100% AUTHENTIC ✦ 69 STORE IS LIVE ✦ DISCREET DELIVERY ✦ 100% AUTHENTIC</span>
+      <span>69 STORE IS LIVE ✦ DISCREET DELIVERY ✦ 100% AUTHENTIC ✦ 69 STORE IS LIVE ✦ DISCREET DELIVERY ✦ 100% AUTHENTIC</span>
+    </div>
+  </div>
+
+  <nav>
+    <img src="assets/durex-logo-white.png" alt="Durex" />
+    <div class="bag-pill">Bag <span id="bagCount">0</span></div>
+  </nav>
+
+  <div class="breadcrumb">Play / Buzzy Rabbit</div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero-layer tunnel">
+      <div class="parallax-el" data-speed="0.15"><img src="assets/buzzy-abstract-tunnel-backplate.png" alt="" /></div>
+    </div>
+    <div class="hero-layer silk">
+      <div class="parallax-el" data-speed="0.25"><img src="assets/buzzy-liquid-silk-backplate.png" alt="" /></div>
+    </div>
+    <div class="hero-layer water">
+      <div class="parallax-el" data-speed="0.4"><img src="assets/buzzy-water-hero.png" alt="Buzzy Rabbit in water" /></div>
+    </div>
+    <div class="hero-layer hand">
+      <div class="parallax-el" data-speed="0.1"><img src="assets/buzzy-hand-landscape.png" alt="Buzzy Rabbit held in hand" /></div>
+    </div>
+    <div class="hero-copy">
+      <div class="hero-kicker">Durex Play · Buzzy Rabbit</div>
+      <h1 class="hero-title">Meet your new<br/>favourite buzz.</h1>
+      <p class="hero-sub">Powerful vibes meet soft-touch feels in one dual-action design.</p>
+      <div class="rating">★★★★★ <b>4.6</b> · 38 reviews</div>
+      <div class="price-row">
+        <span class="now">₹3,999</span>
+        <span class="was">₹5,624</span>
+        <span class="off">29% off</span>
+      </div>
+      <button class="cta" onclick="addToBag()">Add to bag →</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- 01 Dual action -->
+    <section class="story" id="s1">
+      <div class="eyebrow">01 · Dual action</div>
+      <h2 class="story-title">Two ways to feel more.</h2>
+      <p class="story-copy">5 tapping modes meet 8 intense vibrations in one dual-action design made to tease, thrill and explore.</p>
+      <div class="media-frame tall parallax-el" data-speed="0.08">
+        <img src="assets/buzzy-product-explode.webp" alt="Buzzy Rabbit exploded product view" />
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>5</b><span>Sensational Taps</span></div>
+        <div class="stat"><b>8</b><span>Powerful Vibrations</span></div>
+        <div class="stat"><b>100%</b><span>Body Safe Silicone</span></div>
+      </div>
+    </section>
+
+    <!-- 02 Soft touch -->
+    <section class="story" id="s2">
+      <div class="eyebrow">02 · Soft touch</div>
+      <h2 class="story-title">Close control. Soft landing.</h2>
+      <p class="story-copy">A smooth soft-touch finish and an easy-grip silhouette put every setting within reach.</p>
+      <div class="media-frame wide parallax-el" data-speed="0.08">
+        <video src="assets/buzzy-soft-touch-hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>Soft</b><span>Touch finish</span></div>
+        <div class="stat"><b>2</b><span>Button control</span></div>
+      </div>
+    </section>
+
+    <!-- 03 Waterproof -->
+    <section class="story" id="s3">
+      <div class="eyebrow">03 · Waterproof</div>
+      <h2 class="story-title">Take the buzz underwater.</h2>
+      <p class="story-copy">100% waterproof, so the mood can move from the bed to the bath without missing a beat.</p>
+      <div class="media-frame square parallax-el" data-speed="0.08">
+        <img src="assets/buzzy-rabbit-stage.png" alt="Buzzy Rabbit product stage shot" />
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>100%</b><span>Waterproof</span></div>
+      </div>
+    </section>
+
+    <!-- 04 Rechargeable -->
+    <section class="story" id="s4">
+      <div class="eyebrow">04 · Rechargeable</div>
+      <h2 class="story-title">45 minutes. No interruptions.</h2>
+      <p class="story-copy">Recharge by USB in 2 hours, then enjoy up to 45 minutes of play-ready power.</p>
+      <div class="media-frame wide parallax-el" data-speed="0.08">
+        <video src="assets/buzzy-runtime-video.mp4" autoplay muted loop playsinline preload="auto"></video>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>45</b><span>Mins play</span></div>
+        <div class="stat"><b>2</b><span>Hour charge</span></div>
+      </div>
+    </section>
+
+    <!-- 05 Explore -->
+    <section class="story" id="s5">
+      <div class="eyebrow">05 · Made to explore</div>
+      <h2 class="story-title">Grip it. Explore it.<br/>Make it yours.</h2>
+      <p class="story-copy">Multi-speed control makes it simple to start soft, dial it up, and follow wherever the mood takes you.</p>
+      <div class="media-frame wide parallax-el" data-speed="0.08">
+        <img src="assets/buzzy-hand-landscape.png" alt="Buzzy Rabbit held, exploring textures" />
+      </div>
+    </section>
+
+    <!-- 06 Product view -->
+    <section class="story" id="s6">
+      <div class="eyebrow">06 · Product view</div>
+      <h2 class="story-title">Every angle. One confident grip.</h2>
+      <p class="story-copy">Scroll through four real product views to see the curved profile, dual motors and two-button control.</p>
+      <div class="angle-rail" id="angleRail">
+        <div class="angle-card"><img src="assets/buzzy-angle-one.png" alt="Buzzy Rabbit angle 1" /></div>
+        <div class="angle-card"><img src="assets/buzzy-angle-two.png" alt="Buzzy Rabbit angle 2" /></div>
+        <div class="angle-card"><img src="assets/buzzy-angle-three.png" alt="Buzzy Rabbit angle 3" /></div>
+        <div class="angle-card"><img src="assets/buzzy-angle-four.png" alt="Buzzy Rabbit angle 4" /></div>
+        <div class="angle-card"><img src="assets/buzzy-pack-hero.png" alt="Buzzy Rabbit packaging" /></div>
+      </div>
+      <div class="angle-count"><span id="angleIndex">01</span> / 05</div>
+    </section>
+
+    <!-- 07 Proof -->
+    <section class="story" id="s7">
+      <div class="eyebrow">07 · The proof</div>
+      <h2 class="story-title">A buzz worth talking about.</h2>
+      <p class="story-copy">Rated 4.6 out of 5 from 38 ratings on Durex India.</p>
+
+      <div class="feature-strip">
+        <img src="assets/buzzy-feature-waterproof.png" alt="Waterproof feature" />
+        <img src="assets/buzzy-feature-runtime.png" alt="Runtime feature" />
+        <img src="assets/buzzy-feature-modes.png" alt="Modes feature" />
+        <img src="assets/buzzy-feature-vibrations.png" alt="Vibrations feature" />
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★ 4.6 / 5</div>
+        <p class="review-quote">"Battery life kaafi achi hai iski. Highly satisfied with it."</p>
+        <div class="review-name">Pooja N. · Durex India</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★ 4.6 / 5</div>
+        <p class="review-quote">"Dono vibration modes kaafi ache hain, definitely recommend to all ladies. Very happy."</p>
+        <div class="review-name">Durex India customer · Durex India</div>
+      </div>
+
+      <div class="cta" style="width:100%;text-align:center;margin-top:10px;display:block;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18)">
+        <a href="https://www.durexindia.com/products/durex-play-buzzy-rabbit" style="color:#fff;text-decoration:none">View on Durex India ↗</a>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="bag-bar">
+    <div>
+      <div style="font-size:11px;color:#c8ddff">Buzzy Rabbit</div>
+      <div class="price">₹3,999</div>
+    </div>
+    <button class="cta" onclick="addToBag()">Add to bag</button>
+  </div>
+
+  <footer>
+    <img src="assets/durex-logo-white.png" alt="Durex" />
+    Designed for pleasure. Delivered discreetly.<br/>
+    Product facts sourced from Durex India.
+  </footer>
+
+<script>
+  // ---- Bag counter ----
+  let bagCount = 0;
+  function addToBag(){
+    bagCount++;
+    document.getElementById('bagCount').textContent = bagCount;
+  }
+
+  // ---- Smooth, capped scroll-driven parallax (rAF, no layout thrash) ----
+  const parallaxEls = Array.from(document.querySelectorAll('.parallax-el'));
+  let ticking = false;
+
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  function updateParallax(){
+    const vh = window.innerHeight;
+    parallaxEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const speed = parseFloat(el.dataset.speed || 0.1);
+      // progress: -1 (element above viewport) .. 1 (below viewport), 0 = centered
+      const center = rect.top + rect.height / 2;
+      const progress = clamp((center - vh / 2) / vh, -1.2, 1.2);
+      const maxShift = 60; // px cap so nothing bleeds out of its frame
+      const shift = clamp(progress * speed * 100, -maxShift, maxShift);
+      el.style.transform = `translate3d(0, ${shift.toFixed(1)}px, 0)`;
+    });
+    ticking = false;
+  }
+
+  function onScroll(){
+    if(!ticking){
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll);
+  updateParallax();
+
+  // ---- Angle rail index indicator ----
+  const rail = document.getElementById('angleRail');
+  const angleIndex = document.getElementById('angleIndex');
+  if(rail){
+    rail.addEventListener('scroll', () => {
+      const cardW = rail.firstElementChild.getBoundingClientRect().width + 12;
+      const idx = Math.round(rail.scrollLeft / cardW) + 1;
+      angleIndex.textContent = String(clamp(idx,1,5)).padStart(2,'0');
+    }, { passive:true });
+  }
+
+  // ---- Reveal-on-scroll for story sections ----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.style.opacity = 1;
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('section.story').forEach(s => {
+    s.style.opacity = 0;
+    s.style.transform = 'translateY(24px)';
+    s.style.transition = 'opacity .6s ease, transform .6s ease';
+    io.observe(s);
+  });
+</script>
 </body>
 </html>
