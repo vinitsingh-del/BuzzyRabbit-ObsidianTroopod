@@ -87,10 +87,14 @@
     color:#cfe6ff;letter-spacing:.03em;
   }
 
-  /* ===== Hero — parallax stage ===== */
-  .hero{
+  /* ===== Hero — pinned explode + duotone-fade scroll stage ===== */
+  .hero-pin-wrap{
     position:relative;
-    height:88vh;min-height:520px;max-height:760px;
+    height:190vh; /* extra scroll room drives the explode/fade effect */
+  }
+  .hero{
+    position:sticky;top:0;
+    height:100vh;min-height:560px;max-height:820px;
     overflow:hidden;
     border-radius:0 0 28px 28px;
     isolation:isolate;
@@ -106,12 +110,38 @@
   .hero-layer img{width:100%;height:auto;object-fit:contain}
   .hero-layer.tunnel{width:min(140%,620px);opacity:.55;filter:saturate(1.15)}
   .hero-layer.silk{width:min(120%,540px);opacity:.4;mix-blend-mode:screen}
-  .hero-layer.water{width:min(64%,300px);top:44%}
-  .hero-layer.runtime{width:min(58%,270px);top:56%;opacity:.9}
-  .hero-layer.hand{width:min(96%,440px);top:80%;opacity:.85}
+
+  /* the hand ghost, top-right, faint */
+  .hero-layer.hand-ghost{
+    left:auto;right:-8%;top:18%;transform:translate(0,-50%) rotate(-8deg);
+    width:min(70%,320px);opacity:.28;filter:saturate(.7) brightness(1.15);
+    mix-blend-mode:screen;
+  }
+
+  /* the main product stage image — this is what explodes + duotone-fades */
+  .hero-stage{
+    position:absolute;left:50%;top:50%;
+    width:min(66%,300px);
+    transform:translate(-50%,-58%);
+    z-index:4;
+    will-change:transform,filter,opacity;
+  }
+  .hero-stage img{width:100%;height:auto;object-fit:contain;
+    filter:drop-shadow(0 30px 50px #00104080);
+  }
+  /* duotone overlay that fades in over the stage image as you scroll */
+  .hero-duotone{
+    position:absolute;inset:0;z-index:5;pointer-events:none;
+    background:linear-gradient(160deg,#3aa7ff 0%,#7d4dce 55%,#402477 100%);
+    mix-blend-mode:color;
+    opacity:0;
+    will-change:opacity;
+  }
+
   .hero-copy{
     position:absolute;left:0;right:0;bottom:26px;z-index:6;
     padding:0 20px;text-align:center;
+    will-change:opacity,transform;
   }
   .hero-kicker{
     font:800 11px/1 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;
@@ -251,6 +281,7 @@
   <div class="breadcrumb">Play / Buzzy Rabbit</div>
 
   <!-- HERO -->
+  <div class="hero-pin-wrap" id="heroPinWrap">
   <header class="hero" id="hero">
     <div class="hero-layer tunnel">
       <div class="parallax-el" data-speed="0.15"><img src="assets/buzzy-abstract-tunnel-backplate.png" alt="" /></div>
@@ -258,13 +289,16 @@
     <div class="hero-layer silk">
       <div class="parallax-el" data-speed="0.25"><img src="assets/buzzy-liquid-silk-backplate.png" alt="" /></div>
     </div>
-    <div class="hero-layer water">
-      <div class="parallax-el" data-speed="0.4"><img src="assets/buzzy-water-hero.png" alt="Buzzy Rabbit in water" /></div>
+    <div class="hero-layer hand-ghost">
+      <img src="assets/buzzy-hand-landscape.png" alt="" />
     </div>
-    <div class="hero-layer hand">
-      <div class="parallax-el" data-speed="0.1"><img src="assets/buzzy-hand-landscape.png" alt="Buzzy Rabbit held in hand" /></div>
+
+    <div class="hero-stage" id="heroStage">
+      <img src="assets/buzzy-rabbit-stage.png" alt="Durex Play Buzzy Rabbit, product and box" />
+      <div class="hero-duotone" id="heroDuotone"></div>
     </div>
-    <div class="hero-copy">
+
+    <div class="hero-copy" id="heroCopy">
       <div class="hero-kicker">Durex Play · Buzzy Rabbit</div>
       <h1 class="hero-title">Meet your new<br/>favourite buzz.</h1>
       <p class="hero-sub">Powerful vibes meet soft-touch feels in one dual-action design.</p>
@@ -277,6 +311,7 @@
       <button class="cta" onclick="addToBag()">Add to bag →</button>
     </div>
   </header>
+  </div>
 
   <div class="wrap">
 
@@ -407,6 +442,34 @@
   </footer>
 
 <script>
+  // ---- Hero pinned explode + duotone-fade effect ----
+  const heroPinWrap = document.getElementById('heroPinWrap');
+  const heroStage = document.getElementById('heroStage');
+  const heroDuotone = document.getElementById('heroDuotone');
+  const heroCopy = document.getElementById('heroCopy');
+
+  function updateHeroExplode(){
+    if(!heroPinWrap) return;
+    const rect = heroPinWrap.getBoundingClientRect();
+    const total = rect.height - window.innerHeight; // scrollable distance while pinned
+    const scrolled = clamp(-rect.top, 0, total);
+    const p = total > 0 ? scrolled / total : 0; // 0 -> 1 progress through the pin
+
+    // explode: scale up from within
+    const scale = 1 + p * 0.55;
+    // duotone fade in
+    heroDuotone.style.opacity = clamp(p * 1.3, 0, 0.92).toFixed(2);
+    // fade the whole stage out toward the end so next section reads clean
+    const stageOpacity = clamp(1 - (p - 0.55) / 0.45, 0, 1);
+    heroStage.style.transform = `translate(-50%, -58%) scale(${scale.toFixed(3)})`;
+    heroStage.style.opacity = stageOpacity.toFixed(2);
+
+    // copy fades and lifts away early
+    const copyOpacity = clamp(1 - p / 0.35, 0, 1);
+    heroCopy.style.opacity = copyOpacity.toFixed(2);
+    heroCopy.style.transform = `translateY(${(-p * 40).toFixed(1)}px)`;
+  }
+
   // ---- Bag counter ----
   let bagCount = 0;
   function addToBag(){
@@ -437,7 +500,7 @@
 
   function onScroll(){
     if(!ticking){
-      requestAnimationFrame(updateParallax);
+      requestAnimationFrame(() => { updateParallax(); updateHeroExplode(); });
       ticking = true;
     }
   }
@@ -445,6 +508,7 @@
   window.addEventListener('scroll', onScroll, { passive:true });
   window.addEventListener('resize', onScroll);
   updateParallax();
+  updateHeroExplode();
 
   // ---- Angle rail index indicator ----
   const rail = document.getElementById('angleRail');
