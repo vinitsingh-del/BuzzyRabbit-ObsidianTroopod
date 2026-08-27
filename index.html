@@ -124,7 +124,7 @@
     --s:1;--jx:0px;--jy:0px;
     transform:translate(-50%,-58%) translate(var(--jx),var(--jy)) scale(var(--s));
     z-index:4;
-    will-change:transform,opacity;
+    will-change:transform,opacity,filter;
   }
   .hero-stage img{width:100%;height:auto;object-fit:contain;
     filter:drop-shadow(0 30px 50px #00104080);
@@ -558,9 +558,15 @@
     const scale = 1 + p * 0.55;
     heroStage.style.setProperty('--s', scale.toFixed(3));
 
-    // clean fade-out late in the scroll so the image never crosses into the next section
-    const stageOpacity = clamp(1 - (p - 0.62) / 0.3, 0, 1);
+    // clean fade-out late in the scroll: blur-dissolve instead of a plain opacity
+    // fade, so the translucent moment never reads as a color shift against the
+    // saturated moving gradient behind it (plain opacity fade blends with the
+    // background and looks like the product changes color — verified live)
+    const fadeStart = 0.72, fadeEnd = 0.92;
+    const fadeT = clamp((p - fadeStart) / (fadeEnd - fadeStart), 0, 1);
+    const stageOpacity = 1 - fadeT;
     heroStage.style.opacity = stageOpacity.toFixed(2);
+    heroStage.style.filter = `blur(${(fadeT * 9).toFixed(1)}px)`;
 
     // copy fades and lifts away early, well before the image starts fading,
     // so the two never overlap
