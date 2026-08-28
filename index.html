@@ -1,402 +1,644 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Durex Play · Buzzy Rabbit</title>
-<meta name="description" content="Durex Play Buzzy Rabbit — dual-action rabbit vibrator, waterproof, USB rechargeable.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Durex Play · Buzzy Rabbit — Dual-Action Personal Massager</title>
+<meta name="description" content="Durex Play Buzzy Rabbit: 5 tapping modes, 8 vibration intensities, 100% waterproof, body-safe silicone, USB rechargeable. For external use.">
 <meta name="theme-color" content="#082679">
 <style>
-@font-face{font-family:One;src:url('fonts/DurexOne-Regular.woff2')}
-@font-face{font-family:One;src:url('fonts/DurexOne-Bold.woff2');font-weight:800}
-@font-face{font-family:Assist;src:url('fonts/DurexAssist-Var.woff2')}
+/* ============================================================
+   FOUNDATION — fonts, brand tokens, reset, motion system
+   ============================================================ */
+@font-face{font-family:One;src:url('fonts/DurexOne-Regular.woff2');font-weight:400;font-display:swap}
+@font-face{font-family:One;src:url('fonts/DurexOne-Bold.woff2');font-weight:800;font-display:swap}
+@font-face{font-family:Assist;src:url('fonts/DurexAssist-Var.woff2');font-weight:300 800;font-display:swap}
+
+:root{
+  /* brand tokens — locked, sourced from durexindia.com live CSS */
+  --navy-deep:#000523; --navy-1:#001052; --navy-2:#06154a; --navy-3:#091744;
+  --blue-mid:#07165a; --blue-mid2:#07318d; --blue-accent:#1974e8; --blue-accent2:#2f6dff;
+  --purple:#7621ae; --purple2:#8927b7; --pink:#ff76e9; --magenta:#d5006d; --magenta2:#e2205b;
+  --yellow:#ffdf00; --green:#22c55e; --cyan:#2adaec; --teal:#00aeb2;
+  --ink:#081541; --white:#fff;
+  --font-display:'One',Arial,sans-serif; --font-body:'Assist',Arial,sans-serif;
+  --max-w:1230px; --edge:clamp(20px,5vw,64px);
+  --ease:cubic-bezier(.16,.85,.24,1);
+  --ease-soft:cubic-bezier(.22,.61,.36,1);
+  --gap-section:12px;
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#082679;color:#fff;font-family:Assist,Arial,sans-serif}
+body{margin:0;background:var(--navy-2);color:#fff;font-family:var(--font-body);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img,video{display:block;max-width:100%}
-button,a{font:inherit}
+button,a{font:inherit;cursor:pointer}
 a{color:inherit;text-decoration:none}
-body:before{content:"";position:fixed;z-index:-1;inset:0;
-  background:radial-gradient(circle at 7% 65%,#00aeb2 0,transparent 28%),radial-gradient(circle at 91% 58%,#8927b7 0,transparent 31%),linear-gradient(130deg,#092776,#006e98 48%,#7621ae);
-  animation:drift 14s ease-in-out infinite alternate}
-@keyframes drift{to{filter:hue-rotate(8deg);transform:scale(1.08)}}
+h1,h2,h3{font-family:var(--font-display);margin:0}
+p{margin:0}
+.shell{width:min(var(--max-w),calc(100% - 2*var(--edge)));margin:auto}
+svg{display:block}
+
+/* deep atmosphere wash behind entire page */
+body:before{content:"";position:fixed;z-index:-2;inset:0;
+  background:radial-gradient(circle at 8% 70%,#00aeb255 0,transparent 30%),
+             radial-gradient(circle at 92% 62%,#8927b755 0,transparent 32%),
+             linear-gradient(160deg,var(--navy-1),var(--blue-mid2) 55%,var(--purple));
+  background-attachment:fixed}
+
+/* ---- motion system ---- */
+.reveal{opacity:0;transform:translateY(26px) scale(.975);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.reveal.in{opacity:1;transform:translateY(0) scale(1)}
+.stagger > *{opacity:0;transform:translateY(22px) scale(.98);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.stagger.in > *{opacity:1;transform:translateY(0) scale(1)}
+.stagger.in > *:nth-child(1){transition-delay:.03s}
+.stagger.in > *:nth-child(2){transition-delay:.11s}
+.stagger.in > *:nth-child(3){transition-delay:.19s}
+.stagger.in > *:nth-child(4){transition-delay:.27s}
+.stagger.in > *:nth-child(5){transition-delay:.35s}
+.stagger.in > *:nth-child(6){transition-delay:.43s}
+@media (prefers-reduced-motion: reduce){
+  .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none!important}
+  .parallax{transform:none!important}
+  .hero__halo,.hero__product{animation:none!important}
+}
+
+/* ---- section rhythm: strict 12px gaps, generous internal breathing room ---- */
+.section{padding:88px 0;position:relative}
+@media (max-width:680px){.section{padding:56px 0}}
+.section + .section, .section + div, div + .section{margin-top:var(--gap-section)}
+
+.kicker{text-align:center;margin:0 0 10px;text-transform:uppercase;font:800 10px One;letter-spacing:.18em;color:#e8f7ffbb}
+.title{margin:0 0 20px;text-align:center;font:800 clamp(30px,4vw,50px)/1.05 One;letter-spacing:-.02em}
+.title i{font:400 .92em One,Arial,sans-serif;color:#e3efff;margin-left:6px;font-style:normal;text-transform:none}
+.subcopy{max-width:520px;margin:0 auto 40px;text-align:center;font-size:15px;line-height:1.6;color:#dbe9ffd0}
+
+/* ---- glass surfaces (premium lever 9) — shared card recipe, applied consistently ---- */
+.glass{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(0,5,35,.35)}
+.card-surface{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
 
 /* ---- ticker ---- */
-.ticker{background:#ffdf00;color:#091744;height:34px;overflow:hidden;position:relative;display:flex;align-items:center}
-.ticker-track{display:flex;white-space:nowrap;animation:tick 20s linear infinite}
-.ticker-track b{font:800 11px One,Arial;letter-spacing:.08em;text-transform:uppercase;padding:0 22px;display:inline-flex;align-items:center;gap:22px}
-.ticker-track b::after{content:'✦';font-size:9px;opacity:.7}
+.ticker{background:var(--yellow);color:var(--navy-3);height:34px;overflow:hidden;position:relative;display:flex;align-items:center;z-index:50}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 22s linear infinite}
+.ticker-track b{font:800 11px One;letter-spacing:.08em;text-transform:uppercase;padding:0 22px;display:inline-flex;align-items:center;gap:22px}
+.ticker-track b::after{content:'✦';font-size:9px;opacity:.65}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ---- header ---- */
-header{height:76px;max-width:1260px;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:22px}
-.brand img{width:105px}
+header{position:sticky;top:0;z-index:40;height:76px;background:rgba(6,10,40,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08)}
+.header-row{max-width:var(--max-w);margin:auto;padding:0 var(--edge);height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand img{width:100px}
+.crumb{display:flex;align-items:center;gap:8px;font:800 11px One;letter-spacing:.05em;text-transform:uppercase;color:#c9def5}
+.crumb a{color:#c9def5;opacity:.75}
+.crumb a:hover{opacity:1}
+.crumb span{opacity:.35}
+.crumb b{color:#fff}
 .actions{display:flex;align-items:center;gap:18px}
-.actions button{border:0;background:none;color:#eaf7ff;text-transform:uppercase;font:800 12px One,Arial;letter-spacing:.04em;display:flex;align-items:center;gap:8px;cursor:pointer}
+.actions button{border:0;background:none;color:#eaf7ff;text-transform:uppercase;font:800 12px One;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
 .cart-no{display:inline-grid;place-items:center;width:17px;height:17px;border:1px solid #d7efff;border-radius:50%;font-size:9px}
 .hamb{display:none;border:0;background:none}
-.hamb i{display:block;width:30px;height:2px;margin:5px;background:#fff}
+.hamb i{display:block;width:26px;height:2px;margin:5px;background:#fff;border-radius:2px}
+@media (max-width:760px){.crumb,.actions{display:none}.hamb{display:block}}
 
-.shell{width:min(1230px,calc(100% - 36px));margin:auto}
+/* ---- page anchor tabs ---- */
+.page-tabs{display:flex;gap:26px;padding:14px var(--edge);overflow-x:auto;white-space:nowrap;position:sticky;top:76px;z-index:35;background:rgba(6,10,40,.6);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.page-tabs::-webkit-scrollbar{display:none}
+.page-tabs a{font:800 10.5px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s var(--ease),border-color .3s var(--ease)}
+.page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:var(--yellow)}
 
-/* ---- hero ---- */
-.hero{position:relative;overflow:hidden;border-radius:26px;isolation:isolate;box-shadow:0 24px 50px #04134d75;margin-top:12px;
-  background:radial-gradient(circle at 78% 50%,#1a3f9e 0%,#0d1f6e 45%,#081142 100%);
-  display:grid;grid-template-columns:1.05fr .95fr;align-items:center;min-height:460px;padding:0 4%}
-.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:100%;padding:30px 0}
-.hero-visual img{width:100%;max-width:380px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));position:relative;z-index:1}
-.hero-visual .glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,#00aeb266 0%,transparent 70%);z-index:0}
-@media (max-width:860px){.hero{grid-template-columns:1fr;min-height:0;padding:36px 5% 0}.hero-visual{order:-1;padding:10px 0 0}.hero-visual img{max-width:220px}.hero-visual .glow{width:220px;height:220px}}
-.hero-copy{position:relative;z-index:1;padding:44px 0;max-width:520px}
-.eyebrow{margin:0 0 8px;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:800;color:#d8eeffb8}
-.hero h1{margin:0;font:400 clamp(44px,6.6vw,84px)/.92 One,Arial,sans-serif;letter-spacing:-.03em;color:#d8eaff}
-.hero p.sub{margin:14px 0 0;font-size:14px;line-height:1.5;color:#e5f3ffcc;max-width:380px}
-.offer{position:absolute;right:6%;top:14px;width:96px;aspect-ratio:1;border:1px solid #effaffc9;border-radius:50%;display:grid;place-content:center;text-align:center;box-shadow:0 0 0 10px #fff1,0 0 30px #b5ffff55;animation:float 4s ease-in-out infinite;z-index:2}
-.offer span{font:10px One;letter-spacing:.2em}
-.offer b{font:800 26px/.9 One;color:#fff2bd}
-@media (max-width:860px){.offer{top:14px;right:14px;width:60px}.offer b{font-size:14px}.offer span{font-size:6px;letter-spacing:.1em}}
-@keyframes float{50%{transform:translateY(-8px) scale(1.03)}}
-@media (max-width:680px){}
-
-.hero-buy{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
-.qty-stepper{display:flex;align-items:center;gap:0;border:1px solid #fff4;border-radius:8px;overflow:hidden}
-.qty-stepper button{width:38px;height:44px;border:0;background:#fff1;color:#fff;font:800 16px One;cursor:pointer}
-.qty-stepper button:hover{background:#fff2}
-.qty-stepper span{width:34px;text-align:center;font:800 14px One}
-.rating-row{display:flex;align-items:center;gap:8px;font-size:12px}
-.stars{color:#ffdf00;letter-spacing:1px}
+/* ============================================================
+   HERO — "Desire: Cinematic hero"
+   ============================================================ */
+.hero{position:relative;overflow:hidden;min-height:640px;display:flex;align-items:center}
+.hero__atmosphere{position:absolute;inset:0;z-index:0}
+.hero__atmosphere img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;opacity:.55;filter:saturate(1.15)}
+.hero__atmosphere:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(4,19,79,.94) 0%,rgba(5,25,90,.72) 42%,rgba(7,35,120,.35) 68%,rgba(9,23,68,.55) 100%)}
+.hero__vignette{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.55),transparent 60%),radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.35),transparent 55%)}
+.hero__grain{position:absolute;inset:0;z-index:1;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero__inner{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
+.hero__copy{max-width:540px}
+.hero__eyebrow{margin:0 0 14px;text-transform:uppercase;letter-spacing:.16em;font:800 11px One;color:#bcd8ff}
+.hero__title{font:400 clamp(42px,6vw,78px)/.98 One;letter-spacing:-.03em;color:#f3f8ff}
+.hero__title b{display:block;font-weight:800}
+.hero__sub{margin:18px 0 0;font-size:15px;line-height:1.6;color:#dbe9ffd8;max-width:420px}
+.hero__meta{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:13px;color:#eaf5ff}
+.hero__meta .stars{color:var(--yellow);letter-spacing:1px}
+.hero__buy{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
 .price-tag{display:flex;align-items:baseline;gap:8px}
-.price-tag b{font:800 22px One}
-.price-tag s{font-size:12px;opacity:.6}
-.off-pill{background:#1a9e4b;color:#d7fce6;font:800 10px One;padding:4px 9px;border-radius:99px}
-.buy-btn{border:0;padding:13px 26px;border-radius:8px;background:#ffdf00;color:#091744;text-transform:uppercase;font:800 11px One;letter-spacing:.08em;cursor:pointer;white-space:nowrap}
+.price-tag b{font:800 30px One}
+.price-tag s{font-size:13px;opacity:.55}
+.off-pill{background:var(--green);color:#00230f;font:800 10px One;padding:5px 10px;border-radius:99px}
+.hero__cta-row{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap}
+.qty-stepper{display:flex;align-items:center;border:1px solid rgba(255,255,255,.28);border-radius:9px;overflow:hidden}
+.qty-stepper button{width:40px;height:48px;border:0;background:rgba(255,255,255,.08);color:#fff;font:800 17px One}
+.qty-stepper button:hover{background:rgba(255,255,255,.16)}
+.qty-stepper span{width:36px;text-align:center;font:800 15px One}
+.buy-btn{border:0;padding:15px 28px;border-radius:9px;background:var(--yellow);color:var(--navy-3);text-transform:uppercase;font:800 12px One;letter-spacing:.07em;box-shadow:0 14px 30px rgba(255,223,0,.25);transition:transform .35s var(--ease)}
+.buy-btn:hover{transform:translateY(-2px)}
+.hero__trust{display:flex;gap:18px;margin-top:26px;flex-wrap:wrap}
+.hero__trust span{display:flex;align-items:center;gap:7px;font:800 10.5px One;letter-spacing:.03em;text-transform:uppercase;color:#c9def5}
+.hero__trust svg{width:16px;height:16px;flex-shrink:0}
 
-/* ---- category pills ---- */
-.crumb{display:flex;align-items:center;gap:8px;font:800 11px One,Arial;letter-spacing:.02em;text-transform:uppercase;color:#c9def5}
-.crumb a{color:#c9def5;opacity:.8}
-.crumb a:hover{opacity:1}
-.crumb span{opacity:.4}
-.crumb b{color:#fff;font-weight:800}
-.page-tabs{display:flex;gap:28px;margin:12px 0;padding-bottom:10px;border-bottom:1px solid #fff2;overflow-x:auto;white-space:nowrap;position:sticky;top:76px;z-index:20;background:#082679cc;backdrop-filter:blur(6px)}
-.page-tabs a{font:800 11px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent}
-.page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:#ffdf00}
-@media (max-width:680px){header{padding:0 16px}.crumb,.actions{display:none}.hamb{display:block}.page-tabs{top:0;gap:20px}}
+.hero__visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
+.hero__halo{position:absolute;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,118,233,.35) 0%,rgba(47,109,255,.22) 45%,transparent 72%);filter:blur(6px);animation:halo-breathe 7s ease-in-out infinite}
+@keyframes halo-breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
+.hero__product{position:relative;z-index:2;width:78%;max-width:400px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.5));animation:product-float 6s ease-in-out infinite}
+@keyframes product-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
+.hero__badge{position:absolute;right:2%;top:6%;width:96px;aspect-ratio:1;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-content:center;text-align:center;box-shadow:0 0 0 10px rgba(255,255,255,.06),0 0 30px rgba(181,255,255,.35);z-index:3}
+.hero__badge span{font:10px One;letter-spacing:.16em;color:#dff}
+.hero__badge b{font:800 26px/.9 One;color:var(--yellow)}
 
-/* ---- section heading ---- */
-section{scroll-margin-top:20px}
-.section{padding-top:12px}
-.kicker{text-align:center;margin:0 0 5px;text-transform:uppercase;font:800 10px One;letter-spacing:.14em;color:#e8f7ffbb}
-.title{margin:0 0 17px;text-align:center;font:800 clamp(28px,3.6vw,46px)/.98 One;letter-spacing:-.025em}
-.title i{font:400 .9em One,Arial,sans-serif;color:#e3efff;margin-left:5px;text-transform:none;font-style:normal}
-.subcopy{max-width:480px;margin:0 auto 34px;text-align:center;font-size:14px;line-height:1.55;color:#e5f3ffcc}
+@media (max-width:960px){
+  .hero__inner{grid-template-columns:1fr;gap:6px;padding-top:38px}
+  .hero__visual{order:-1;min-height:0;padding:10px 0 0}
+  .hero__product{width:56%;max-width:230px}
+  .hero__halo{width:70%}
+  .hero__copy{max-width:none}
+  .hero__badge{width:70px;top:0;right:0}
+  .hero__badge b{font-size:16px}
+  .hero__badge span{font-size:6px}
+}
 
-/* ---- product cards ---- */
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{overflow:hidden;border:1px solid #e5f6ffca;border-radius:15px;background:#ebf6fd;color:#091540;box-shadow:0 12px 26px #0010523b}
-.card .media{position:relative;height:200px;background:#dbeaf6;overflow:hidden}
-.card .media img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
-.card:hover img{transform:scale(1.06)}
-.tag{position:absolute;top:9px;left:9px;padding:4px 7px;border-radius:99px;background:#07338d;color:#fff;font:800 8px One;letter-spacing:.08em;text-transform:uppercase}
-.info{padding:14px}
-.info p{min-height:12px;margin:0 0 4px;color:#596e82;text-transform:uppercase;font:800 8px One;letter-spacing:.06em}
-.info h3{min-height:31px;margin:0;font:800 15px/1.2 One;letter-spacing:-.02em}
-.card.plain{background:transparent;border:none;box-shadow:0 12px 26px #0010523b}
-.card.plain .media.plain{height:auto;aspect-ratio:296/406;background:none}
-@media (max-width:680px){.cards{display:flex;overflow:auto;gap:12px;padding-bottom:7px;scroll-snap-type:x mandatory}.cards .card{flex:0 0 62vw;scroll-snap-align:start}}
+/* ============================================================
+   UNDERSTAND — "Tap, buzz and both"
+   Text-heavy-to-visual: 3 modes explained via custom icon chips,
+   not a text list. Same icon system (48px grid, 2.5 stroke).
+   ============================================================ */
+.modes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.mode-card{position:relative;border-radius:20px;overflow:hidden;padding:30px 22px 26px;text-align:center;isolation:isolate}
+.mode-card:before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.mode-card{box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.mode-card .icon-ring{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(255,255,255,.14),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.2)}
+.mode-card svg{width:30px;height:30px;stroke:var(--yellow)}
+.mode-card h3{font:800 18px/1.2 One;margin-bottom:8px}
+.mode-card p{font-size:13px;line-height:1.5;color:#dbe9ffcc}
+.mode-card .num{position:absolute;top:14px;left:16px;font:800 11px One;color:#ffffff55;letter-spacing:.05em}
+.mode-card.combo:before{background:linear-gradient(135deg,rgba(255,118,233,.16),rgba(47,109,255,.16))}
+.mode-card.combo svg{stroke:var(--pink)}
+@media (max-width:760px){.modes-grid{grid-template-columns:1fr;gap:12px}.mode-card{padding:24px 20px}}
 
-/* ---- dark showcase ---- */
-.dark-showcase{position:relative;margin-top:12px;padding:64px 0;background:#061345;background-size:cover;background-position:center}
-.dark-showcase:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#06133feF,#071658b9 50%,#081142c7)}
-.wide{position:relative;width:min(1230px,calc(100% - 36px));margin:auto}
-.dark-showcase h2{margin:0;font:800 clamp(34px,4.6vw,58px)/.95 One}
-.dark-showcase h2 i{font:400 .85em One,Arial,sans-serif;color:#e4f0ff;margin-left:7px;text-transform:none;font-style:normal}
-.dark-showcase .copy{max-width:420px;font-size:14px;line-height:1.5;color:#e5f3ffcc;margin-top:14px}
-.dark-showcase .pills{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
-.dark-showcase .pill{background:#fff2;border:1px solid #fff5;padding:9px 16px;border-radius:99px;font:800 11px One}
+/* ============================================================
+   SAFETY — "External play and material"
+   ============================================================ */
+.safety{position:relative;border-radius:26px;overflow:hidden;isolation:isolate;box-shadow:0 24px 50px rgba(4,19,79,.45)}
+.safety__bg{position:absolute;inset:0;z-index:-2}
+.safety__bg img{width:100%;height:100%;object-fit:cover;opacity:.5}
+.safety__bg:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,10,50,.92),rgba(10,20,80,.65) 55%,rgba(60,20,100,.55))}
+.safety__inner{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:64px var(--edge)}
+.safety__copy .kicker,.safety__copy .title{text-align:left;margin-left:0}
+.safety__copy .title{margin-bottom:16px}
+.safety__copy p{font-size:14.5px;line-height:1.65;color:#e7f0ffdd;max-width:440px}
+.safety__points{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.safety__points li{display:flex;gap:12px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#f0f6ff}
+.safety__points svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;stroke:var(--green)}
+.safety__visual{display:flex;align-items:center;justify-content:center}
+.safety__visual img{max-width:300px;border-radius:18px;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+@media (max-width:860px){.safety__inner{grid-template-columns:1fr;padding:44px 24px}.safety__visual{order:-1}.safety__visual img{max-width:220px}.safety__copy .title,.safety__copy .kicker{text-align:center}.safety__copy p{margin:0 auto}}
 
-/* ---- bundle-style split ---- */
-.bundle{display:grid;grid-template-columns:1fr 1fr;margin-top:12px;border-radius:25px;overflow:hidden;background:#edf8ff;color:#081542;box-shadow:0 20px 42px #00125650}
-.bundle-pic{min-height:460px;position:relative}
-.bundle-pic.waterproof-pic{background:radial-gradient(circle at 50% 45%,#2f6fe0 0%,#07318d 55%,#04164d 100%);display:flex;align-items:center;justify-content:center;padding:30px}
-.bundle-pic.waterproof-pic img{width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 20px 30px rgba(0,0,0,.4))}
-.bundle-pic img{width:100%;height:100%;object-fit:cover}
-.bundle-body{padding:44px;display:flex;flex-direction:column;justify-content:center}
-.bundle-body h2{margin:0;font:800 clamp(28px,3.4vw,44px)/.95 One}
-.bundle-body h2 i{display:block;margin:7px 0 0;color:#16357a;font-style:normal;font-weight:400}
-.bundle-body>p{font-size:13px;color:#486177;margin-top:12px}
-.spec-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
-.spec{background:#fff;border:1px solid #c3d9e9;border-radius:10px;padding:14px}
-.spec b{display:block;font:800 22px One;color:#07318e}
-.spec span{font-size:11px;color:#5b6f81;text-transform:uppercase;letter-spacing:.04em}
-@media (max-width:680px){.bundle{grid-template-columns:1fr;margin-top:12px;border-radius:18px}.bundle-pic{min-height:280px}.bundle-body{padding:28px 20px}}
+/* ============================================================
+   CONFIDENCE — How-to and scenarios
+   ============================================================ */
+.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:step}
+.howto__step{position:relative;padding:28px 22px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.howto__step .step-no{width:34px;height:34px;border-radius:50%;background:var(--yellow);color:var(--navy-3);display:grid;place-items:center;font:800 14px One;margin-bottom:16px}
+.howto__step h3{font:800 15px One;margin-bottom:8px;line-height:1.3}
+.howto__step p{font-size:13px;line-height:1.55;color:#dbe9ffcc}
+.howto__step:not(:last-child):after{content:'';position:absolute;top:44px;right:-9px;width:16px;height:2px;background:rgba(255,255,255,.25);display:none}
+@media (min-width:761px){.howto__step:not(:last-child):after{display:block}}
 
-/* ---- feed grid ---- */
-.feed{display:grid;grid-template-columns:1.05fr .95fr .95fr 1.05fr;gap:12px;margin-top:12px}
-.feed figure{height:315px;margin:0;position:relative;overflow:hidden;border-radius:13px}
-.feed figure:nth-child(2),.feed figure:nth-child(4){margin-top:40px}
-.feed img{width:100%;height:100%;object-fit:cover}
-.feed figcaption{position:absolute;left:12px;bottom:12px;text-transform:uppercase;font:800 9px One;letter-spacing:.1em}
-@media (max-width:960px){.feed{grid-template-columns:repeat(2,1fr)}.feed figure:nth-child(2),.feed figure:nth-child(4){margin-top:0}}
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.scenario{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3}
+.scenario img{width:100%;height:100%;object-fit:cover}
+.scenario:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,10,50,.85),transparent 55%)}
+.scenario span{position:absolute;left:16px;bottom:14px;z-index:2;font:800 13px One;letter-spacing:.03em;text-transform:uppercase}
+@media (max-width:760px){.howto{grid-template-columns:1fr}.scenarios{grid-template-columns:1fr}}
 
-/* ---- rewards / specs grid ---- */
-.rewards{margin-top:12px;padding:56px 0;background:radial-gradient(circle at 86% 18%,#26bdbd90,transparent 26%),radial-gradient(circle at 10% 75%,#bd4fc480,transparent 30%),#082574}
-.reward-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:38px;border-top:1px solid #fff5;border-left:1px solid #fff5}
-.reward{min-height:250px;padding:25px;border-right:1px solid #fff5;border-bottom:1px solid #fff5;background:#fff1;display:flex;flex-direction:column}
-.reward b{font-size:11px;color:#bfe5ff}
-.reward h3{margin:38px 0 11px;font:800 25px/.95 One}
-.reward p{margin:0;font-size:13px;line-height:1.4;color:#effaffc9}
-.reward span{margin-top:auto;color:#ffdf00;font:800 12px One}
-.reward.feature{background:linear-gradient(145deg,#7430c4,#bb4398)}
-.reward.feature h3{font:400 30px/.9 One,Arial,sans-serif;text-transform:none}
-@media (max-width:960px){.reward-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:680px){.reward{min-height:200px;padding:17px}.reward h3{margin:29px 0 8px;font-size:20px}.reward p{font-size:11px}}
+/* ============================================================
+   PROOF — Reviews and specifications
+   ============================================================ */
+.proof-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:56px}
+.rating-block{text-align:center;padding:34px 24px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.rating-block .big{font:800 56px/1 One;color:var(--yellow)}
+.rating-block .stars{color:var(--yellow);font-size:16px;letter-spacing:2px;display:block;margin:10px 0 6px}
+.rating-block p{font-size:12px;color:#dbe9ffcc;text-transform:uppercase;letter-spacing:.06em}
+.review-list{display:flex;flex-direction:column;gap:14px}
+.review-card{padding:20px 22px;border-radius:16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.review-card .stars{color:var(--yellow);font-size:13px;display:block;margin-bottom:8px}
+.review-card p{font-size:13.5px;line-height:1.55;color:#f0f6ff;font-style:italic}
+.review-card .who{margin-top:10px;font:800 11px One;letter-spacing:.03em;text-transform:uppercase;color:#c9def5}
+@media (max-width:860px){.proof-top{grid-template-columns:1fr}}
 
-/* ---- trust / reviews ---- */
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.trust article{min-height:200px;padding:24px;border:1px solid #dff3ff70;border-radius:14px;background:#082b8140}
-.trust b{font:800 10px One;letter-spacing:.15em;color:#ffdf00}
-.trust h3{margin:29px 0 8px;font:800 23px One}
-.trust p{margin:0;font-size:13px;line-height:1.5;color:#eefaffc9}
-@media (max-width:680px){.trust{grid-template-columns:1fr}.trust article{min-height:0}}
+/* fast-scan spec grid — text-heavy-to-visual applied */
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.spec-tile{padding:22px 20px;border-radius:16px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);display:flex;gap:14px;align-items:flex-start;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.spec-tile .icon-ring{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:rgba(255,223,0,.12);display:grid;place-items:center}
+.spec-tile svg{width:22px;height:22px;stroke:var(--yellow)}
+.spec-tile b{display:block;font:800 15px One;margin-bottom:3px}
+.spec-tile span{font-size:11.5px;color:#dbe9ffcc;line-height:1.4}
+@media (max-width:860px){.spec-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.spec-grid{grid-template-columns:1fr}}
 
-/* ---- footer ---- */
-footer{width:min(1230px,calc(100% - 36px));margin:12px auto 0;padding:28px 0 130px;display:grid;grid-template-columns:1fr 1fr auto;gap:30px;align-items:end;border-top:1px solid #fff5}
-footer img{width:105px}
+.angle-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:56px}
+.angle-strip figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:rgba(255,255,255,.05);aspect-ratio:1}
+.angle-strip img{width:100%;height:100%;object-fit:contain;padding:10px}
+.angle-strip figcaption{position:absolute;left:10px;bottom:8px;font:800 9px One;letter-spacing:.08em;text-transform:uppercase;color:#c9def5}
+@media (max-width:640px){.angle-strip{grid-template-columns:repeat(2,1fr)}}
+
+/* ============================================================
+   DECISION — Compare and delivery
+   ============================================================ */
+.decision{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.decision-card{padding:32px 28px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.decision-card h3{font:800 18px One;margin-bottom:8px}
+.decision-card p{font-size:13.5px;line-height:1.55;color:#dbe9ffcc;margin-bottom:18px}
+.pincode-row{display:flex;gap:10px}
+.pincode-row input{flex:1;min-width:0;padding:13px 16px;border-radius:9px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:14px}
+.pincode-row input::placeholder{color:#9db3d6}
+.pincode-row button{padding:13px 20px;border-radius:9px;border:0;background:var(--yellow);color:var(--navy-3);font:800 12px One;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.pincode-result{margin-top:12px;font-size:12.5px;min-height:18px;color:#9be8a8}
+.box-contents{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.box-contents li{display:flex;align-items:center;gap:12px;font-size:13.5px;color:#f0f6ff}
+.box-contents .ic{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.09);display:grid;place-items:center;flex-shrink:0}
+.box-contents svg{width:18px;height:18px;stroke:#dbe9ff}
+@media (max-width:760px){.decision{grid-template-columns:1fr}}
+
+/* ============================================================
+   VALUE — light, non-fabricated cross-sell nudge
+   ============================================================ */
+.value-banner{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:30px 32px;border-radius:20px;background:linear-gradient(120deg,rgba(255,118,233,.14),rgba(47,109,255,.14));border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.28)}
+.value-banner h3{font:800 18px One;margin-bottom:4px}
+.value-banner p{font-size:13px;color:#dbe9ffcc}
+.value-banner a{padding:13px 22px;border-radius:9px;background:#fff;color:var(--navy-3);font:800 12px One;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq-item{border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);overflow:hidden;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 14px 32px rgba(0,5,35,.22)}
+.faq-item summary{padding:18px 22px;font:800 14px One;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:after{content:'+';font-size:20px;font-weight:400;flex-shrink:0;transition:transform .3s var(--ease)}
+.faq-item[open] summary:after{transform:rotate(45deg)}
+.faq-item p{margin:0 22px 18px;font-size:13.5px;line-height:1.6;color:#dbe9ffdd}
+
+/* ============================================================
+   FOOTER + STICKY BAR
+   ============================================================ */
+footer{padding:60px 0 130px;border-top:1px solid rgba(255,255,255,.1)}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:30px;align-items:end}
+footer img{width:100px;margin-bottom:14px}
 footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
-footer .links{display:flex;flex-wrap:wrap;justify-content:center;gap:15px 22px}
-footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppercase;color:#e8f7ffd2}
-@media (max-width:680px){footer{width:calc(100% - 32px);grid-template-columns:1fr;padding-bottom:130px}footer .links{justify-content:start}}
+.footer-links{display:flex;flex-wrap:wrap;gap:16px 22px}
+.footer-links a,.footer-links small{font:800 10px One;letter-spacing:.06em;text-transform:uppercase;color:#e8f7ffd2}
+@media (max-width:680px){.footer-grid{grid-template-columns:1fr}}
 
-/* ---- sticky notice / cta bar ---- */
-.notice{position:fixed;z-index:9;left:50%;bottom:14px;transform:translateX(-50%);width:min(720px,calc(100% - 32px));display:grid;grid-template-columns:1.2fr auto;align-items:center;gap:20px;padding:12px 18px;border:1px solid #e1f3ff;background:#eaf7ffef;color:#081541;border-radius:14px;box-shadow:0 14px 38px #00114a75;backdrop-filter:blur(10px);
-  transform:translateX(-50%) translateY(140%);transition:transform .35s ease}
-.notice.show{transform:translateX(-50%) translateY(0)}
-.notice .who{display:flex;align-items:center;gap:12px}
-.notice .who img{width:48px;height:48px;object-fit:cover;border-radius:10px}
-.notice p{margin:0 0 3px;text-transform:uppercase;font:800 9px One;color:#5a7186}
-.notice strong{font:800 18px One}
-.notice a{padding:13px 20px;background:#8532b5;border-radius:9px;text-align:center;color:#fff;text-transform:uppercase;font:800 10px One;letter-spacing:.07em;white-space:nowrap;cursor:pointer}
-@media (max-width:680px){.notice{grid-template-columns:1fr auto;padding:10px 14px}.notice .who img{width:38px;height:38px}}
-
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
+.sticky-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%) translateY(140%);width:min(720px,calc(100% - 32px));z-index:45;
+  display:grid;grid-template-columns:1.2fr auto;align-items:center;gap:20px;padding:12px 18px;border-radius:16px;
+  transition:transform .4s var(--ease)}
+.sticky-bar.show{transform:translateX(-50%) translateY(0)}
+.sticky-bar .who{display:flex;align-items:center;gap:12px}
+.sticky-bar .who img{width:44px;height:44px;object-fit:cover;border-radius:10px}
+.sticky-bar p{margin:0 0 2px;text-transform:uppercase;font:800 9px One;color:#c9def5}
+.sticky-bar strong{font:800 17px One}
+.sticky-bar button{padding:13px 22px;background:var(--yellow);border:0;border-radius:9px;color:var(--navy-3);font:800 11px One;letter-spacing:.05em;text-transform:uppercase}
+@media (max-width:680px){.sticky-bar{padding:10px 14px}.sticky-bar .who img{width:36px;height:36px}}
 </style>
 </head>
 <body>
 
+<!-- ================= TICKER ================= -->
 <div class="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
 
+<!-- ================= HEADER ================= -->
 <header>
-  <a class="brand" href="#top"><img src="assets/durex-logo-white.png" alt="Durex"></a>
-  <nav class="crumb" aria-label="Breadcrumb">
-    <a href="#top">Home</a><span>/</span><a href="#top">Play</a><span>/</span><b>Buzzy Rabbit</b>
-  </nav>
-  <div class="actions">
-    <button>Account</button>
-    <button>Cart <span class="cart-no">0</span></button>
+  <div class="header-row">
+    <a class="brand" href="#top"><img src="assets/durex-logo-white.png" alt="Durex"></a>
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="#top">Home</a><span>/</span><a href="#top">Play</a><span>/</span><b>Buzzy Rabbit</b>
+    </nav>
+    <div class="actions">
+      <button>Account</button>
+      <button>Cart <span class="cart-no">0</span></button>
+    </div>
+    <button class="hamb" aria-label="Menu"><i></i><i></i><i></i></button>
   </div>
-  <button class="hamb"><i></i><i></i><i></i></button>
 </header>
 
+<!-- ================= PAGE ANCHOR TABS ================= -->
+<nav class="page-tabs" aria-label="Section navigation">
+  <a href="#overview" class="active">Overview</a>
+  <a href="#understand">How it works</a>
+  <a href="#safety">Safety</a>
+  <a href="#confidence">Using it</a>
+  <a href="#proof">Reviews &amp; specs</a>
+  <a href="#decision">Delivery</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
 <main id="top">
+
+<!-- ================= HERO — Desire: Cinematic hero =================
+     CRO: AIDA/Attention. Immersive scene establishes desire before any
+     education. Von Restorff — the product render is the only sharp,
+     saturated element against a moody atmosphere, so it dominates focus. -->
+<section class="hero" id="overview">
+  <div class="hero__atmosphere parallax" id="heroAtmo">
+    <img src="assets/buzzy-abstract-tunnel-backplate.png" alt="">
+  </div>
+  <div class="hero__vignette"></div>
+  <div class="hero__grain"></div>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <p class="hero__eyebrow reveal in">Durex Play · Buzzy Rabbit</p>
+      <h1 class="hero__title reveal in">Meet your<br><b>new favourite buzz.</b></h1>
+      <p class="hero__sub reveal in">Dual-action rabbit massager — 5 tapping modes, 8 vibration intensities, and both together. Soft-touch silicone, 100% waterproof, for external play.</p>
+      <div class="hero__meta reveal in"><span class="stars">★★★★★</span> 4.6 · 38 reviews</div>
+      <div class="hero__buy reveal in">
+        <div class="price-tag"><b>₹3,999</b><s>₹5,624</s></div>
+        <span class="off-pill">29% off</span>
+      </div>
+      <div class="hero__cta-row reveal in">
+        <div class="qty-stepper">
+          <button id="qtyMinus" aria-label="Decrease quantity">−</button>
+          <span id="qtyVal">1</span>
+          <button id="qtyPlus" aria-label="Increase quantity">+</button>
+        </div>
+        <button class="buy-btn" id="heroBuy">Add to bag →</button>
+      </div>
+      <div class="hero__trust reveal in">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>Discreet packaging</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="4"/></svg>Body-safe silicone</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c4 3 6 6 6 9a6 6 0 0 1-12 0c0-3 2-6 6-9Z"/></svg>100% waterproof</span>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__halo"></div>
+      <img class="hero__product" src="assets/hero-dual-action-cutout.png" alt="Durex Play Buzzy Rabbit dual-action massager">
+      <div class="hero__badge"><span>UP TO</span><b>29%</b><span>OFF</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UNDERSTAND — Tap, buzz and both =================
+     CRO: Comprehension before persuasion (Fogg — Ability). Icon-first
+     so the three modes are scannable in one glance (recognition over
+     recall), not read as a paragraph. -->
+<section class="section" id="understand">
   <div class="shell">
-    <!-- HERO -->
-    <div class="hero reveal in">
-      <div class="hero-copy">
-        <p class="eyebrow">Durex Play · Buzzy Rabbit</p>
-        <h1>Meet your<br>new buzz.</h1>
-        <p class="sub">Powerful vibes meet soft-touch feels in one dual-action design.</p>
-        <div class="hero-buy">
-          <div class="rating-row"><span class="stars">★★★★★</span> 4.6 · 38 reviews</div>
-        </div>
-        <div class="hero-buy">
-          <div class="price-tag"><b>₹3,999</b><s>₹5,624</s></div>
-          <span class="off-pill">29% OFF</span>
-        </div>
-        <div class="hero-buy">
-          <div class="qty-stepper">
-            <button id="qtyMinus" aria-label="Decrease quantity">−</button>
-            <span id="qtyVal">1</span>
-            <button id="qtyPlus" aria-label="Increase quantity">+</button>
-          </div>
-          <button class="buy-btn" id="heroBuy">Add to bag →</button>
-        </div>
+    <p class="kicker reveal">Understand</p>
+    <h2 class="title reveal">Tap, buzz — <i>or both at once.</i></h2>
+    <p class="subcopy reveal">Two independent motors, controlled by two buttons. Start with one, layer in the other, and dial each up on its own.</p>
+    <div class="modes-grid stagger">
+      <div class="mode-card">
+        <span class="num">01</span>
+        <div class="icon-ring"><svg viewBox="0 0 48 48" fill="none" stroke-width="2.5" stroke-linecap="round"><circle cx="24" cy="24" r="4"/><circle cx="24" cy="24" r="11" opacity=".55"/><circle cx="24" cy="24" r="18" opacity=".3"/></svg></div>
+        <h3>5 tapping modes</h3>
+        <p>The rabbit ear delivers rhythmic tapping patterns — from a slow tease to a fast flutter.</p>
       </div>
-      <div class="hero-visual">
-        <div class="glow"></div>
-        <img src="assets/hero-dual-action-cutout.png" alt="Durex Play Buzzy Rabbit">
+      <div class="mode-card">
+        <span class="num">02</span>
+        <div class="icon-ring"><svg viewBox="0 0 48 48" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M6 24c3-9 6-9 9 0s6 9 9 0 6-9 9 0 6 9 9 0"/></svg></div>
+        <h3>8 vibration intensities</h3>
+        <p>The main shaft runs 8 vibration settings, from a low steady hum to full intensity.</p>
       </div>
-      <div class="offer"><span>UP TO</span><b>29%</b><span>OFF</span></div>
-    </div>
-
-    <!-- IN-PAGE ANCHOR TABS -->
-    <nav class="page-tabs reveal" aria-label="Section navigation">
-      <a href="#top" class="active">Overview</a>
-      <a href="#features">Features</a>
-      <a href="#specs">Waterproof</a>
-      <a href="#angles">Product view</a>
-      <a href="#reviews">Reviews</a>
-    </nav>
-  </div>
-
-  <!-- FEATURES -->
-  <section class="section" id="features">
-    <div class="shell">
-      <p class="kicker">01 · Dual action</p>
-      <h2 class="title reveal">Two ways to <i>feel more.</i></h2>
-      <p class="subcopy reveal">5 tapping modes meet 8 intense vibrations in one dual-action design made to tease, thrill and explore.</p>
-      <div class="cards reveal">
-        <div class="card plain">
-          <div class="media plain"><img src="assets/buzzy-feature-modes.png" alt="5 sensational modes"></div>
-        </div>
-        <div class="card plain">
-          <div class="media plain"><img src="assets/buzzy-feature-vibrations.png" alt="8 powerful vibrations"></div>
-        </div>
-        <div class="card">
-          <div class="media"><span class="tag">Touch</span><img src="assets/buzzy-rabbit-stage.png" alt="Soft touch finish"></div>
-          <div class="info"><p>Durex Play</p><h3>Soft-Touch Finish</h3></div>
-        </div>
-        <div class="card">
-          <div class="media"><span class="tag">Safe</span><img src="assets/buzzy-rabbit.png" alt="Body safe silicone"></div>
-          <div class="info"><p>Durex Play</p><h3>Body Safe Silicone</h3></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DARK SHOWCASE -->
-  <div class="dark-showcase" style="background-image:url('assets/buzzy-hand-landscape.png')">
-    <div class="wide">
-      <h2>Close control. <i>Soft landing.</i></h2>
-      <p class="copy">A smooth soft-touch finish and an easy-grip silhouette put every setting within reach. Two-button control makes it simple to start soft and dial it up.</p>
-      <div class="pills">
-        <span class="pill">Soft-touch finish</span>
-        <span class="pill">Two-button control</span>
+      <div class="mode-card combo">
+        <span class="num">03</span>
+        <div class="icon-ring"><svg viewBox="0 0 48 48" fill="none" stroke-width="2.5" stroke-linecap="round"><circle cx="17" cy="24" r="7"/><path d="M27 24c2-6 4-6 6 0s4 6 6 0"/></svg></div>
+        <h3>Both, together</h3>
+        <p>Turn one on, then short-press the other button — dual-action stimulation, independently tuned.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- BUNDLE-STYLE SPLIT: WATERPROOF -->
+<!-- ================= SAFETY — External play and material =================
+     CRO: Addresses real open doubts flagged in research (silicone
+     safety, external-only use) before the shopper has to ask. Reduces
+     purchase friction from uncertainty (Ability, Fogg Model). -->
+<section class="section" id="safety">
   <div class="shell">
-    <div class="bundle reveal" id="specs">
-      <div class="bundle-pic waterproof-pic">
-        <img src="assets/hero-waterproof-cutout.png" alt="Waterproof Buzzy Rabbit">
-      </div>
-      <div class="bundle-body">
-        <h2>Take the buzz <i>underwater.</i></h2>
-        <p>100% waterproof, so the mood can move from the bed to the bath without missing a beat. Recharge by USB in 2 hours for up to 45 minutes of play-ready power.</p>
-        <div class="spec-list">
-          <div class="spec"><b>100%</b><span>Waterproof</span></div>
-          <div class="spec"><b>45 min</b><span>Play time</span></div>
-          <div class="spec"><b>2 hr</b><span>USB charge</span></div>
-          <div class="spec"><b>5+8</b><span>Modes / vibrations</span></div>
+    <div class="safety reveal">
+      <div class="safety__bg"><img src="assets/buzzy-liquid-silk-backplate.png" alt=""></div>
+      <div class="safety__inner">
+        <div class="safety__copy">
+          <p class="kicker">Safety</p>
+          <h2 class="title">Made for <i>external play.</i></h2>
+          <p>Buzzy Rabbit is designed for external stimulation only — around the clitoral area or other sensitive zones. It's not meant for internal insertion.</p>
+          <ul class="safety__points">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>Body-safe silicone — soft-touch, non-toxic, gentle on skin</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3c4 3 6 6 6 9a6 6 0 0 1-12 0c0-3 2-6 6-9Z"/></svg>100% waterproof — safe for the bed, the bath, or the shower</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>Shipped in fully discreet packaging — no branding, no product name on the parcel</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/></svg>Manufactured by Odeco Ltd.; marketed in India by Reckitt Benckiser (India) Pvt. Ltd.</li>
+          </ul>
         </div>
+        <div class="safety__visual"><img src="assets/buzzy-rabbit-stage.png" alt="Buzzy Rabbit soft-touch silicone"></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ANGLE FEED -->
-  <section class="section" id="angles">
-    <div class="shell">
-      <p class="kicker">06 · Product view</p>
-      <h2 class="title reveal">Every angle. <i>One confident grip.</i></h2>
-      <div class="feed reveal">
-        <figure><img src="assets/buzzy-angle-one.png" alt="Angle 1"><figcaption>Angle 01</figcaption></figure>
-        <figure><img src="assets/buzzy-angle-two.png" alt="Angle 2"><figcaption>Angle 02</figcaption></figure>
-        <figure><img src="assets/buzzy-angle-three.png" alt="Angle 3"><figcaption>Angle 03</figcaption></figure>
-        <figure><img src="assets/buzzy-angle-four.png" alt="Angle 4"><figcaption>Angle 04</figcaption></figure>
-      </div>
+<!-- ================= CONFIDENCE — How-to and scenarios =================
+     CRO: Removes first-use anxiety (a named blocker in research —
+     "how the product was tested / how to use" doubts). Sourced
+     verbatim from the real usage instructions, not invented. -->
+<section class="section" id="confidence">
+  <div class="shell">
+    <p class="kicker reveal">Confidence</p>
+    <h2 class="title reveal">Three steps. <i>That's it.</i></h2>
+    <p class="subcopy reveal">No manual required — but here's the short version anyway.</p>
+    <div class="howto stagger">
+      <div class="howto__step"><div class="step-no">1</div><h3>Press &amp; hold, 3 seconds</h3><p>Hold either the tapping or vibration button for 3 seconds to switch it on.</p></div>
+      <div class="howto__step"><div class="step-no">2</div><h3>Short-press to cycle modes</h3><p>Tap the button again to move through the 5 tapping or 8 vibration settings.</p></div>
+      <div class="howto__step"><div class="step-no">3</div><h3>Hold again to switch off</h3><p>Same press-and-hold, 3 seconds, whenever you're done. Rinse and store dry.</p></div>
     </div>
-  </section>
-
-  <!-- REWARDS / SPEC GRID -->
-  <div class="rewards">
-    <div class="shell">
-      <p class="kicker">Why Buzzy Rabbit</p>
-      <h2 class="title reveal">Built for the <i>full experience.</i></h2>
-      <div class="reward-grid reveal">
-        <div class="reward"><b>01 · TAPS</b><h3>5 Sensational Modes</h3><p>For steamy play beyond the sheets.</p><span>Explore →</span></div>
-        <div class="reward"><b>02 · VIBRATIONS</b><h3>8 Powerful Intensities</h3><p>Dial it up or keep it slow.</p><span>Explore →</span></div>
-        <div class="reward feature"><h3>Grip it.<br>Explore it.<br>Make it yours.</h3></div>
-        <div class="reward"><b>03 · WATERPROOF</b><h3>100% Submersible</h3><p>Bed to bath, no missed beats.</p><span>Explore →</span></div>
-      </div>
+    <div class="scenarios stagger">
+      <div class="scenario"><img src="assets/buzzy-water-hero.png" alt="Bath and shower use"><span>The bath</span></div>
+      <div class="scenario"><img src="assets/buzzy-hand-landscape.png" alt="Bedroom use"><span>The bed</span></div>
+      <div class="scenario"><img src="assets/buzzy-rabbit.png" alt="Solo use"><span>Solo, anywhere</span></div>
     </div>
   </div>
+</section>
 
-  <!-- REVIEWS -->
-  <section class="section" id="reviews">
-    <div class="shell">
-      <p class="kicker">07 · The proof</p>
-      <h2 class="title reveal">A buzz worth <i>talking about.</i></h2>
-      <div class="trust reveal">
-        <article>
-          <b>★★★★★ 4.6/5</b>
-          <h3>38 Ratings</h3>
-          <p>Rated 4.6 out of 5 on Durex India across 38 verified reviews.</p>
-        </article>
-        <article>
-          <b>VERIFIED BUYER</b>
-          <h3>Pooja N.</h3>
+<!-- ================= PROOF — Reviews and specifications =================
+     CRO: Social proof (Cialdini) placed after comprehension, not before —
+     shopper already understands the product, now sees it validated.
+     Specs shown as a fast-scan icon grid (text-heavy-to-visual pass),
+     not a paragraph or plain table. -->
+<section class="section" id="proof">
+  <div class="shell">
+    <p class="kicker reveal">Proof</p>
+    <h2 class="title reveal">A buzz worth <i>talking about.</i></h2>
+    <div class="proof-top">
+      <div class="rating-block reveal">
+        <span class="big">4.6</span>
+        <span class="stars">★★★★★</span>
+        <p>38 verified reviews</p>
+      </div>
+      <div class="review-list stagger">
+        <div class="review-card">
+          <span class="stars">★★★★★</span>
           <p>"Battery life kaafi achi hai iski. Highly satisfied with it."</p>
-        </article>
-        <article>
-          <b>VERIFIED BUYER</b>
-          <h3>Durex India customer</h3>
+          <div class="who">Pooja N. · Durex India customer</div>
+        </div>
+        <div class="review-card">
+          <span class="stars">★★★★★</span>
           <p>"Dono vibration modes kaafi ache hain, definitely recommend to all ladies. Very happy."</p>
-        </article>
+          <div class="who">Durex India customer</div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <footer>
+    <h3 class="title reveal" style="font-size:clamp(22px,2.6vw,30px);margin-bottom:28px">Specifications</h3>
+    <div class="spec-grid stagger">
+      <div class="spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9" opacity=".5"/></svg></div><div><b>5 tapping modes</b><span>Rabbit-ear tapping patterns</span></div></div>
+      <div class="spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 12c1.5-4 3-4 4.5 0s3 4 4.5 0 3-4 4.5 0 3 4 4.5 0"/></svg></div><div><b>8 vibration levels</b><span>Main-shaft intensity settings</span></div></div>
+      <div class="spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3c4 3 6 6 6 9a6 6 0 0 1-12 0c0-3 2-6 6-9Z"/></svg></div><div><b>100% waterproof</b><span>Bed, bath or shower</span></div></div>
+      <div class="spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div><b>Up to 45 minutes</b><span>Play-ready runtime per charge</span></div></div>
+      <div class="spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></div><div><b>2-hour USB charge</b><span>Cable included in the box</span></div></div>
+      <div class="spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg></div><div><b>Body-safe silicone</b><span>Soft-touch, non-toxic finish</span></div></div>
+    </div>
+
+    <div class="angle-strip stagger">
+      <figure><img src="assets/buzzy-angle-one.png" alt="Angle 1"><figcaption>Angle 01</figcaption></figure>
+      <figure><img src="assets/buzzy-angle-two.png" alt="Angle 2"><figcaption>Angle 02</figcaption></figure>
+      <figure><img src="assets/buzzy-angle-three.png" alt="Angle 3"><figcaption>Angle 03</figcaption></figure>
+      <figure><img src="assets/buzzy-angle-four.png" alt="Angle 4"><figcaption>Angle 04</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DECISION — Compare and delivery =================
+     CRO: Removes late-funnel logistics doubt (a named gap in research:
+     no delivery/discretion clarity on the live PDP). Pincode check is
+     a client-side format confirmation, not a fabricated ETA claim. -->
+<section class="section" id="decision">
+  <div class="shell">
+    <p class="kicker reveal">Decision</p>
+    <h2 class="title reveal">Delivery, <i>handled discreetly.</i></h2>
+    <div class="decision stagger">
+      <div class="decision-card">
+        <h3>Check delivery to your area</h3>
+        <p>We deliver pan-India in plain, unbranded packaging — nothing on the parcel says what's inside.</p>
+        <div class="pincode-row">
+          <input type="text" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" id="pincodeInput">
+          <button id="pincodeBtn">Check</button>
+        </div>
+        <p class="pincode-result" id="pincodeResult"></p>
+      </div>
+      <div class="decision-card">
+        <h3>What's in the box</h3>
+        <ul class="box-contents">
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg></span>1 × Buzzy Rabbit massager</li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg></span>1 × USB charging cable</li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h.01M9 15h.01M15 9h.01M15 15h.01"/></svg></span>QR-linked setup &amp; usage guide, printed on pack</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VALUE — light, honest cross-sell ================= -->
+<section class="section" style="padding-top:0">
+  <div class="shell">
+    <div class="value-banner reveal">
+      <div><h3>Want to explore more of Durex Play?</h3><p>See the full range of massagers, lubricants and accessories.</p></div>
+      <a href="https://www.durexindia.com/collections/all-products" target="_blank" rel="noopener">Explore the range</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="shell">
+    <p class="kicker reveal">Questions</p>
+    <h2 class="title reveal">Before you <i>buzz.</i></h2>
+    <div class="faq-list stagger">
+      <details class="faq-item" open>
+        <summary>Is this for internal or external use?</summary>
+        <p>External use only — around the clitoral area or other sensitive zones. It is not designed for internal insertion.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the silicone body-safe?</summary>
+        <p>Yes. Buzzy Rabbit is made from soft-touch, non-toxic silicone designed to be gentle on skin.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I turn it on and switch modes?</summary>
+        <p>Press and hold the tapping or vibration button for 3 seconds to switch on. Short-press the same button to cycle through modes. Hold again for 3 seconds to switch off.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use it in the bath or shower?</summary>
+        <p>Yes — Buzzy Rabbit is 100% waterproof, so it's safe for the bed, the bath, or the shower.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I clean it?</summary>
+        <p>Rinse with mild soap and warm water, or use a dedicated toy cleaner. Pat dry and store in a clean, dry place.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if my product arrives defective, or I need help?</summary>
+        <p>Buzzy Rabbit is marketed in India by Reckitt Benckiser (India) Pvt. Ltd., Gurugram, who handle consumer care and complaints for Durex India products.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="shell footer-grid">
     <img src="assets/durex-logo-white.png" alt="Durex">
     <p>Designed for pleasure.<br>Delivered discreetly.</p>
-    <div class="links">
+    <div class="footer-links">
       <a href="#top">Overview</a>
-      <a href="#features">Features</a>
-      <a href="#reviews">Reviews</a>
-      <small>Product facts sourced from Durex India</small>
+      <a href="#proof">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <small>Mfd. by Odeco Ltd. · Mkt. by Reckitt Benckiser (India) Pvt. Ltd.</small>
     </div>
-  </footer>
+  </div>
+</footer>
+
 </main>
 
-<div class="notice" id="notice">
+<!-- ================= PURCHASE — persistent sticky Add to Bag ================= -->
+<div class="sticky-bar glass" id="stickyBar">
   <div class="who">
     <img src="assets/buzzy-rabbit.png" alt="Buzzy Rabbit">
-    <div><p>Buzzy Rabbit</p><strong>₹3,999</strong></div>
+    <div><p>Buzzy Rabbit</p><strong id="stickyAmt">₹3,999</strong></div>
   </div>
-  <a id="noticeBtn">Add to bag →</a>
+  <button id="stickyBuy">Add to bag →</button>
 </div>
 
 <script>
-const items = ["Discreet Delivery","100% Authentic","69 Store is Live"];
-document.getElementById('tickerTrack').innerHTML = Array(3).fill(items.map(t=>`<b>${t}</b>`).join('')).join('');
+/* ---- ticker content ---- */
+const tItems = ["Discreet Delivery","100% Authentic","69 Store is Live"];
+document.getElementById('tickerTrack').innerHTML = Array(3).fill(tItems.map(t=>`<b>${t}</b>`).join('')).join('');
 
-const revealEls = document.querySelectorAll('.reveal:not(.in)');
+/* ---- scroll reveal (single + staggered groups) ---- */
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{threshold:0.15});
-revealEls.forEach(el=>io.observe(el));
+},{threshold:.15});
+document.querySelectorAll('.reveal:not(.in), .stagger').forEach(el=>io.observe(el));
 
-const notice = document.getElementById('notice');
-const hero = document.querySelector('.hero');
-const heroIO = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ notice.classList.toggle('show', !e.isIntersecting); });
-},{threshold:0});
-heroIO.observe(hero);
+/* ---- hero atmosphere parallax (subtle, respects reduced motion) ---- */
+const atmo = document.getElementById('heroAtmo');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduceMotion && atmo){
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY;
+    if(y < 900){ atmo.style.transform = `translateY(${y*0.12}px) scale(1.02)`; }
+  }, {passive:true});
+}
 
-// Quantity stepper
+/* ---- quantity stepper synced to hero + sticky bar ---- */
 const UNIT_PRICE = 3999;
 let qty = 1;
 const qtyVal = document.getElementById('qtyVal');
-const noticeAmt = document.querySelector('#notice strong');
+const stickyAmt = document.getElementById('stickyAmt');
 function renderQty(){
   qtyVal.textContent = qty;
-  noticeAmt.textContent = '₹' + (UNIT_PRICE * qty).toLocaleString('en-IN');
+  stickyAmt.textContent = '₹' + (UNIT_PRICE * qty).toLocaleString('en-IN');
 }
 document.getElementById('qtyMinus').addEventListener('click', ()=>{ if(qty>1){ qty--; renderQty(); } });
 document.getElementById('qtyPlus').addEventListener('click', ()=>{ if(qty<10){ qty++; renderQty(); } });
 
-// Active page-tab on scroll
+/* ---- active page-tab on scroll ---- */
 const tabLinks = document.querySelectorAll('.page-tabs a');
 const tabTargets = Array.from(tabLinks).map(a=>document.querySelector(a.getAttribute('href')));
 const tabIO = new IntersectionObserver((entries)=>{
@@ -404,9 +646,39 @@ const tabIO = new IntersectionObserver((entries)=>{
     const idx = tabTargets.indexOf(e.target);
     if(e.isIntersecting && idx>-1){ tabLinks.forEach(a=>a.classList.remove('active')); tabLinks[idx].classList.add('active'); }
   });
-},{threshold:0.4, rootMargin:'-80px 0px -60% 0px'});
+},{threshold:0, rootMargin:'-110px 0px -85% 0px'});
 tabTargets.forEach(t=>{ if(t) tabIO.observe(t); });
-</script>
 
+/* ---- sticky bar visibility after hero ---- */
+const stickyBar = document.getElementById('stickyBar');
+const heroEl = document.querySelector('.hero');
+const heroIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ stickyBar.classList.toggle('show', !e.isIntersecting); });
+},{threshold:0});
+heroIO.observe(heroEl);
+
+/* ---- pincode check: client-side format confirmation only ---- */
+document.getElementById('pincodeBtn').addEventListener('click', ()=>{
+  const val = document.getElementById('pincodeInput').value.trim();
+  const result = document.getElementById('pincodeResult');
+  if(/^\d{6}$/.test(val)){
+    result.textContent = 'Delivered to ' + val + ' in discreet, unbranded packaging.';
+    result.style.color = '#9be8a8';
+  } else {
+    result.textContent = 'Enter a valid 6-digit pincode.';
+    result.style.color = '#ff9d9d';
+  }
+});
+
+/* ---- buy buttons (no live cart backend — visual feedback only) ---- */
+[document.getElementById('heroBuy'), document.getElementById('stickyBuy')].forEach(btn=>{
+  if(!btn) return;
+  btn.addEventListener('click', ()=>{
+    const orig = btn.textContent;
+    btn.textContent = 'Added ✓';
+    setTimeout(()=>{ btn.textContent = orig; }, 1400);
+  });
+});
+</script>
 </body>
 </html>
