@@ -40,11 +40,13 @@ html{scroll-behavior:smooth}
 body{margin:0;background-color:#8b3fd9;color:#fff;font-family:var(--font-body);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden;
   background-image:var(--grad-page);
   background-size:260% 260%;
-  animation:gradientFlow 9.5s ease-in-out infinite;
+  animation:gradientFlow 4s ease-in-out infinite;
 }
 @keyframes gradientFlow{
   0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
+  25%{background-position:100% 0%}
+  50%{background-position:100% 100%}
+  75%{background-position:0% 100%}
   100%{background-position:0% 50%}
 }
 @media (max-width:680px){ body{ background-size:340% 340%; } }
@@ -71,7 +73,6 @@ svg{display:block}
 @media (prefers-reduced-motion: reduce){
   .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none!important}
   .parallax{transform:none!important}
-  .hero__halo,.hero__product{animation:none!important}
 }
 
 /* ---- section rhythm: strict 12px gaps, generous internal breathing room ---- */
@@ -117,58 +118,16 @@ header{position:sticky;top:0;z-index:40;height:76px;background:rgba(6,10,40,.72)
 .page-tabs a{font:800 10.5px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s var(--ease),border-color .3s var(--ease)}
 .page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:var(--yellow)}
 
-/* ============================================================
-   HERO — "Desire: Cinematic hero"
-   ============================================================ */
-.hero{position:relative;overflow:hidden;min-height:640px;display:flex;align-items:center}
-.hero__atmosphere{position:absolute;inset:0;z-index:0}
-.hero__atmosphere img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;opacity:.55;filter:saturate(1.15)}
-.hero__atmosphere:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(4,19,79,.94) 0%,rgba(5,25,90,.72) 42%,rgba(7,35,120,.35) 68%,rgba(9,23,68,.55) 100%)}
-.hero__vignette{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 50% 100%,rgba(0,0,0,.55),transparent 60%),radial-gradient(ellipse at 50% 0%,rgba(0,0,0,.35),transparent 55%)}
-.hero__grain{position:absolute;inset:0;z-index:1;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.hero__inner{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
-.hero__copy{max-width:540px}
-.hero__eyebrow{margin:0 0 14px;text-transform:uppercase;letter-spacing:.12em;font:800 11px One;color:#bcd8ff}
-.hero__title{font:800 clamp(42px,6vw,78px)/.98 One;letter-spacing:-1.8px;color:#f3f8ff}
-.hero__title b{display:block;font-weight:800}
-.hero__sub{margin:18px 0 0;font-size:15px;line-height:1.6;color:#dbe9ffd8;max-width:420px}
-.hero__meta{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:13px;color:#eaf5ff}
-.hero__meta .stars{color:var(--yellow);letter-spacing:1px}
-.hero__buy{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
 .price-tag{display:flex;align-items:baseline;gap:8px}
 .price-tag b{font:800 30px One}
 .price-tag s{font-size:13px;opacity:.55}
 .off-pill{background:var(--grad-green);color:#fff;font:800 10px One;letter-spacing:.06em;padding:5px 10px;border-radius:var(--radius-pill)}
-.hero__cta-row{display:flex;align-items:center;gap:14px;margin-top:22px;flex-wrap:wrap}
-.qty-stepper{display:flex;align-items:center;border:1px solid rgba(255,255,255,.28);border-radius:var(--radius-pill);overflow:hidden}
-.qty-stepper button{width:40px;height:48px;border:0;background:rgba(255,255,255,.08);color:#fff;font:800 17px One}
-.qty-stepper button:hover{background:rgba(255,255,255,.16)}
-.qty-stepper span{width:36px;text-align:center;font:800 15px One}
+.qty-stepper{display:flex;align-items:center;border:1px solid rgba(7,29,98,.18);border-radius:var(--radius-pill);overflow:hidden}
+.qty-stepper button{width:34px;height:38px;border:0;background:rgba(7,29,98,.05);color:var(--ink);font:800 15px One}
+.qty-stepper button:hover{background:rgba(7,29,98,.1)}
+.qty-stepper span{width:30px;text-align:center;font:800 13px One;color:var(--ink)}
 .buy-btn{border:0;padding:15px 28px;border-radius:var(--radius-pill);background:var(--grad-cta);color:#fff;text-transform:uppercase;font:800 12px One;letter-spacing:.07em;box-shadow:0 14px 30px rgba(6,22,77,.35);transition:transform .35s var(--ease)}
 .buy-btn:hover{transform:translateY(-2px)}
-.hero__trust{display:flex;gap:18px;margin-top:26px;flex-wrap:wrap}
-.hero__trust span{display:flex;align-items:center;gap:7px;font:800 10.5px One;letter-spacing:.03em;text-transform:uppercase;color:#c9def5}
-.hero__trust svg{width:16px;height:16px;flex-shrink:0}
-
-.hero__visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
-.hero__halo{position:absolute;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,118,233,.35) 0%,rgba(47,109,255,.22) 45%,transparent 72%);filter:blur(6px);animation:halo-breathe 7s ease-in-out infinite}
-@keyframes halo-breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
-.hero__product{position:relative;z-index:2;width:78%;max-width:400px;filter:drop-shadow(0 40px 50px rgba(0,0,0,.5));animation:product-float 6s ease-in-out infinite}
-@keyframes product-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
-.hero__badge{position:absolute;right:2%;top:6%;width:96px;aspect-ratio:1;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-content:center;text-align:center;box-shadow:0 0 0 10px rgba(255,255,255,.06),0 0 30px rgba(181,255,255,.35);z-index:3}
-.hero__badge span{font:10px One;letter-spacing:.16em;color:#dff}
-.hero__badge b{font:800 26px/.9 One;color:var(--yellow)}
-
-@media (max-width:960px){
-  .hero__inner{grid-template-columns:1fr;gap:6px;padding-top:38px}
-  .hero__visual{order:-1;min-height:0;padding:10px 0 0}
-  .hero__product{width:56%;max-width:230px}
-  .hero__halo{width:70%}
-  .hero__copy{max-width:none}
-  .hero__badge{width:70px;top:0;right:0}
-  .hero__badge b{font-size:16px}
-  .hero__badge span{font-size:6px}
-}
 
 /* ============================================================
    UNDERSTAND — "Tap, buzz and both"
@@ -303,17 +262,16 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 .footer-links a,.footer-links small{font:800 10px One;letter-spacing:.06em;text-transform:uppercase;color:#e8f7ffd2}
 @media (max-width:680px){.footer-grid{grid-template-columns:1fr}}
 
-.sticky-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%) translateY(140%);width:min(720px,calc(100% - 32px));z-index:45;
-  display:grid;grid-template-columns:1.2fr auto;align-items:center;gap:20px;padding:12px 18px;border-radius:var(--radius-card);
+.sticky-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%) translateY(0);width:min(760px,calc(100% - 32px));z-index:45;
+  display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:12px 18px;border-radius:var(--radius-card);
   background:var(--card-white);border:1px solid rgba(7,29,98,.08);box-shadow:0 18px 40px rgba(0,16,82,.28);
   transition:transform .4s var(--ease)}
-.sticky-bar.show{transform:translateX(-50%) translateY(0)}
-.sticky-bar .who{display:flex;align-items:center;gap:12px}
-.sticky-bar .who img{width:44px;height:44px;object-fit:cover;border-radius:10px}
-.sticky-bar p{margin:0 0 2px;text-transform:uppercase;font:800 9px One;color:#5a6a96}
+.sticky-bar .who{display:flex;align-items:center;gap:12px;min-width:0}
+.sticky-bar .who img{width:44px;height:44px;object-fit:cover;border-radius:10px;flex-shrink:0}
+.sticky-bar p{margin:0 0 2px;text-transform:uppercase;font:800 9px One;color:#5a6a96;white-space:nowrap}
 .sticky-bar strong{font:800 17px One;letter-spacing:-.4px;color:var(--ink)}
-.sticky-bar button{padding:13px 22px;background:var(--grad-cta);border:0;border-radius:var(--radius-pill);color:#fff;font:800 11px One;letter-spacing:.05em;text-transform:uppercase}
-@media (max-width:680px){.sticky-bar{padding:10px 14px}.sticky-bar .who img{width:36px;height:36px}}
+@media (max-width:680px){.sticky-bar{padding:10px 12px;grid-template-columns:auto auto 1fr;gap:10px}.sticky-bar .who img{width:36px;height:36px}.sticky-bar .who p{display:none}.sticky-bar .buy-btn{padding:12px 16px;font-size:11px}}
+@media (max-width:420px){.sticky-bar .qty-stepper{display:none}}
 </style>
 </head>
 <body>
@@ -338,8 +296,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= PAGE ANCHOR TABS ================= -->
 <nav class="page-tabs" aria-label="Section navigation">
-  <a href="#overview" class="active">Overview</a>
-  <a href="#understand">How it works</a>
+  <a href="#understand" class="active">How it works</a>
   <a href="#safety">Safety</a>
   <a href="#confidence">Using it</a>
   <a href="#proof">Reviews &amp; specs</a>
@@ -348,48 +305,6 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 </nav>
 
 <main id="top">
-
-<!-- ================= HERO — Desire: Cinematic hero =================
-     CRO: AIDA/Attention. Immersive scene establishes desire before any
-     education. Von Restorff — the product render is the only sharp,
-     saturated element against a moody atmosphere, so it dominates focus. -->
-<section class="hero" id="overview">
-  <div class="hero__atmosphere parallax" id="heroAtmo">
-    <img src="assets/buzzy-abstract-tunnel-backplate.png" alt="">
-  </div>
-  <div class="hero__vignette"></div>
-  <div class="hero__grain"></div>
-  <div class="hero__inner">
-    <div class="hero__copy">
-      <p class="hero__eyebrow reveal in">Durex Play · Buzzy Rabbit</p>
-      <h1 class="hero__title reveal in">Meet your<br><b>new favourite buzz.</b></h1>
-      <p class="hero__sub reveal in">Dual-action rabbit massager — 5 tapping modes, 8 vibration intensities, and both together. Soft-touch silicone, 100% waterproof, for external play.</p>
-      <div class="hero__meta reveal in"><span class="stars">★★★★★</span> 4.6 · 38 reviews</div>
-      <div class="hero__buy reveal in">
-        <div class="price-tag"><b>₹3,999</b><s>₹5,624</s></div>
-        <span class="off-pill">29% off</span>
-      </div>
-      <div class="hero__cta-row reveal in">
-        <div class="qty-stepper">
-          <button id="qtyMinus" aria-label="Decrease quantity">−</button>
-          <span id="qtyVal">1</span>
-          <button id="qtyPlus" aria-label="Increase quantity">+</button>
-        </div>
-        <button class="buy-btn" id="heroBuy">Add to bag →</button>
-      </div>
-      <div class="hero__trust reveal in">
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>Discreet packaging</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/><circle cx="12" cy="12" r="4"/></svg>Body-safe silicone</span>
-        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c4 3 6 6 6 9a6 6 0 0 1-12 0c0-3 2-6 6-9Z"/></svg>100% waterproof</span>
-      </div>
-    </div>
-    <div class="hero__visual">
-      <div class="hero__halo"></div>
-      <img class="hero__product" src="assets/hero-dual-action-cutout.png" alt="Durex Play Buzzy Rabbit dual-action massager">
-      <div class="hero__badge"><span>UP TO</span><b>29%</b><span>OFF</span></div>
-    </div>
-  </div>
-</section>
 
 <!-- ================= UNDERSTAND — Tap, buzz and both =================
      CRO: Comprehension before persuasion (Fogg — Ability). Icon-first
@@ -610,12 +525,17 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 </main>
 
 <!-- ================= PURCHASE — persistent sticky Add to Bag ================= -->
-<div class="sticky-bar" id="stickyBar">
+<div class="sticky-bar show" id="stickyBar">
   <div class="who">
     <img src="assets/buzzy-rabbit.png" alt="Buzzy Rabbit">
     <div><p>Buzzy Rabbit</p><strong id="stickyAmt">₹3,999</strong></div>
   </div>
-  <button id="stickyBuy">Add to bag →</button>
+  <div class="qty-stepper">
+    <button id="qtyMinus" aria-label="Decrease quantity">−</button>
+    <span id="qtyVal">1</span>
+    <button id="qtyPlus" aria-label="Increase quantity">+</button>
+  </div>
+  <button class="buy-btn" id="stickyBuy">Add to bag →</button>
 </div>
 
 <script>
@@ -662,13 +582,8 @@ const tabIO = new IntersectionObserver((entries)=>{
 },{threshold:0, rootMargin:'-110px 0px -85% 0px'});
 tabTargets.forEach(t=>{ if(t) tabIO.observe(t); });
 
-/* ---- sticky bar visibility after hero ---- */
+/* ---- sticky bar: hero removed, this is now the permanent purchase bar ---- */
 const stickyBar = document.getElementById('stickyBar');
-const heroEl = document.querySelector('.hero');
-const heroIO = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ stickyBar.classList.toggle('show', !e.isIntersecting); });
-},{threshold:0});
-heroIO.observe(heroEl);
 
 /* ---- pincode check: client-side format confirmation only ---- */
 document.getElementById('pincodeBtn').addEventListener('click', ()=>{
@@ -684,7 +599,7 @@ document.getElementById('pincodeBtn').addEventListener('click', ()=>{
 });
 
 /* ---- buy buttons (no live cart backend — visual feedback only) ---- */
-[document.getElementById('heroBuy'), document.getElementById('stickyBuy')].forEach(btn=>{
+[document.getElementById('stickyBuy')].forEach(btn=>{
   if(!btn) return;
   btn.addEventListener('click', ()=>{
     const orig = btn.textContent;
