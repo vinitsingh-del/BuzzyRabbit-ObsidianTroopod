@@ -41,19 +41,23 @@ header{height:76px;max-width:1260px;margin:auto;padding:0 20px;display:flex;alig
 .shell{width:min(1230px,calc(100% - 36px));margin:auto}
 
 /* ---- hero ---- */
-.hero{height:420px;position:relative;overflow:hidden;border-radius:26px;isolation:isolate;box-shadow:0 24px 50px #04134d75;margin-top:18px;background:#0a1f6e}
-.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:75% 30%;z-index:-3;opacity:.9}
-.hero:after{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#04135ff5 0%,#053e92c0 44%,#00a9ae30 100%)}
-.grid{position:absolute;inset:0;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:68px 68px;opacity:.45}
-.hero-copy{position:absolute;z-index:1;top:50%;left:6%;transform:translateY(-50%);max-width:640px}
+.hero{position:relative;overflow:hidden;border-radius:26px;isolation:isolate;box-shadow:0 24px 50px #04134d75;margin-top:12px;
+  background:radial-gradient(circle at 78% 50%,#1a3f9e 0%,#0d1f6e 45%,#081142 100%);
+  display:grid;grid-template-columns:1.05fr .95fr;align-items:center;min-height:460px;padding:0 4%}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:100%;padding:30px 0}
+.hero-visual img{width:100%;max-width:380px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));position:relative;z-index:1}
+.hero-visual .glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,#00aeb266 0%,transparent 70%);z-index:0}
+@media (max-width:860px){.hero{grid-template-columns:1fr;min-height:0;padding:36px 5% 0}.hero-visual{order:-1;padding:10px 0 0}.hero-visual img{max-width:220px}.hero-visual .glow{width:220px;height:220px}}
+.hero-copy{position:relative;z-index:1;padding:44px 0;max-width:520px}
 .eyebrow{margin:0 0 8px;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:800;color:#d8eeffb8}
 .hero h1{margin:0;font:400 clamp(44px,6.6vw,84px)/.92 One,Arial,sans-serif;letter-spacing:-.03em;color:#d8eaff}
 .hero p.sub{margin:14px 0 0;font-size:14px;line-height:1.5;color:#e5f3ffcc;max-width:380px}
-.offer{position:absolute;right:8%;top:50%;transform:translateY(-50%);width:130px;aspect-ratio:1;border:1px solid #effaffc9;border-radius:50%;display:grid;place-content:center;text-align:center;box-shadow:0 0 0 15px #fff1,0 0 36px #b5ffff66;animation:float 4s ease-in-out infinite}
+.offer{position:absolute;right:6%;top:14px;width:96px;aspect-ratio:1;border:1px solid #effaffc9;border-radius:50%;display:grid;place-content:center;text-align:center;box-shadow:0 0 0 10px #fff1,0 0 30px #b5ffff55;animation:float 4s ease-in-out infinite;z-index:2}
 .offer span{font:10px One;letter-spacing:.2em}
-.offer b{font:800 40px/.9 One;color:#fff2bd}
-@keyframes float{50%{transform:translate(0,-56%) scale(1.03)}}
-@media (max-width:680px){.offer{display:none}}
+.offer b{font:800 26px/.9 One;color:#fff2bd}
+@media (max-width:860px){.offer{top:14px;right:14px;width:60px}.offer b{font-size:14px}.offer span{font-size:6px;letter-spacing:.1em}}
+@keyframes float{50%{transform:translateY(-8px) scale(1.03)}}
+@media (max-width:680px){}
 
 .hero-buy{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
 .rating-row{display:flex;align-items:center;gap:8px;font-size:12px}
@@ -65,14 +69,14 @@ header{height:76px;max-width:1260px;margin:auto;padding:0 20px;display:flex;alig
 .buy-btn{border:0;padding:13px 26px;border-radius:8px;background:#ffdf00;color:#091744;text-transform:uppercase;font:800 11px One;letter-spacing:.08em;cursor:pointer;white-space:nowrap}
 
 /* ---- category pills ---- */
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:28px 0 12px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
 .category{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding:13px 10px;border:1px solid #e5f6ff9c;border-radius:12px;background:#eef9ffed;color:#091640;box-shadow:0 7px 15px #00125a2b;cursor:pointer}
 .category b{display:block;text-transform:uppercase;font:800 11px One;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (max-width:680px){.categories{grid-template-columns:repeat(2,1fr)}header{padding:0 16px}.nav,.actions{display:none}.hamb{display:block}}
 
 /* ---- section heading ---- */
 section{scroll-margin-top:20px}
-.section{padding-top:74px}
+.section{padding-top:12px}
 .kicker{text-align:center;margin:0 0 5px;text-transform:uppercase;font:800 10px One;letter-spacing:.14em;color:#e8f7ffbb}
 .title{margin:0 0 17px;text-align:center;font:800 clamp(28px,3.6vw,46px)/.98 One;letter-spacing:-.025em}
 .title i{font:400 .9em One,Arial,sans-serif;color:#e3efff;margin-left:5px;text-transform:none;font-style:normal}
@@ -88,10 +92,12 @@ section{scroll-margin-top:20px}
 .info{padding:14px}
 .info p{min-height:12px;margin:0 0 4px;color:#596e82;text-transform:uppercase;font:800 8px One;letter-spacing:.06em}
 .info h3{min-height:31px;margin:0;font:800 15px/1.2 One;letter-spacing:-.02em}
+.card.plain{background:transparent;border:none;box-shadow:0 12px 26px #0010523b}
+.card.plain .media.plain{height:auto;aspect-ratio:296/406;background:none}
 @media (max-width:680px){.cards{display:flex;overflow:auto;gap:12px;padding-bottom:7px;scroll-snap-type:x mandatory}.cards .card{flex:0 0 62vw;scroll-snap-align:start}}
 
 /* ---- dark showcase ---- */
-.dark-showcase{position:relative;margin-top:78px;padding:90px 0;background:#061345;background-size:cover;background-position:center}
+.dark-showcase{position:relative;margin-top:12px;padding:64px 0;background:#061345;background-size:cover;background-position:center}
 .dark-showcase:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#06133feF,#071658b9 50%,#081142c7)}
 .wide{position:relative;width:min(1230px,calc(100% - 36px));margin:auto}
 .dark-showcase h2{margin:0;font:800 clamp(34px,4.6vw,58px)/.95 One}
@@ -101,10 +107,11 @@ section{scroll-margin-top:20px}
 .dark-showcase .pill{background:#fff2;border:1px solid #fff5;padding:9px 16px;border-radius:99px;font:800 11px One}
 
 /* ---- bundle-style split ---- */
-.bundle{display:grid;grid-template-columns:1fr 1fr;margin-top:76px;border-radius:25px;overflow:hidden;background:#edf8ff;color:#081542;box-shadow:0 20px 42px #00125650}
+.bundle{display:grid;grid-template-columns:1fr 1fr;margin-top:12px;border-radius:25px;overflow:hidden;background:#edf8ff;color:#081542;box-shadow:0 20px 42px #00125650}
 .bundle-pic{min-height:460px;position:relative}
+.bundle-pic.waterproof-pic{background:radial-gradient(circle at 50% 45%,#2f6fe0 0%,#07318d 55%,#04164d 100%);display:flex;align-items:center;justify-content:center;padding:30px}
+.bundle-pic.waterproof-pic img{width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 20px 30px rgba(0,0,0,.4))}
 .bundle-pic img{width:100%;height:100%;object-fit:cover}
-.bundle-pic b{position:absolute;left:30px;bottom:28px;color:#fff;font:400 clamp(34px,4vw,58px)/.85 One,Arial,sans-serif}
 .bundle-body{padding:44px;display:flex;flex-direction:column;justify-content:center}
 .bundle-body h2{margin:0;font:800 clamp(28px,3.4vw,44px)/.95 One}
 .bundle-body h2 i{display:block;margin:7px 0 0;color:#16357a;font-style:normal;font-weight:400}
@@ -113,10 +120,10 @@ section{scroll-margin-top:20px}
 .spec{background:#fff;border:1px solid #c3d9e9;border-radius:10px;padding:14px}
 .spec b{display:block;font:800 22px One;color:#07318e}
 .spec span{font-size:11px;color:#5b6f81;text-transform:uppercase;letter-spacing:.04em}
-@media (max-width:680px){.bundle{grid-template-columns:1fr;margin-top:58px;border-radius:18px}.bundle-pic{min-height:280px}.bundle-body{padding:28px 20px}}
+@media (max-width:680px){.bundle{grid-template-columns:1fr;margin-top:12px;border-radius:18px}.bundle-pic{min-height:280px}.bundle-body{padding:28px 20px}}
 
 /* ---- feed grid ---- */
-.feed{display:grid;grid-template-columns:1.05fr .95fr .95fr 1.05fr;gap:12px;margin-top:78px}
+.feed{display:grid;grid-template-columns:1.05fr .95fr .95fr 1.05fr;gap:12px;margin-top:12px}
 .feed figure{height:315px;margin:0;position:relative;overflow:hidden;border-radius:13px}
 .feed figure:nth-child(2),.feed figure:nth-child(4){margin-top:40px}
 .feed img{width:100%;height:100%;object-fit:cover}
@@ -124,7 +131,7 @@ section{scroll-margin-top:20px}
 @media (max-width:960px){.feed{grid-template-columns:repeat(2,1fr)}.feed figure:nth-child(2),.feed figure:nth-child(4){margin-top:0}}
 
 /* ---- rewards / specs grid ---- */
-.rewards{margin-top:86px;padding:78px 0;background:radial-gradient(circle at 86% 18%,#26bdbd90,transparent 26%),radial-gradient(circle at 10% 75%,#bd4fc480,transparent 30%),#082574}
+.rewards{margin-top:12px;padding:56px 0;background:radial-gradient(circle at 86% 18%,#26bdbd90,transparent 26%),radial-gradient(circle at 10% 75%,#bd4fc480,transparent 30%),#082574}
 .reward-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:38px;border-top:1px solid #fff5;border-left:1px solid #fff5}
 .reward{min-height:250px;padding:25px;border-right:1px solid #fff5;border-bottom:1px solid #fff5;background:#fff1;display:flex;flex-direction:column}
 .reward b{font-size:11px;color:#bfe5ff}
@@ -145,7 +152,7 @@ section{scroll-margin-top:20px}
 @media (max-width:680px){.trust{grid-template-columns:1fr}.trust article{min-height:0}}
 
 /* ---- footer ---- */
-footer{width:min(1230px,calc(100% - 36px));margin:82px auto 0;padding:28px 0 130px;display:grid;grid-template-columns:1fr 1fr auto;gap:30px;align-items:end;border-top:1px solid #fff5}
+footer{width:min(1230px,calc(100% - 36px));margin:12px auto 0;padding:28px 0 130px;display:grid;grid-template-columns:1fr 1fr auto;gap:30px;align-items:end;border-top:1px solid #fff5}
 footer img{width:105px}
 footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 footer .links{display:flex;flex-wrap:wrap;justify-content:center;gap:15px 22px}
@@ -189,8 +196,6 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
   <div class="shell">
     <!-- HERO -->
     <div class="hero reveal in">
-      <img class="hero-bg" src="assets/buzzy-pack-hero.png" alt="Durex Play Buzzy Rabbit">
-      <div class="grid"></div>
       <div class="hero-copy">
         <p class="eyebrow">Durex Play · Buzzy Rabbit</p>
         <h1>Meet your<br>new buzz.</h1>
@@ -204,7 +209,11 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
           <button class="buy-btn">Add to bag →</button>
         </div>
       </div>
-      <div class="offer"><span>UP TO</span><b>29%</b><span>OFF TODAY</span></div>
+      <div class="hero-visual">
+        <div class="glow"></div>
+        <img src="assets/hero-dual-action-cutout.png" alt="Durex Play Buzzy Rabbit">
+      </div>
+      <div class="offer"><span>UP TO</span><b>29%</b><span>OFF</span></div>
     </div>
 
     <!-- CATEGORY PILLS -->
@@ -223,20 +232,18 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
       <h2 class="title reveal">Two ways to <i>feel more.</i></h2>
       <p class="subcopy reveal">5 tapping modes meet 8 intense vibrations in one dual-action design made to tease, thrill and explore.</p>
       <div class="cards reveal">
-        <div class="card">
-          <div class="media"><span class="tag">Modes</span><img src="assets/buzzy-feature-modes.png" alt="5 sensational modes"></div>
-          <div class="info"><p>Durex Play</p><h3>5 Sensational Taps</h3></div>
+        <div class="card plain">
+          <div class="media plain"><img src="assets/buzzy-feature-modes.png" alt="5 sensational modes"></div>
         </div>
-        <div class="card">
-          <div class="media"><span class="tag">Power</span><img src="assets/buzzy-feature-vibrations.png" alt="8 powerful vibrations"></div>
-          <div class="info"><p>Durex Play</p><h3>8 Powerful Vibrations</h3></div>
+        <div class="card plain">
+          <div class="media plain"><img src="assets/buzzy-feature-vibrations.png" alt="8 powerful vibrations"></div>
         </div>
         <div class="card">
           <div class="media"><span class="tag">Touch</span><img src="assets/buzzy-rabbit-stage.png" alt="Soft touch finish"></div>
           <div class="info"><p>Durex Play</p><h3>Soft-Touch Finish</h3></div>
         </div>
         <div class="card">
-          <div class="media"><span class="tag">Safe</span><img src="assets/buzzy-runtime-hero.png" alt="Body safe silicone"></div>
+          <div class="media"><span class="tag">Safe</span><img src="assets/buzzy-rabbit.png" alt="Body safe silicone"></div>
           <div class="info"><p>Durex Play</p><h3>Body Safe Silicone</h3></div>
         </div>
       </div>
@@ -258,9 +265,8 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
   <!-- BUNDLE-STYLE SPLIT: WATERPROOF -->
   <div class="shell">
     <div class="bundle reveal" id="specs">
-      <div class="bundle-pic">
-        <img src="assets/buzzy-water-hero.png" alt="Waterproof Buzzy Rabbit">
-        <b>100%</b>
+      <div class="bundle-pic waterproof-pic">
+        <img src="assets/hero-waterproof-cutout.png" alt="Waterproof Buzzy Rabbit">
       </div>
       <div class="bundle-body">
         <h2>Take the buzz <i>underwater.</i></h2>
@@ -342,7 +348,7 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
 
 <div class="notice" id="notice">
   <div class="who">
-    <img src="assets/buzzy-runtime-hero.png" alt="Buzzy Rabbit">
+    <img src="assets/buzzy-rabbit.png" alt="Buzzy Rabbit">
     <div><p>Buzzy Rabbit</p><strong>₹3,999</strong></div>
   </div>
   <a id="noticeBtn">Add to bag →</a>
