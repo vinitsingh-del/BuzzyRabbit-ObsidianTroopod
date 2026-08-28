@@ -141,7 +141,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .pin-scene{position:relative}
 #heroScene{height:260vh}
 .pin-inner{position:sticky;top:130px;height:calc(100vh - 130px);overflow:hidden;display:flex;align-items:center}
-#heroScene .pin-inner{padding-bottom:135px}
+#heroScene .pin-inner{padding-bottom:165px}
 .hero-bg-shape{position:absolute;border-radius:50%;z-index:0;will-change:transform}
 .hero-bg-shape.s2{width:30vw;height:30vw;background:var(--magenta);opacity:.25;bottom:-10%;left:-8%}
 .hero-inner-grid{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
@@ -167,9 +167,9 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
 .hero-product-wrap{will-change:transform}
-.hero-product-wrap{width:62%;max-width:330px}
+.hero-product-wrap{width:78%;max-width:460px}
 .hero-visual canvas{width:100%;height:auto;display:block;animation:heroShake 2.6s ease-in-out infinite}
-@media (max-height:910px) and (min-width:961px){
+@media (max-height:1100px) and (min-width:961px){
   .hero-title{font-size:clamp(30px,4.4vw,46px);line-height:1.05}
   .hero-eyebrow{margin-bottom:6px}
   .hero-sub{margin-top:6px;font-size:13px;line-height:1.4}
@@ -177,14 +177,14 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-buy-row{margin-top:10px}
   .hero-trust{margin-top:10px;gap:12px}
   .hero-visual{min-height:0}
-  .hero-product-wrap{max-width:180px;width:40%}
-  #heroScene .pin-inner{padding-bottom:135px}
+  .hero-product-wrap{max-width:250px;width:56%}
+  #heroScene .pin-inner{padding-bottom:165px}
 }
-@media (max-height:740px) and (min-width:961px){
+@media (max-height:800px) and (min-width:961px){
   .hero-title{font-size:clamp(26px,3.6vw,36px)}
   .hero-sub{font-size:12px;line-height:1.35;margin-top:4px}
-  .hero-product-wrap{max-width:140px}
-  #heroScene .pin-inner{padding-bottom:135px}
+  .hero-product-wrap{max-width:190px}
+  #heroScene .pin-inner{padding-bottom:165px}
 }
 @media (max-height:640px) and (min-width:961px){
   .hero-title{font-size:clamp(22px,3vw,30px)}
@@ -193,8 +193,8 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-meta{margin-top:6px}
   .hero-buy-row{margin-top:8px}
   .hero-trust{margin-top:8px}
-  .hero-product-wrap{max-width:110px}
-  #heroScene .pin-inner{padding-bottom:135px}
+  .hero-product-wrap{max-width:150px}
+  #heroScene .pin-inner{padding-bottom:165px}
 }
 @keyframes heroShake{
   0%,100%{transform:translateX(0) rotate(0deg)}
@@ -211,10 +211,10 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   #heroScene{height:200vh}
   .hero-inner-grid{grid-template-columns:1fr;gap:6px;padding-top:14px}
   .hero-visual{order:-1;min-height:0;padding:0}
-  .hero-product-wrap{width:27%;max-width:119px}
+  .hero-product-wrap{width:50%;max-width:210px}
   .hero-copy{max-width:none}
   .pin-inner{align-items:flex-start;padding-top:10px}
-  #heroScene .pin-inner{padding-bottom:135px}
+  #heroScene .pin-inner{padding-bottom:165px}
   .hero-eyebrow{margin:0 0 6px;font-size:10px}
   .hero-title{font-size:21px;line-height:1.08}
   .hero-sub{margin-top:8px;font-size:13px;line-height:1.4}
@@ -228,7 +228,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
    UNDERSTAND — signature 3D exploded-view moment
    ============================================================ */
 #explodeScene{height:320vh}
-.explode-stage{position:relative;width:100%;max-width:520px;margin:0 auto}
+.explode-stage{position:relative;width:100%;max-width:580px;margin:0 auto}
 .explode-visual{position:relative;width:100%;aspect-ratio:280/497;display:block}
 .explode-visual canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35));transform-origin:center center;will-change:transform}
 .explode-copy{position:relative;z-index:2;text-align:center;padding-top:6px}
@@ -240,7 +240,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 @media (max-width:760px){
   #explodeScene{height:280vh}
   .explode-fact{position:static;max-width:none;margin:0 0 10px;opacity:1!important;transform:none!important}
-  .explode-stage{max-width:280px}
+  .explode-stage{max-width:320px}
   .explode-visual{margin-bottom:16px}
 }
 
