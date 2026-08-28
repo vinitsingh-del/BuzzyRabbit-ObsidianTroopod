@@ -30,8 +30,6 @@ body:before{content:"";position:fixed;z-index:-1;inset:0;
 /* ---- header ---- */
 header{height:76px;max-width:1260px;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:22px}
 .brand img{width:105px}
-.nav{display:flex;gap:24px}
-.nav a{border:0;background:none;padding:7px 0;color:#eaf7ff;text-transform:uppercase;font:800 12px One,Arial;letter-spacing:.04em}
 .actions{display:flex;align-items:center;gap:18px}
 .actions button{border:0;background:none;color:#eaf7ff;text-transform:uppercase;font:800 12px One,Arial;letter-spacing:.04em;display:flex;align-items:center;gap:8px;cursor:pointer}
 .cart-no{display:inline-grid;place-items:center;width:17px;height:17px;border:1px solid #d7efff;border-radius:50%;font-size:9px}
@@ -60,6 +58,10 @@ header{height:76px;max-width:1260px;margin:auto;padding:0 20px;display:flex;alig
 @media (max-width:680px){}
 
 .hero-buy{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.qty-stepper{display:flex;align-items:center;gap:0;border:1px solid #fff4;border-radius:8px;overflow:hidden}
+.qty-stepper button{width:38px;height:44px;border:0;background:#fff1;color:#fff;font:800 16px One;cursor:pointer}
+.qty-stepper button:hover{background:#fff2}
+.qty-stepper span{width:34px;text-align:center;font:800 14px One}
 .rating-row{display:flex;align-items:center;gap:8px;font-size:12px}
 .stars{color:#ffdf00;letter-spacing:1px}
 .price-tag{display:flex;align-items:baseline;gap:8px}
@@ -69,10 +71,15 @@ header{height:76px;max-width:1260px;margin:auto;padding:0 20px;display:flex;alig
 .buy-btn{border:0;padding:13px 26px;border-radius:8px;background:#ffdf00;color:#091744;text-transform:uppercase;font:800 11px One;letter-spacing:.08em;cursor:pointer;white-space:nowrap}
 
 /* ---- category pills ---- */
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
-.category{display:flex;align-items:center;justify-content:center;gap:8px;min-width:0;padding:13px 10px;border:1px solid #e5f6ff9c;border-radius:12px;background:#eef9ffed;color:#091640;box-shadow:0 7px 15px #00125a2b;cursor:pointer}
-.category b{display:block;text-transform:uppercase;font:800 11px One;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media (max-width:680px){.categories{grid-template-columns:repeat(2,1fr)}header{padding:0 16px}.nav,.actions{display:none}.hamb{display:block}}
+.crumb{display:flex;align-items:center;gap:8px;font:800 11px One,Arial;letter-spacing:.02em;text-transform:uppercase;color:#c9def5}
+.crumb a{color:#c9def5;opacity:.8}
+.crumb a:hover{opacity:1}
+.crumb span{opacity:.4}
+.crumb b{color:#fff;font-weight:800}
+.page-tabs{display:flex;gap:28px;margin:12px 0;padding-bottom:10px;border-bottom:1px solid #fff2;overflow-x:auto;white-space:nowrap;position:sticky;top:76px;z-index:20;background:#082679cc;backdrop-filter:blur(6px)}
+.page-tabs a{font:800 11px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent}
+.page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:#ffdf00}
+@media (max-width:680px){header{padding:0 16px}.crumb,.actions{display:none}.hamb{display:block}.page-tabs{top:0;gap:20px}}
 
 /* ---- section heading ---- */
 section{scroll-margin-top:20px}
@@ -180,10 +187,8 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
 
 <header>
   <a class="brand" href="#top"><img src="assets/durex-logo-white.png" alt="Durex"></a>
-  <nav class="nav">
-    <a href="#features">Features</a>
-    <a href="#angles">Product view</a>
-    <a href="#reviews">Reviews</a>
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="#top">Home</a><span>/</span><a href="#top">Play</a><span>/</span><b>Buzzy Rabbit</b>
   </nav>
   <div class="actions">
     <button>Account</button>
@@ -206,7 +211,14 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
         <div class="hero-buy">
           <div class="price-tag"><b>₹3,999</b><s>₹5,624</s></div>
           <span class="off-pill">29% OFF</span>
-          <button class="buy-btn">Add to bag →</button>
+        </div>
+        <div class="hero-buy">
+          <div class="qty-stepper">
+            <button id="qtyMinus" aria-label="Decrease quantity">−</button>
+            <span id="qtyVal">1</span>
+            <button id="qtyPlus" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="buy-btn" id="heroBuy">Add to bag →</button>
         </div>
       </div>
       <div class="hero-visual">
@@ -216,13 +228,14 @@ footer a,footer small{font:800 10px One;letter-spacing:.06em;text-transform:uppe
       <div class="offer"><span>UP TO</span><b>29%</b><span>OFF</span></div>
     </div>
 
-    <!-- CATEGORY PILLS -->
-    <div class="categories reveal">
-      <a class="category" href="#features"><b>Dual Action</b></a>
-      <a class="category" href="#features"><b>Soft Touch</b></a>
-      <a class="category" href="#specs"><b>Waterproof</b></a>
-      <a class="category" href="#specs"><b>Rechargeable</b></a>
-    </div>
+    <!-- IN-PAGE ANCHOR TABS -->
+    <nav class="page-tabs reveal" aria-label="Section navigation">
+      <a href="#top" class="active">Overview</a>
+      <a href="#features">Features</a>
+      <a href="#specs">Waterproof</a>
+      <a href="#angles">Product view</a>
+      <a href="#reviews">Reviews</a>
+    </nav>
   </div>
 
   <!-- FEATURES -->
@@ -370,6 +383,29 @@ const heroIO = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ notice.classList.toggle('show', !e.isIntersecting); });
 },{threshold:0});
 heroIO.observe(hero);
+
+// Quantity stepper
+const UNIT_PRICE = 3999;
+let qty = 1;
+const qtyVal = document.getElementById('qtyVal');
+const noticeAmt = document.querySelector('#notice strong');
+function renderQty(){
+  qtyVal.textContent = qty;
+  noticeAmt.textContent = '₹' + (UNIT_PRICE * qty).toLocaleString('en-IN');
+}
+document.getElementById('qtyMinus').addEventListener('click', ()=>{ if(qty>1){ qty--; renderQty(); } });
+document.getElementById('qtyPlus').addEventListener('click', ()=>{ if(qty<10){ qty++; renderQty(); } });
+
+// Active page-tab on scroll
+const tabLinks = document.querySelectorAll('.page-tabs a');
+const tabTargets = Array.from(tabLinks).map(a=>document.querySelector(a.getAttribute('href')));
+const tabIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    const idx = tabTargets.indexOf(e.target);
+    if(e.isIntersecting && idx>-1){ tabLinks.forEach(a=>a.classList.remove('active')); tabLinks[idx].classList.add('active'); }
+  });
+},{threshold:0.4, rootMargin:'-80px 0px -60% 0px'});
+tabTargets.forEach(t=>{ if(t) tabIO.observe(t); });
 </script>
 
 </body>
