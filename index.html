@@ -166,6 +166,11 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .explode-fact.f1{top:6%;left:-6%}
 .explode-fact.f2{top:8%;right:-10%}
 .explode-fact.f3{bottom:2%;left:12%}
+@media (min-width:761px) and (max-width:1080px){
+  .explode-fact{max-width:150px;font-size:12px;padding:11px 14px}
+  .explode-fact.f1{left:0}
+  .explode-fact.f2{right:0}
+}
 @media (max-width:760px){
   #explodeScene{height:280vh}
   .explode-fact{position:static;max-width:none;margin:0 0 10px;opacity:1!important;transform:none!important}
