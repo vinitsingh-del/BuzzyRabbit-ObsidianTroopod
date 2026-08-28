@@ -47,19 +47,21 @@ body:before{
   animation:pageGradientFlow 4s ease-in-out infinite;
 }
 @keyframes pageGradientFlow{
-  0%{background-position:0% 50%;background-size:260% 260%}
-  50%{background-position:100% 50%;background-size:200% 200%}
-  100%{background-position:0% 50%;background-size:260% 260%}
+  0%{background-position:50% 50%;background-size:450% 450%}
+  35%{background-position:50% 50%;background-size:120% 120%}
+  65%{background-position:50% 50%;background-size:520% 520%}
+  100%{background-position:50% 50%;background-size:450% 450%}
 }
 @media (max-width:680px){
-  body:before{ background-size:340% 340%; }
+  body:before{ background-size:500% 500%; }
   @keyframes pageGradientFlow{
-    0%{background-position:0% 50%;background-size:340% 340%}
-    50%{background-position:100% 50%;background-size:270% 270%}
-    100%{background-position:0% 50%;background-size:340% 340%}
+    0%{background-position:50% 50%;background-size:500% 500%}
+    35%{background-position:50% 50%;background-size:150% 150%}
+    65%{background-position:50% 50%;background-size:560% 560%}
+    100%{background-position:50% 50%;background-size:500% 500%}
   }
 }
-@media (prefers-reduced-motion: reduce){ body:before{ animation:none; background-position:0% 50%; } }
+@media (prefers-reduced-motion: reduce){ body:before{ animation:none; background-position:50% 50%; background-size:260% 260%; } }
 img,video{display:block;max-width:100%}
 button,a{font:inherit;cursor:pointer}
 a{color:inherit;text-decoration:none}
