@@ -84,7 +84,7 @@ svg{display:block}
 .stagger.in > *:nth-child(5){transition-delay:.31s}
 .stagger.in > *:nth-child(6){transition-delay:.38s}
 @media (prefers-reduced-motion: reduce){
-  .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none!important}
+  .reveal,.stagger>*,.kicker-reveal{opacity:1!important;transform:none!important;letter-spacing:.12em!important;transition:none!important}
   .pin-inner{transform:none!important}
   .pin-scene{height:auto!important}
   .pin-inner{position:relative!important;top:auto!important}
@@ -129,6 +129,8 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:var(--yellow)}
 
 .kicker{text-align:center;margin:0 0 10px;text-transform:uppercase;font:800 10px One;letter-spacing:.12em}
+.kicker-reveal{opacity:0;letter-spacing:.02em;transition:opacity .7s var(--ease-smooth),letter-spacing .7s var(--ease-smooth)}
+.kicker-reveal.in{opacity:1;letter-spacing:.12em}
 .title{margin:0 0 20px;text-align:center;font:800 clamp(30px,4vw,50px)/1.05 One;letter-spacing:-1.4px}
 .title i{font:800 .92em One,Arial,sans-serif;margin-left:6px;font-style:normal;text-transform:none;letter-spacing:-1.3px}
 .subcopy{max-width:520px;margin:0 auto 40px;text-align:center;font-size:15px;line-height:1.6}
@@ -154,7 +156,9 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .price-tag b{font:800 30px One}
 .price-tag s{font-size:13px;opacity:.55}
 .off-pill{background:var(--green);color:#fff;font:800 10px One;letter-spacing:.06em;padding:6px 12px;border:2px solid var(--white);border-radius:999px}
-.buy-btn{border:3px solid var(--white);padding:15px 28px;border-radius:999px;background:var(--magenta);color:#fff;text-transform:uppercase;font:800 12px One;letter-spacing:.07em;box-shadow:var(--shadow-flat-sm);transition:transform .3s var(--ease-bounce),box-shadow .3s var(--ease-bounce)}
+.buy-btn{border:3px solid var(--white);padding:15px 28px;border-radius:999px;background:var(--magenta);color:#fff;text-transform:uppercase;font:800 12px One;letter-spacing:.07em;box-shadow:var(--shadow-flat-sm);transition:transform .3s var(--ease-bounce),box-shadow .3s var(--ease-bounce);position:relative;overflow:hidden}
+.buy-btn-ripple{position:absolute;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:rgba(255,255,255,.55);pointer-events:none;transform:scale(0);animation:buyBtnRipple .6s ease-out forwards}
+@keyframes buyBtnRipple{to{transform:scale(18);opacity:0}}
 .buy-btn:hover{transform:translate(-3px,-3px);box-shadow:11px 11px 0 var(--navy)}
 .buy-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--navy)}
 .hero-trust{display:flex;gap:18px;margin-top:18px;flex-wrap:wrap}
@@ -403,7 +407,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
           <span class="off-pill">29% off</span>
         </div>
         <div class="hero-buy-row reveal in">
-          <button class="buy-btn" id="heroBuy">Add to bag →</button>
+          <button class="buy-btn" id="heroBuy"><span class="buy-btn-label">Add to bag →</span></button>
         </div>
         <div class="hero-trust reveal in">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>Discreet packaging</span>
@@ -449,7 +453,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
   <div class="shell">
     <div class="pop-card safety-card pop-grid-2 reveal">
       <div>
-        <p class="kicker" style="color:var(--magenta);text-align:left">Safety</p>
+        <p class="kicker kicker-reveal" style="color:var(--magenta);text-align:left">Safety</p>
         <h2 class="title" style="text-align:left;margin-bottom:16px;color:var(--navy-ink)">Made for <i style="color:var(--magenta)">external play.</i></h2>
         <p style="font-size:14.5px;line-height:1.65;color:#4a5a86;max-width:440px">Buzzy Rabbit is designed for external stimulation only — around the clitoral area or other sensitive zones. It's not meant for internal insertion.</p>
         <ul class="safety-list">
@@ -468,7 +472,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
      Copy locked verbatim. -->
 <section class="section on-navy" id="confidence">
   <div class="shell">
-    <p class="kicker reveal">Confidence</p>
+    <p class="kicker kicker-reveal">Confidence</p>
     <h2 class="title reveal">Three steps. <i style="color:var(--pink)">That's it.</i></h2>
     <p class="subcopy reveal">No manual required — but here's the short version anyway.</p>
     <div class="pop-grid-3 stagger">
@@ -488,7 +492,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
      Copy locked verbatim. -->
 <section class="section on-navy" id="proof">
   <div class="shell">
-    <p class="kicker reveal">Proof</p>
+    <p class="kicker kicker-reveal">Proof</p>
     <h2 class="title reveal">A buzz worth <i style="color:var(--pink)">talking about.</i></h2>
     <div class="proof-top">
       <div class="pop-card rating-card reveal">
@@ -533,7 +537,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
      Copy locked verbatim. -->
 <section class="section on-navy" id="decision">
   <div class="shell">
-    <p class="kicker reveal">Decision</p>
+    <p class="kicker kicker-reveal">Decision</p>
     <h2 class="title reveal">Delivery, <i style="color:var(--pink)">handled discreetly.</i></h2>
     <div class="pop-grid-2 stagger">
       <div class="pop-card decision-card-pop">
@@ -561,7 +565,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
      Copy locked verbatim. -->
 <section class="section on-navy" id="faq">
   <div class="shell">
-    <p class="kicker reveal">Questions</p>
+    <p class="kicker kicker-reveal">Questions</p>
     <h2 class="title reveal">Before you <i style="color:var(--pink)">buzz.</i></h2>
     <div class="faq-list stagger">
       <details class="faq-item pop-card" open>
@@ -620,7 +624,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
     <span id="qtyVal">1</span>
     <button id="qtyPlus" aria-label="Increase quantity">+</button>
   </div>
-  <button class="buy-btn" id="stickyBuy">Add to bag →</button>
+  <button class="buy-btn" id="stickyBuy"><span class="buy-btn-label">Add to bag →</span></button>
 </div>
 <script>
 document.getElementById('tickerTrack').innerHTML = Array(3).fill(["Discreet Delivery","100% Authentic","69 Store is Live"].map(t=>`<b>${t}</b>`).join('')).join('');
@@ -699,7 +703,7 @@ if(!reduceMotion && explodeScene){
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 },{threshold:.15});
-document.querySelectorAll('.reveal:not(.in), .stagger').forEach(el=>io.observe(el));
+document.querySelectorAll('.reveal:not(.in), .stagger, .kicker-reveal:not(.in)').forEach(el=>io.observe(el));
 
 /* ---- active page-tab on scroll ---- */
 const tabLinks = document.querySelectorAll('.page-tabs a');
@@ -737,13 +741,40 @@ document.getElementById('pincodeBtn').addEventListener('click', ()=>{
   }
 });
 
-/* ---- buy buttons (no live cart backend — visual feedback only) ---- */
-[document.getElementById('heroBuy'), document.getElementById('stickyBuy')].forEach(btn=>{
+/* ---- buy buttons: magnetic pull + click ripple + existing feedback ---- */
+const buyBtns = [document.getElementById('heroBuy'), document.getElementById('stickyBuy')];
+const reduceMotionForMagnet = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = window.matchMedia('(hover: hover)').matches;
+
+buyBtns.forEach(btn=>{
   if(!btn) return;
-  btn.addEventListener('click', ()=>{
-    const orig = btn.textContent;
-    btn.textContent = 'Added ✓';
-    setTimeout(()=>{ btn.textContent = orig; }, 1400);
+
+  /* magnetic pull toward cursor, desktop hover only, respects reduced-motion */
+  if(!reduceMotionForMagnet && canHover){
+    btn.addEventListener('mousemove', (e)=>{
+      const rect = btn.getBoundingClientRect();
+      const relX = e.clientX - rect.left - rect.width/2;
+      const relY = e.clientY - rect.top - rect.height/2;
+      btn.style.transform = `translate(${relX*0.25}px, ${relY*0.35}px)`;
+    });
+    btn.addEventListener('mouseleave', ()=>{ btn.style.transform = ''; });
+  }
+
+  /* click ripple: short-lived, removes itself, purely additive feedback */
+  btn.addEventListener('click', (e)=>{
+    if(!reduceMotionForMagnet){
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'buy-btn-ripple';
+      ripple.style.left = (e.clientX - rect.left) + 'px';
+      ripple.style.top = (e.clientY - rect.top) + 'px';
+      btn.appendChild(ripple);
+      setTimeout(()=>ripple.remove(), 650);
+    }
+    const label = btn.querySelector('.buy-btn-label');
+    const orig = label.textContent;
+    label.textContent = 'Added ✓';
+    setTimeout(()=>{ label.textContent = orig; }, 1400);
   });
 });
 </script>
