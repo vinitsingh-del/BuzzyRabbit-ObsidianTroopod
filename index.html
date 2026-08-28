@@ -42,9 +42,9 @@ body:before{
   position:fixed;
   inset:0;
   z-index:-3;
-  background-image:linear-gradient(120deg,#ff76e9 0%,#007bff 33%,#8b3fd9 66%,#ff7ea0 100%);
+  background-image:linear-gradient(120deg,#ff76e9 0%,#007bff 25%,#ffd23f 50%,#8b3fd9 75%,#ff7ea0 100%);
   background-size:260% 260%;
-  animation:pageGradientFlow 9.5s ease-in-out infinite;
+  animation:pageGradientFlow 4s ease-in-out infinite;
 }
 @keyframes pageGradientFlow{
   0%{background-position:0% 50%}
@@ -80,7 +80,7 @@ svg{display:block}
 .stagger.in > *:nth-child(6){transition-delay:.38s}
 @media (prefers-reduced-motion: reduce){
   .reveal,.stagger>*{opacity:1!important;transform:none!important;transition:none!important}
-  .pin-inner,.explode-piece{transform:none!important}
+  .pin-inner{transform:none!important}
   .pin-scene{height:auto!important}
   .pin-inner{position:relative!important;top:auto!important}
 }
@@ -188,11 +188,8 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
    ============================================================ */
 #explodeScene{height:320vh}
 .explode-stage{width:100%;max-width:520px;margin:0 auto}
-.explode-visual{position:relative;width:100%;aspect-ratio:1}
-.explode-piece{position:absolute;inset:0;background-image:url('assets/hero-dual-action-cutout.png');background-size:100% 100%;background-repeat:no-repeat;will-change:transform;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}
-.explode-piece.ear{clip-path:polygon(0% 32%,46% 32%,46% 100%,0% 100%)}
-.explode-piece.shaft{clip-path:polygon(30% 0%,88% 0%,88% 68%,30% 68%)}
-.explode-piece.base{clip-path:polygon(52% 42%,100% 42%,100% 100%,52% 100%)}
+.explode-visual{position:relative;width:100%;aspect-ratio:280/497;display:block}
+.explode-visual canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}
 .explode-copy{position:relative;z-index:2;text-align:center;padding-top:6px}
 .explode-fact{position:absolute;padding:14px 18px;background:var(--white);color:var(--navy-ink);border:3px solid var(--navy-ink);border-radius:14px;box-shadow:var(--shadow-flat-sm);font:800 13px One;letter-spacing:-.3px;max-width:180px;opacity:0;transition:opacity .4s var(--ease-smooth),transform .4s var(--ease-bounce);text-align:left}
 .explode-fact span{display:block;font:800 9px One;letter-spacing:.08em;text-transform:uppercase;color:var(--magenta);margin-bottom:4px}
@@ -208,7 +205,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   #explodeScene{height:280vh}
   .explode-fact{position:static;max-width:none;margin:0 0 10px;opacity:1!important;transform:none!important}
   .explode-stage{max-width:280px}
-  .explode-visual{margin-bottom:90px}
+  .explode-visual{margin-bottom:16px}
 }
 
 /* ============================================================
@@ -405,9 +402,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
       <p class="subcopy reveal in" style="color:#dbe9ffd0">Two independent motors, controlled by two buttons. Start with one, layer in the other, and dial each up on its own.</p>
       <div class="explode-stage">
         <div class="explode-visual">
-          <div class="explode-piece ear" id="pieceEar"></div>
-          <div class="explode-piece shaft" id="pieceShaft"></div>
-          <div class="explode-piece base" id="pieceBase"></div>
+          <canvas id="explodeCanvas" width="280" height="497" aria-label="Buzzy Rabbit exploded view showing dual motors"></canvas>
         </div>
         <div class="explode-fact f1" id="fact1"><span>01 · Tapping</span>5 tapping modes — from a slow tease to a fast flutter.</div>
         <div class="explode-fact f2" id="fact2"><span>02 · Vibration</span>8 vibration intensities — low steady hum to full power.</div>
@@ -603,11 +598,25 @@ window.addEventListener('load',()=>{ document.getElementById('loadSplash').class
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const heroScene = document.getElementById('heroScene');
 
-/* ---- signature moment: exploded-view scroll sync ---- */
+/* ---- signature moment: exploded-view scroll sync (real footage, sprite-sheet) ---- */
 const explodeScene = document.getElementById('explodeScene');
-const pieceEar = document.getElementById('pieceEar');
-const pieceShaft = document.getElementById('pieceShaft');
-const pieceBase = document.getElementById('pieceBase');
+const explodeCanvas = document.getElementById('explodeCanvas');
+const ctx = explodeCanvas ? explodeCanvas.getContext('2d') : null;
+const SPRITE_FRAME_COUNT = 40;
+const SPRITE_FRAME_W = 280;
+const SPRITE_FRAME_H = 497;
+const spriteImg = new Image();
+let spriteReady = false;
+spriteImg.src = 'assets/explode-sprite.png';
+spriteImg.onload = ()=>{ spriteReady = true; drawExplodeFrame(0); };
+
+function drawExplodeFrame(idx){
+  if(!ctx || !spriteReady) return;
+  const clamped = Math.max(0, Math.min(SPRITE_FRAME_COUNT-1, idx));
+  ctx.clearRect(0,0,SPRITE_FRAME_W,SPRITE_FRAME_H);
+  ctx.drawImage(spriteImg, 0, clamped*SPRITE_FRAME_H, SPRITE_FRAME_W, SPRITE_FRAME_H, 0,0, SPRITE_FRAME_W, SPRITE_FRAME_H);
+}
+
 const facts = [document.getElementById('fact1'), document.getElementById('fact2'), document.getElementById('fact3')];
 if(!reduceMotion && explodeScene){
   let ticking2 = false;
@@ -615,16 +624,8 @@ if(!reduceMotion && explodeScene){
     const rect = explodeScene.getBoundingClientRect();
     const total = explodeScene.offsetHeight - window.innerHeight;
     const raw = Math.min(1, Math.max(0, -rect.top / total));
-    // three phases within the pinned scroll: 0-.4 explode apart, .4-.7 hold + reveal facts, .7-1 reassemble
-    let explodeAmt;
-    if(raw < 0.4){ explodeAmt = raw / 0.4; }
-    else if(raw < 0.7){ explodeAmt = 1; }
-    else { explodeAmt = 1 - (raw - 0.7) / 0.3; }
-    const rot = explodeAmt * 18;
-    const mobileScale = window.innerWidth < 760 ? 0.55 : 1;
-    pieceEar.style.transform = `translate(${-explodeAmt*70*mobileScale}px, ${explodeAmt*40*mobileScale}px) rotate(${-rot}deg)`;
-    pieceShaft.style.transform = `translate(0, ${-explodeAmt*60*mobileScale}px) rotate(${rot*0.4}deg) scale(${1+explodeAmt*0.05})`;
-    pieceBase.style.transform = `translate(${explodeAmt*80*mobileScale}px, ${explodeAmt*50*mobileScale}px) rotate(${rot}deg)`;
+    // real video arc: 0 = assembled, ~0.6 = fully exploded (internals visible), 1 = reassembled
+    drawExplodeFrame(Math.round(raw * (SPRITE_FRAME_COUNT-1)));
     facts.forEach((f,i)=>{
       const show = raw > 0.32 + i*0.1 && raw < 0.92;
       f.style.opacity = show ? '1' : '0';
@@ -636,6 +637,7 @@ if(!reduceMotion && explodeScene){
   updateExplode();
 } else if(facts[0]) {
   facts.forEach(f=>{ f.style.opacity='1'; });
+  if(ctx){ spriteImg.onload = ()=>{ spriteReady=true; drawExplodeFrame(24); }; }
 }
 
 /* ---- scroll reveal (single + staggered groups) ---- */
