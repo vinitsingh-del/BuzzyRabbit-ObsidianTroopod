@@ -42,7 +42,7 @@ body:before{
   position:fixed;
   inset:0;
   z-index:-3;
-  background-image:linear-gradient(120deg,#ff76e9 0%,#007bff 25%,#ffd23f 50%,#8b3fd9 75%,#ff7ea0 100%);
+  background-image:linear-gradient(120deg,#ff76e9 0%,#007bff 33%,#8b3fd9 66%,#ff7ea0 100%);
   background-size:260% 260%;
   animation:pageGradientFlow 4s ease-in-out infinite;
 }
@@ -139,6 +139,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .pin-scene{position:relative}
 #heroScene{height:260vh}
 .pin-inner{position:sticky;top:130px;height:calc(100vh - 130px);overflow:hidden;display:flex;align-items:center}
+#heroScene .pin-inner{padding-bottom:110px}
 .hero-bg-shape{position:absolute;border-radius:50%;z-index:0;will-change:transform}
 .hero-bg-shape.s2{width:30vw;height:30vw;background:var(--magenta);opacity:.25;bottom:-10%;left:-8%}
 .hero-inner-grid{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
@@ -180,6 +181,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-visual img{width:27%;max-width:119px}
   .hero-copy{max-width:none}
   .pin-inner{align-items:flex-start;padding-top:10px}
+  #heroScene .pin-inner{padding-bottom:95px}
   .hero-eyebrow{margin:0 0 6px;font-size:10px}
   .hero-title{font-size:21px;line-height:1.08}
   .hero-sub{margin-top:8px;font-size:13px;line-height:1.4}
@@ -192,7 +194,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
    UNDERSTAND — signature 3D exploded-view moment
    ============================================================ */
 #explodeScene{height:320vh}
-.explode-stage{width:100%;max-width:520px;margin:0 auto}
+.explode-stage{position:relative;width:100%;max-width:520px;margin:0 auto}
 .explode-visual{position:relative;width:100%;aspect-ratio:280/497;display:block}
 .explode-visual canvas{width:100%;height:100%;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35));transform-origin:center center;will-change:transform}
 .explode-copy{position:relative;z-index:2;text-align:center;padding-top:6px}
@@ -201,11 +203,6 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .explode-fact.f1{top:6%;left:-6%}
 .explode-fact.f2{top:8%;right:-10%}
 .explode-fact.f3{bottom:2%;left:12%}
-@media (min-width:761px) and (max-width:1080px){
-  .explode-fact{max-width:150px;font-size:12px;padding:11px 14px}
-  .explode-fact.f1{left:0}
-  .explode-fact.f2{right:0}
-}
 @media (max-width:760px){
   #explodeScene{height:280vh}
   .explode-fact{position:static;max-width:none;margin:0 0 10px;opacity:1!important;transform:none!important}
