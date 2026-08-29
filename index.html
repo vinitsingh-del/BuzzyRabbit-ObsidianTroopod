@@ -109,6 +109,19 @@ svg{display:block}
 /* ---- header ---- */
 header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);border-bottom:3px solid var(--navy-deep)}
 .header-row{max-width:var(--max-w);margin:auto;padding:0 var(--edge);height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+@media (min-width:961px){
+  /* Desktop alignment fix: .header-row stacked max-width+margin:auto
+     (centering, caps at 1230px) *and* padding:var(--edge) (an additional
+     inset) at the same time, double-insetting the logo/nav relative to
+     every .shell-based section below it (which uses only one inset
+     mechanism: width:min(max-w, 100% - 2*edge)). Measured: the header
+     logo sat 64px further in than Safety/Proof/FAQ's content at every
+     desktop width tested (1280-2560px). Switching to the same width
+     formula as .shell removes the double-inset; below the ~1230px cap
+     (i.e. at mobile/tablet widths) both formulas already produce an
+     identical result, so this is a no-op on mobile. */
+  .header-row{width:min(var(--max-w), calc(100% - 2*var(--edge)));max-width:none;margin:auto;padding:0}
+}
 .brand img{width:100px}
 .crumb{display:flex;align-items:center;gap:8px;font:800 11px One;letter-spacing:.05em;text-transform:uppercase;color:#c9def5}
 .crumb a{color:#c9def5;opacity:.75}
@@ -124,6 +137,17 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 
 /* ---- page anchor tabs ---- */
 .page-tabs{display:flex;gap:26px;padding:14px var(--edge);overflow-x:auto;white-space:nowrap;position:sticky;top:76px;z-index:35;background:var(--navy-deep);border-bottom:3px solid var(--navy)}
+@media (min-width:961px){
+  /* Desktop alignment fix: every other section centers its content via
+     max-width:var(--max-w) + margin:auto (see .header-row, .shell), which
+     effectively insets by (100% - 1230px)/2 on wide screens. .page-tabs
+     used a flat var(--edge) padding instead, so its tab links drifted out
+     of alignment as the viewport grew (stuck at 64px while the header's
+     inset reached 665px at 2560px). Fixed with a matching inset formula —
+     kept as padding (not max-width+margin:auto) so the tab bar's own
+     full-bleed navy background is untouched; only the content re-centers. */
+  .page-tabs{padding-left:max(var(--edge), calc((100% - var(--max-w)) / 2));padding-right:max(var(--edge), calc((100% - var(--max-w)) / 2))}
+}
 .page-tabs::-webkit-scrollbar{display:none}
 .page-tabs a{font:800 10.5px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s var(--ease-smooth),border-color .3s var(--ease-smooth)}
 .page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:var(--yellow)}
@@ -146,6 +170,13 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .hero-bg-shape{position:absolute;border-radius:50%;z-index:0;will-change:transform}
 .hero-bg-shape.s2{width:30vw;height:30vw;background:var(--magenta);opacity:.25;bottom:-10%;left:-8%}
 .hero-inner-grid{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
+@media (min-width:961px){
+  /* Same double-inset bug as .header-row (see note above): centering
+     margin + a separate edge padding were both applied, pushing the hero
+     title/copy ~64px further in than the rest of the page at every
+     desktop width. Matches .shell's single-formula inset instead. */
+  .hero-inner-grid{width:min(var(--max-w), calc(100% - 2*var(--edge)));max-width:none;padding:0}
+}
 .hero-copy{max-width:520px}
 .hero-eyebrow{margin:0 0 10px;text-transform:uppercase;letter-spacing:.13em;font:800 11px One;color:var(--yellow)}
 .hero-title{font:800 clamp(40px,6vw,74px)/.98 One;letter-spacing:-1.8px;color:#fff}
