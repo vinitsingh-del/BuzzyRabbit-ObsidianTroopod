@@ -277,10 +277,14 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
   #heroScene{height:200vh}
   .hero-inner-grid{grid-template-columns:1fr;gap:4px;padding-top:8px}
   .hero-visual{order:-1;min-height:0;padding:0}
-  .hero-product-wrap{width:max(52px, calc((100vh - 545px) / 1.826));max-width:224px}
+  /* Base formula's -545 offset lowered to -510 (35px) to use some of the
+     8px reclaimed from the sticky-bar padding trim below, on top of this
+     tier's own existing slack — verified safe (no sticky-bar overlap) at
+     844/780/900px viewport heights via direct measurement, not assumed. */
+  .hero-product-wrap{width:max(52px, calc((100vh - 510px) / 1.826));max-width:224px}
   .hero-copy{max-width:none}
   .pin-inner{align-items:flex-start;padding-top:6px}
-  #heroScene .pin-inner{padding-bottom:70px}
+  #heroScene .pin-inner{padding-bottom:62px}
   .hero-eyebrow{margin:0 0 3px;font-size:9px}
   .hero-title{font-size:18px;line-height:1.05;letter-spacing:-.3px}
   .hero-sub{margin-top:4px;font-size:11px;line-height:1.22}
@@ -300,7 +304,7 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
   .hero-title{font-size:16px;letter-spacing:-.25px}
   .hero-sub{font-size:10px;line-height:1.15}
   .hero-features{gap:4px}
-  #heroScene .pin-inner{padding-bottom:68px}
+  #heroScene .pin-inner{padding-bottom:60px}
 }
 @media (max-width:960px) and (max-height:700px){
   .hero-title{font-size:14px;letter-spacing:-.2px}
@@ -312,11 +316,17 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
   .hero-buy-row{margin-top:2px}
   .hero-trust{margin-top:2px}
   .pin-inner{padding-top:2px}
-  #heroScene .pin-inner{padding-bottom:50px}
+  /* This tier's inherited base width formula was measured to already
+     overshoot the safe bound at very short heights (a pre-existing issue,
+     found while testing this change) — capped explicitly here instead of
+     just trimming the padding, since the base formula alone isn't safe
+     at this height regardless. */
+  .hero-product-wrap{width:min(max(52px, calc((100vh - 510px) / 1.826)), 46px)}
+  #heroScene .pin-inner{padding-bottom:44px}
 }
 @media (max-width:960px) and (max-height:600px){
   .hero-product-wrap{width:40px}
-  #heroScene .pin-inner{padding-bottom:38px}
+  #heroScene .pin-inner{padding-bottom:34px}
 }
 
 /* ============================================================
@@ -454,7 +464,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 .qty-stepper button{width:34px;height:38px;border:0;background:rgba(7,29,98,.05);color:var(--navy-ink);font:800 15px One}
 .qty-stepper button:hover{background:rgba(7,29,98,.1)}
 .qty-stepper span{width:30px;text-align:center;font:800 13px One;color:var(--navy-ink)}
-@media (max-width:680px){.sticky-bar{padding:10px 12px;grid-template-columns:auto auto 1fr;gap:10px}.sticky-bar .who img{width:36px;height:36px}.sticky-bar .who p{display:none}.buy-btn{padding:12px 16px;font-size:11px}}
+@media (max-width:680px){.sticky-bar{padding:6px 12px;grid-template-columns:auto auto 1fr;gap:10px}.sticky-bar .who img{width:36px;height:36px}.sticky-bar .who p{display:none}.buy-btn{padding:12px 16px;font-size:11px}}
 @media (max-width:420px){.sticky-bar .qty-stepper{display:none}}
 
 </style>
