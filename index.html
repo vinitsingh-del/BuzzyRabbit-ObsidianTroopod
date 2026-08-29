@@ -36,7 +36,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:auto}
-body{margin:0;background-color:#8b3fd9;color:var(--white);font-family:var(--font-body);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body{margin:0;background-color:#082679;color:var(--white);font-family:var(--font-body);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
 body:before{
   content:"";
   position:fixed;
@@ -50,7 +50,7 @@ body:before{
      2-point pulse does. */
   background-image:
     radial-gradient(circle, #1974e8 0%, transparent 45%),
-    radial-gradient(circle, #7621ae 0%, transparent 48%),
+    radial-gradient(circle, #ffdf00 0%, transparent 48%),
     radial-gradient(circle, #ff6a1a 0%, transparent 48%),
     radial-gradient(circle, #e8342a 0%, transparent 48%),
     linear-gradient(135deg, #06154a 0%, #082679 100%);
@@ -143,7 +143,10 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .cart-no{display:inline-grid;place-items:center;width:17px;height:17px;border:1px solid #d7efff;border-radius:50%;font-size:9px}
 .hamb{display:none;border:0;background:none}
 .hamb i{display:block;width:26px;height:2px;margin:5px;background:#fff;border-radius:2px}
-@media (max-width:760px){.crumb,.actions{display:none}.hamb{display:block}}
+@media (max-width:760px){
+  .crumb,.actions{display:none}
+  .hamb{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+}
 
 /* ---- page anchor tabs ---- */
 .page-tabs{display:flex;gap:26px;padding:14px var(--edge);overflow-x:auto;white-space:nowrap;position:sticky;top:76px;z-index:35;background:var(--navy-deep);border-bottom:3px solid var(--navy)}
@@ -159,7 +162,10 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .page-tabs{padding-left:max(var(--edge), calc((100% - var(--max-w)) / 2));padding-right:max(var(--edge), calc((100% - var(--max-w)) / 2))}
 }
 .page-tabs::-webkit-scrollbar{display:none}
-.page-tabs a{font:800 10.5px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s var(--ease-smooth),border-color .3s var(--ease-smooth)}
+.page-tabs a{position:relative;font:800 10.5px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s var(--ease-smooth),border-color .3s var(--ease-smooth)}
+/* Invisible expanded tap target (44px min) — absolutely positioned, so it
+   doesn't affect the tab bar's own rendered height/spacing at all. */
+.page-tabs a:before{content:"";position:absolute;top:-11px;bottom:-11px;left:0;right:0}
 .page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:var(--yellow)}
 
 .kicker{text-align:center;margin:0 0 10px;text-transform:uppercase;font:800 10px One;letter-spacing:.12em}
@@ -198,7 +204,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .price-tag b{font:800 30px One}
 .price-tag s{font-size:13px;opacity:.55}
 .off-pill{background:var(--green);color:#fff;font:800 10px One;letter-spacing:.06em;padding:6px 12px;border:2px solid var(--white);border-radius:999px}
-.buy-btn{border:3px solid var(--white);padding:15px 28px;border-radius:999px;background:var(--magenta);color:#fff;text-transform:uppercase;font:800 12px One;letter-spacing:.07em;box-shadow:var(--shadow-flat-sm);transition:transform .3s var(--ease-bounce),box-shadow .3s var(--ease-bounce);position:relative;overflow:hidden}
+.buy-btn{border:3px solid var(--white);padding:15px 28px;border-radius:999px;background:var(--magenta);color:#fff;text-transform:uppercase;font:800 12px One;letter-spacing:.07em;box-shadow:var(--shadow-flat-sm);transition:transform .3s var(--ease-bounce),box-shadow .3s var(--ease-bounce);position:relative;overflow:hidden;min-height:44px}
 .buy-btn-ripple{position:absolute;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:rgba(255,255,255,.55);pointer-events:none;transform:scale(0);animation:buyBtnRipple .6s ease-out forwards}
 @keyframes buyBtnRipple{to{transform:scale(18);opacity:0}}
 .buy-btn:hover{transform:translate(-3px,-3px);box-shadow:11px 11px 0 var(--navy)}
@@ -405,6 +411,11 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .decision-card-pop p{font-size:13.5px;line-height:1.55;color:#4a5a86;margin-bottom:16px}
 .pincode-row{display:flex;gap:10px}
 .pincode-row input{flex:1;min-width:0;padding:13px 16px;border-radius:999px;border:2px solid var(--navy-ink);background:#f5f7fc;color:var(--navy-ink);font:inherit;font-size:14px}
+@media (max-width:960px){
+  /* iOS zooms the viewport on focus for any input under 16px font-size —
+     bumped for mobile only, so desktop's 14px is untouched. */
+  .pincode-row input{font-size:16px}
+}
 .pincode-row input::placeholder{color:#8792b8}
 .pincode-row button{padding:13px 20px;border-radius:999px;border:2px solid var(--navy-ink);background:var(--magenta);color:#fff;font:800 12px One;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:var(--shadow-flat-sm)}
 .pincode-result{margin-top:12px;font-size:12.5px;min-height:18px;color:var(--blue-accent);font-weight:800}
@@ -431,7 +442,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 .footer-links a,.footer-links small{font:800 10px One;letter-spacing:.06em;text-transform:uppercase;color:#e8f7ffd2}
 @media (max-width:680px){.footer-grid{grid-template-columns:1fr}}
 
-.sticky-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%) translateY(0);width:min(760px,calc(100% - 32px));z-index:45;
+.sticky-bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(0);width:min(760px,calc(100% - 32px));z-index:45;
   display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:12px 18px;border-radius:15px;
   background:var(--white);border:3px solid var(--navy-ink);box-shadow:8px 8px 0 rgba(7,29,98,.5)}
 .sticky-bar .who{display:flex;align-items:center;gap:12px;min-width:0}
@@ -556,7 +567,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/></svg>Manufactured by Odeco Ltd.; marketed in India by Reckitt Benckiser (India) Pvt. Ltd.</li>
         </ul>
       </div>
-      <div class="safety-visual"><img src="assets/buzzy-rabbit-stage.png" alt="Buzzy Rabbit soft-touch silicone"></div>
+      <div class="safety-visual"><img src="assets/buzzy-rabbit-stage.png" alt="Buzzy Rabbit soft-touch silicone" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -574,9 +585,9 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
       <div class="pop-card howto-card"><div class="step-no">3</div><h3>Hold again to switch off</h3><p>Same press-and-hold, 3 seconds, whenever you're done. Rinse and store dry.</p></div>
     </div>
     <div class="scenarios stagger">
-      <div class="scenario"><img src="assets/buzzy-water-hero.png" alt="Bath and shower use"><span>The bath</span></div>
-      <div class="scenario"><img src="assets/buzzy-hand-landscape.png" alt="Bedroom use"><span>The bed</span></div>
-      <div class="scenario"><img src="assets/buzzy-rabbit.png" alt="Solo use"><span>Solo, anywhere</span></div>
+      <div class="scenario"><img src="assets/buzzy-water-hero.png" alt="Bath and shower use" loading="lazy"><span>The bath</span></div>
+      <div class="scenario"><img src="assets/buzzy-hand-landscape.png" alt="Bedroom use" loading="lazy"><span>The bed</span></div>
+      <div class="scenario"><img src="assets/buzzy-rabbit.png" alt="Solo use" loading="lazy"><span>Solo, anywhere</span></div>
     </div>
   </div>
 </section>
@@ -693,7 +704,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
      Manufacturer/marketer disclosure locked verbatim. -->
 <footer>
   <div class="shell footer-grid">
-    <img src="assets/durex-logo-white.png" alt="Durex">
+    <img src="assets/durex-logo-white.png" alt="Durex" loading="lazy">
     <p>Designed for pleasure.<br>Delivered discreetly.</p>
     <div class="footer-links">
       <a href="#top">Overview</a>
