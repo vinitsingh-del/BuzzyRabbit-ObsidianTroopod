@@ -109,7 +109,7 @@ svg{display:block}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ---- header ---- */
-header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);border-bottom:3px solid var(--navy-deep)}
+header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px solid var(--navy-deep)}
 .header-row{max-width:var(--max-w);margin:auto;padding:0 var(--edge);height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px}
 @media (min-width:961px){
   /* Desktop alignment fix: .header-row stacked max-width+margin:auto
@@ -141,7 +141,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 }
 
 /* ---- page anchor tabs ---- */
-.page-tabs{display:flex;gap:26px;padding:14px var(--edge);overflow-x:auto;white-space:nowrap;position:sticky;top:76px;z-index:35;background:var(--navy-deep);border-bottom:3px solid var(--navy)}
+.page-tabs{display:flex;gap:26px;padding:10px var(--edge);overflow-x:auto;white-space:nowrap;background:var(--navy);border-top:1px solid rgba(255,255,255,.12)}
 @media (min-width:961px){
   /* Desktop alignment fix: every other section centers its content via
      max-width:var(--max-w) + margin:auto (see .header-row, .shell), which
@@ -470,18 +470,21 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
     </div>
     <button class="hamb" aria-label="Menu"><i></i><i></i><i></i></button>
   </div>
-</header>
 
-<!-- ================= PAGE ANCHOR TABS ================= -->
-<nav class="page-tabs" aria-label="Section navigation">
-  <a href="#overview" class="active">Overview</a>
-  <a href="#understand">How it works</a>
-  <a href="#safety">Safety</a>
-  <a href="#confidence">Using it</a>
-  <a href="#proof">Reviews &amp; specs</a>
-  <a href="#decision">Delivery</a>
-  <a href="#faq">FAQ</a>
-</nav>
+  <!-- ================= PAGE ANCHOR TABS ================= -->
+  <!-- Merged into the same <header> (one sticky nav bar, not two stacked
+       ones) — was previously its own separately-sticky <nav> directly
+       below the header with a different background color. -->
+  <nav class="page-tabs" aria-label="Section navigation">
+    <a href="#overview" class="active">Overview</a>
+    <a href="#understand">How it works</a>
+    <a href="#safety">Safety</a>
+    <a href="#confidence">Using it</a>
+    <a href="#proof">Reviews &amp; specs</a>
+    <a href="#decision">Delivery</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+</header>
 
 <main id="top">
 
@@ -545,7 +548,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= SAFETY — External play and material =================
      Copy locked verbatim from the live PDP. -->
-<section class="section on-navy" id="safety">
+<section class="section on-navy" id="safety" style="scroll-margin-top:123px">
   <div class="shell">
     <div class="pop-card safety-card pop-grid-2 reveal">
       <div>
@@ -566,7 +569,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= CONFIDENCE — How-to and scenarios =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="confidence">
+<section class="section on-navy" id="confidence" style="scroll-margin-top:123px">
   <div class="shell">
     <p class="kicker kicker-reveal">Confidence</p>
     <h2 class="title reveal">Three steps. <i style="color:var(--pink)">That's it.</i></h2>
@@ -586,7 +589,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= PROOF — Reviews and specifications =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="proof">
+<section class="section on-navy" id="proof" style="scroll-margin-top:123px">
   <div class="shell">
     <p class="kicker kicker-reveal">Proof</p>
     <h2 class="title reveal">A buzz worth <i style="color:var(--pink)">talking about.</i></h2>
@@ -631,7 +634,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= DECISION — Compare and delivery =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="decision">
+<section class="section on-navy" id="decision" style="scroll-margin-top:123px">
   <div class="shell">
     <p class="kicker kicker-reveal">Decision</p>
     <h2 class="title reveal">Delivery, <i style="color:var(--pink)">handled discreetly.</i></h2>
@@ -659,7 +662,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= FAQ =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="faq">
+<section class="section on-navy" id="faq" style="scroll-margin-top:123px">
   <div class="shell">
     <p class="kicker kicker-reveal">Questions</p>
     <h2 class="title reveal">Before you <i style="color:var(--pink)">buzz.</i></h2>
