@@ -139,7 +139,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
    OVERVIEW / HERO — pinned 3D scroll scene
    ============================================================ */
 .pin-scene{position:relative}
-.pin-scene + .pin-scene,.pin-scene + .section{margin-top:12px}
+.pin-scene + .pin-scene,.pin-scene + .section{margin-top:10px}
 #heroScene{height:260vh}
 .pin-inner{position:sticky;top:130px;height:calc(100vh - 130px);overflow:hidden;display:flex;align-items:center}
 #heroScene .pin-inner{padding-bottom:185px}
@@ -168,7 +168,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
 .hero-product-wrap{will-change:transform}
-.hero-product-wrap{width:90%;max-width:530px}
+.hero-product-wrap{width:100%;max-width:610px}
 .hero-visual canvas{width:100%;height:auto;display:block;animation:heroShake 2.6s ease-in-out infinite}
 @media (max-height:1100px) and (min-width:961px){
   .hero-title{font-size:clamp(30px,4.4vw,46px);line-height:1.05}
@@ -178,13 +178,13 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-buy-row{margin-top:10px}
   .hero-trust{margin-top:10px;gap:12px}
   .hero-visual{min-height:0}
-  .hero-product-wrap{max-width:288px;width:64%}
+  .hero-product-wrap{max-width:331px;width:74%}
   #heroScene .pin-inner{padding-bottom:185px}
 }
 @media (max-height:800px) and (min-width:961px){
   .hero-title{font-size:clamp(26px,3.6vw,36px)}
   .hero-sub{font-size:12px;line-height:1.35;margin-top:4px}
-  .hero-product-wrap{max-width:219px}
+  .hero-product-wrap{max-width:252px}
   #heroScene .pin-inner{padding-bottom:185px}
 }
 @media (max-height:640px) and (min-width:961px){
@@ -194,7 +194,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-meta{margin-top:6px}
   .hero-buy-row{margin-top:8px}
   .hero-trust{margin-top:8px}
-  .hero-product-wrap{max-width:173px}
+  .hero-product-wrap{max-width:199px}
   #heroScene .pin-inner{padding-bottom:185px}
 }
 @keyframes heroShake{
@@ -212,7 +212,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   #heroScene{height:200vh}
   .hero-inner-grid{grid-template-columns:1fr;gap:4px;padding-top:8px}
   .hero-visual{order:-1;min-height:0;padding:0}
-  .hero-product-wrap{width:max(45px, calc((100vh - 545px) / 2.1));max-width:195px}
+  .hero-product-wrap{width:max(52px, calc((100vh - 545px) / 1.826));max-width:224px}
   .hero-copy{max-width:none}
   .pin-inner{align-items:flex-start;padding-top:6px}
   #heroScene .pin-inner{padding-bottom:70px}
@@ -241,7 +241,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   #heroScene .pin-inner{padding-bottom:50px}
 }
 @media (max-width:960px) and (max-height:600px){
-  .hero-product-wrap{width:35px}
+  .hero-product-wrap{width:40px}
   #heroScene .pin-inner{padding-bottom:38px}
 }
 
@@ -268,33 +268,33 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 /* ============================================================
    SHARED "POP" CARD SYSTEM — used from Safety onward
    ============================================================ */
-.section{padding:60px 0;position:relative}
-@media (max-width:680px){.section{padding:38px 0}}
-.section + .section{margin-top:12px}
+.section{padding:48px 0;position:relative}
+@media (max-width:680px){.section{padding:30px 0}}
+.section + .section{margin-top:10px}
 .on-navy .kicker{color:#c9def5}
 .on-navy .title,.on-navy h2{color:#fff}
 .on-navy .subcopy{color:#dbe9ffd0}
 
 .pop-card{background:var(--white);color:var(--navy-ink);border:3px solid var(--navy-ink);border-radius:15px;box-shadow:var(--shadow-flat-sm)}
-.pop-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pop-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pop-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pop-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media (max-width:760px){.pop-grid-3,.pop-grid-2{grid-template-columns:1fr}}
 
 /* Safety */
-.safety-card{padding:40px}
+.safety-card{padding:32px}
 .safety-visual{display:flex;align-items:center;justify-content:center}
 .safety-visual img{max-width:260px;filter:drop-shadow(10px 10px 0 rgba(7,29,98,.15))}
-.safety-list{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.safety-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
 .safety-list li{display:flex;gap:12px;align-items:flex-start;font-size:13.5px;line-height:1.5}
 .safety-list svg{width:20px;height:20px;flex-shrink:0;margin-top:1px;stroke:var(--magenta)}
 
 /* Confidence how-to */
-.howto-card{padding:26px 22px;text-align:left}
+.howto-card{padding:21px 18px;text-align:left}
 .howto-card .step-no{width:36px;height:36px;border-radius:50%;background:var(--yellow);color:var(--navy-ink);border:3px solid var(--navy-ink);display:grid;place-items:center;font:800 15px One;margin-bottom:14px}
 .howto-card h3{font:800 15px One;letter-spacing:-.4px;margin-bottom:6px}
 .howto-card p{font-size:13px;line-height:1.5;color:#4a5a86}
 
-.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:29px}
 .scenario{position:relative;border-radius:15px;overflow:hidden;aspect-ratio:4/3;border:3px solid var(--white);box-shadow:var(--shadow-flat-sm)}
 .scenario img{width:100%;height:100%;object-fit:cover}
 .scenario:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,10,50,.85),transparent 55%)}
@@ -302,19 +302,19 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 @media (max-width:760px){.scenarios{grid-template-columns:1fr}}
 
 /* Proof */
-.proof-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px;align-items:start;margin-bottom:44px}
-.rating-card{text-align:center;padding:30px 20px}
+.proof-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:16px;align-items:start;margin-bottom:35px}
+.rating-card{text-align:center;padding:24px 16px}
 .rating-card .big{font:800 54px/1 One;letter-spacing:-1.5px}
 .rating-card .stars{color:var(--yellow);font-size:16px;letter-spacing:2px;display:block;margin:10px 0 6px;filter:drop-shadow(1px 1px 0 var(--navy-ink))}
 .rating-card p{font-size:12px;color:#4a5a86;text-transform:uppercase;letter-spacing:.06em;font-weight:800;margin-top:6px}
 .review-list{display:flex;flex-direction:column;gap:14px}
-.review-card-pop{padding:18px 20px}
+.review-card-pop{padding:14px 16px}
 .review-card-pop .stars{color:var(--yellow);font-size:13px;display:block;margin-bottom:8px;filter:drop-shadow(1px 1px 0 var(--navy-ink))}
 .review-card-pop p{font-size:13.5px;line-height:1.5;font-style:italic}
 .review-card-pop .who{margin-top:8px;font:800 11px One;letter-spacing:.05em;text-transform:uppercase;color:#5a6a96}
 
-.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.spec-tile{padding:20px 18px;display:flex;gap:12px;align-items:flex-start}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.spec-tile{padding:16px 14px;display:flex;gap:10px;align-items:flex-start}
 .spec-tile .icon-ring{width:42px;height:42px;flex-shrink:0;border-radius:12px;background:rgba(7,29,98,.08);border:2px solid var(--navy-ink);display:grid;place-items:center}
 .spec-tile svg{width:20px;height:20px;stroke:var(--blue-accent)}
 .spec-tile b{display:block;font:800 14px One;letter-spacing:-.3px}
@@ -322,18 +322,18 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 @media (max-width:860px){.spec-grid{grid-template-columns:repeat(2,1fr)}.proof-top{grid-template-columns:1fr}}
 @media (max-width:480px){.spec-grid{grid-template-columns:1fr}}
 
-.angle-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
-.angle-strip figure{margin:0;position:relative;border-radius:15px;overflow:hidden;background:var(--white);border:3px solid var(--navy-ink);box-shadow:var(--shadow-flat-sm);aspect-ratio:1}
+.angle-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:35px}
+.angle-strip figure{margin:0;position:relative;border-radius:15px;overflow:hidden}
 .angle-strip img{width:100%;height:100%;object-fit:contain;padding:8px}
 .angle-strip figcaption{position:absolute;left:10px;bottom:6px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-ink)}
 @media (max-width:640px){.angle-strip{grid-template-columns:repeat(2,1fr)}}
 .angle-strip-video{display:flex;justify-content:center}
-.angle-video-figure{margin:0;position:relative;border-radius:15px;overflow:hidden;background:var(--white);border:3px solid var(--navy-ink);box-shadow:var(--shadow-flat-sm);width:260px;aspect-ratio:260/462}
-.angle-video-figure canvas{width:100%;height:100%;object-fit:contain;padding:8px}
-.angle-video-figure figcaption{position:absolute;left:10px;bottom:6px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-ink)}
+.angle-video-figure{margin:0;position:relative;width:312px;aspect-ratio:260/462}
+.angle-video-figure canvas{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 20px rgba(0,0,0,.35))}
+.angle-video-figure figcaption{position:absolute;left:6px;bottom:2px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 
 /* Decision */
-.decision-card-pop{padding:30px 26px}
+.decision-card-pop{padding:24px 21px}
 .decision-card-pop h3{font:800 18px One;letter-spacing:-.5px;margin-bottom:8px}
 .decision-card-pop p{font-size:13.5px;line-height:1.55;color:#4a5a86;margin-bottom:16px}
 .pincode-row{display:flex;gap:10px}
@@ -341,22 +341,22 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .pincode-row input::placeholder{color:#8792b8}
 .pincode-row button{padding:13px 20px;border-radius:999px;border:2px solid var(--navy-ink);background:var(--magenta);color:#fff;font:800 12px One;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:var(--shadow-flat-sm)}
 .pincode-result{margin-top:12px;font-size:12.5px;min-height:18px;color:var(--blue-accent);font-weight:800}
-.box-contents{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.box-contents{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .box-contents li{display:flex;align-items:center;gap:12px;font-size:13.5px}
 .box-contents .ic{width:34px;height:34px;border-radius:9px;background:rgba(7,29,98,.07);border:2px solid var(--navy-ink);display:grid;place-items:center;flex-shrink:0}
 .box-contents svg{width:18px;height:18px;stroke:var(--blue-accent)}
 
 /* FAQ */
-.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .faq-item{border-radius:15px;overflow:hidden}
-.faq-item summary{padding:18px 22px;font:800 14px One;letter-spacing:-.3px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq-item summary{padding:14px 18px;font:800 14px One;letter-spacing:-.3px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary:after{content:'+';font-size:20px;font-weight:800;color:var(--magenta);flex-shrink:0;transition:transform .3s var(--ease-smooth)}
 .faq-item[open] summary:after{transform:rotate(45deg)}
 .faq-item p{margin:0 22px 18px;font-size:13.5px;line-height:1.6;color:#4a5a86}
 
 /* Footer + sticky bar */
-footer{padding:60px 0 130px;border-top:3px solid var(--navy-deep)}
+footer{padding:48px 0 130px;border-top:3px solid var(--navy-deep)}
 .footer-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:30px;align-items:end}
 footer img{width:100px;margin-bottom:14px}
 footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
@@ -540,7 +540,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
       </div>
     </div>
 
-    <h3 class="title reveal" style="font-size:clamp(22px,2.6vw,30px);margin-bottom:28px;color:#fff">Specifications</h3>
+    <h3 class="title reveal" style="font-size:clamp(22px,2.6vw,30px);margin-bottom:22px;color:#fff">Specifications</h3>
     <div class="spec-grid stagger">
       <div class="pop-card spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9" opacity=".5"/></svg></div><div><b>5 tapping modes</b><span>Rabbit-ear tapping patterns</span></div></div>
       <div class="pop-card spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 12c1.5-4 3-4 4.5 0s3 4 4.5 0 3-4 4.5 0 3 4 4.5 0"/></svg></div><div><b>8 vibration levels</b><span>Main-shaft intensity settings</span></div></div>
