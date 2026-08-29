@@ -335,6 +335,8 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
    title and purchase details into the same compressed strip. Keep desktop
    untouched and give each mobile hero element a deliberate reading zone. */
 @media (max-width:960px){
+  #heroScene{height:150vh}
+  #heroScene + #explodeScene{margin-top:5px}
   #heroScene .pin-inner{
     top:79px;
     height:calc(100svh - 79px);
@@ -395,6 +397,12 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
     max-height:100%;
     aspect-ratio:260/519;
     margin:auto;
+    transform-origin:center center;
+  }
+  .hero-product-scale{
+    width:100%;
+    height:100%;
+    transform:scale(1.48);
     transform-origin:center center;
   }
   .hero-visual canvas{width:100%;height:100%;object-fit:contain}
@@ -647,7 +655,9 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
       </div>
       <div class="hero-visual">
         <div class="hero-product-wrap" id="heroProductWrap">
-          <canvas id="heroProductImg" width="260" height="519" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
+          <div class="hero-product-scale">
+            <canvas id="heroProductImg" width="260" height="519" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
+          </div>
         </div>
       </div>
     </div>
