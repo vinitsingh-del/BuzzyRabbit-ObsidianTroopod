@@ -42,7 +42,7 @@ body:before{
   position:fixed;
   inset:0;
   z-index:-3;
-  background-image:linear-gradient(120deg,#ff76e9 0%,#007bff 33%,#8b3fd9 66%,#ff7ea0 100%);
+  background-image:linear-gradient(140deg,#06154a 0%,#1974e8 20%,#06154a 36%,#7621ae 52%,#ff6a1a 70%,#e8342a 86%,#1974e8 100%);
   background-size:260% 260%;
   animation:pageGradientFlow 4s ease-in-out infinite;
 }
@@ -139,9 +139,10 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
    OVERVIEW / HERO — pinned 3D scroll scene
    ============================================================ */
 .pin-scene{position:relative}
+.pin-scene + .pin-scene,.pin-scene + .section{margin-top:12px}
 #heroScene{height:260vh}
 .pin-inner{position:sticky;top:130px;height:calc(100vh - 130px);overflow:hidden;display:flex;align-items:center}
-#heroScene .pin-inner{padding-bottom:165px}
+#heroScene .pin-inner{padding-bottom:185px}
 .hero-bg-shape{position:absolute;border-radius:50%;z-index:0;will-change:transform}
 .hero-bg-shape.s2{width:30vw;height:30vw;background:var(--magenta);opacity:.25;bottom:-10%;left:-8%}
 .hero-inner-grid{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
@@ -167,7 +168,7 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:420px}
 .hero-product-wrap{will-change:transform}
-.hero-product-wrap{width:78%;max-width:460px}
+.hero-product-wrap{width:90%;max-width:530px}
 .hero-visual canvas{width:100%;height:auto;display:block;animation:heroShake 2.6s ease-in-out infinite}
 @media (max-height:1100px) and (min-width:961px){
   .hero-title{font-size:clamp(30px,4.4vw,46px);line-height:1.05}
@@ -177,14 +178,14 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-buy-row{margin-top:10px}
   .hero-trust{margin-top:10px;gap:12px}
   .hero-visual{min-height:0}
-  .hero-product-wrap{max-width:250px;width:56%}
-  #heroScene .pin-inner{padding-bottom:165px}
+  .hero-product-wrap{max-width:288px;width:64%}
+  #heroScene .pin-inner{padding-bottom:185px}
 }
 @media (max-height:800px) and (min-width:961px){
   .hero-title{font-size:clamp(26px,3.6vw,36px)}
   .hero-sub{font-size:12px;line-height:1.35;margin-top:4px}
-  .hero-product-wrap{max-width:190px}
-  #heroScene .pin-inner{padding-bottom:165px}
+  .hero-product-wrap{max-width:219px}
+  #heroScene .pin-inner{padding-bottom:185px}
 }
 @media (max-height:640px) and (min-width:961px){
   .hero-title{font-size:clamp(22px,3vw,30px)}
@@ -193,8 +194,8 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
   .hero-meta{margin-top:6px}
   .hero-buy-row{margin-top:8px}
   .hero-trust{margin-top:8px}
-  .hero-product-wrap{max-width:150px}
-  #heroScene .pin-inner{padding-bottom:165px}
+  .hero-product-wrap{max-width:173px}
+  #heroScene .pin-inner{padding-bottom:185px}
 }
 @keyframes heroShake{
   0%,100%{transform:translateX(0) rotate(0deg)}
@@ -209,19 +210,39 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 @media (prefers-reduced-motion: reduce){.hero-visual canvas{animation:none}}
 @media (max-width:960px){
   #heroScene{height:200vh}
-  .hero-inner-grid{grid-template-columns:1fr;gap:6px;padding-top:14px}
+  .hero-inner-grid{grid-template-columns:1fr;gap:4px;padding-top:8px}
   .hero-visual{order:-1;min-height:0;padding:0}
-  .hero-product-wrap{width:50%;max-width:210px}
+  .hero-product-wrap{width:max(45px, calc((100vh - 545px) / 2.1));max-width:195px}
   .hero-copy{max-width:none}
-  .pin-inner{align-items:flex-start;padding-top:10px}
-  #heroScene .pin-inner{padding-bottom:165px}
-  .hero-eyebrow{margin:0 0 6px;font-size:10px}
-  .hero-title{font-size:21px;line-height:1.08}
-  .hero-sub{margin-top:8px;font-size:13px;line-height:1.4}
-  .hero-meta{margin-top:10px;font-size:12px}
-  .hero-buy-row{margin-top:10px}
+  .pin-inner{align-items:flex-start;padding-top:6px}
+  #heroScene .pin-inner{padding-bottom:70px}
+  .hero-eyebrow{margin:0 0 3px;font-size:9px}
+  .hero-title{font-size:18px;line-height:1.05}
+  .hero-sub{margin-top:4px;font-size:11px;line-height:1.22}
+  .hero-meta{margin-top:4px;font-size:11px}
+  .hero-buy-row{margin-top:4px}
+  .hero-trust{margin-top:4px;gap:10px}
   #explodeScene .title{font-size:24px}
-  .price-tag b{font-size:24px}
+  .price-tag b{font-size:22px}
+}
+@media (max-width:960px) and (max-height:820px){
+  .hero-title{font-size:16px}
+  .hero-sub{font-size:10px;line-height:1.15}
+  #heroScene .pin-inner{padding-bottom:68px}
+}
+@media (max-width:960px) and (max-height:700px){
+  .hero-title{font-size:14px}
+  .hero-eyebrow{margin:0 0 2px;font-size:8px}
+  .hero-sub{margin-top:2px;font-size:9px;line-height:1.1}
+  .hero-meta{margin-top:2px;font-size:10px}
+  .hero-buy-row{margin-top:2px}
+  .hero-trust{margin-top:2px}
+  .pin-inner{padding-top:2px}
+  #heroScene .pin-inner{padding-bottom:50px}
+}
+@media (max-width:960px) and (max-height:600px){
+  .hero-product-wrap{width:35px}
+  #heroScene .pin-inner{padding-bottom:38px}
 }
 
 /* ============================================================
@@ -306,6 +327,10 @@ header{position:sticky;top:0;z-index:40;height:76px;background:var(--navy);borde
 .angle-strip img{width:100%;height:100%;object-fit:contain;padding:8px}
 .angle-strip figcaption{position:absolute;left:10px;bottom:6px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-ink)}
 @media (max-width:640px){.angle-strip{grid-template-columns:repeat(2,1fr)}}
+.angle-strip-video{display:flex;justify-content:center}
+.angle-video-figure{margin:0;position:relative;border-radius:15px;overflow:hidden;background:var(--white);border:3px solid var(--navy-ink);box-shadow:var(--shadow-flat-sm);width:260px;aspect-ratio:260/462}
+.angle-video-figure canvas{width:100%;height:100%;object-fit:contain;padding:8px}
+.angle-video-figure figcaption{position:absolute;left:10px;bottom:6px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-ink)}
 
 /* Decision */
 .decision-card-pop{padding:30px 26px}
@@ -525,11 +550,11 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
       <div class="pop-card spec-tile"><div class="icon-ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/></svg></div><div><b>Body-safe silicone</b><span>Soft-touch, non-toxic finish</span></div></div>
     </div>
 
-    <div class="angle-strip stagger">
-      <figure><img src="assets/buzzy-angle-one.png" alt="Angle 1"><figcaption>Angle 01</figcaption></figure>
-      <figure><img src="assets/buzzy-angle-two.png" alt="Angle 2"><figcaption>Angle 02</figcaption></figure>
-      <figure><img src="assets/buzzy-angle-three.png" alt="Angle 3"><figcaption>Angle 03</figcaption></figure>
-      <figure><img src="assets/buzzy-angle-four.png" alt="Angle 4"><figcaption>Angle 04</figcaption></figure>
+    <div class="angle-strip angle-strip-video stagger">
+      <figure class="angle-video-figure">
+        <canvas id="specHighlightCanvas" width="260" height="462" aria-label="Buzzy Rabbit specification highlights"></canvas>
+        <figcaption>Specs</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -724,6 +749,41 @@ if(!reduceMotion && explodeScene){
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 },{threshold:.15});
+/* ---- spec-highlight scroll-scrub (Proof section, real footage, no pin needed) ---- */
+const specCanvas = document.getElementById('specHighlightCanvas');
+const specCtx = specCanvas ? specCanvas.getContext('2d') : null;
+const SPEC_FRAME_COUNT = 40;
+const SPEC_FRAME_W = 260;
+const SPEC_FRAME_H = 462;
+const specSprite = new Image();
+let specSpriteReady = false;
+specSprite.src = 'assets/spec-highlight-sprite.png';
+specSprite.onload = ()=>{ specSpriteReady = true; drawSpecFrame(0); };
+
+function drawSpecFrame(idx){
+  if(!specCtx || !specSpriteReady) return;
+  const clamped = Math.max(0, Math.min(SPEC_FRAME_COUNT-1, idx));
+  specCtx.clearRect(0,0,SPEC_FRAME_W,SPEC_FRAME_H);
+  specCtx.drawImage(specSprite, 0, clamped*SPEC_FRAME_H, SPEC_FRAME_W, SPEC_FRAME_H, 0,0, SPEC_FRAME_W, SPEC_FRAME_H);
+}
+
+if(!reduceMotion && specCanvas){
+  let tickingSpec = false;
+  function updateSpecScrub(){
+    const rect = specCanvas.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // progress 0 when figure enters bottom of viewport, 1 when it exits top
+    const raw = (vh - rect.top) / (vh + rect.height);
+    const progress = Math.min(1, Math.max(0, raw));
+    drawSpecFrame(Math.round(progress * (SPEC_FRAME_COUNT-1)));
+    tickingSpec = false;
+  }
+  window.addEventListener('scroll', ()=>{ if(!tickingSpec){ requestAnimationFrame(updateSpecScrub); tickingSpec = true; } }, {passive:true});
+  updateSpecScrub();
+} else if(specCtx){
+  specSprite.onload = ()=>{ specSpriteReady = true; drawSpecFrame(20); };
+}
+
 document.querySelectorAll('.reveal:not(.in), .stagger, .kicker-reveal:not(.in)').forEach(el=>io.observe(el));
 
 /* ---- active page-tab on scroll ---- */
