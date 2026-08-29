@@ -141,24 +141,21 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 }
 
 /* ---- page anchor tabs ---- */
-.page-tabs{display:flex;gap:26px;padding:10px var(--edge);overflow-x:auto;white-space:nowrap;background:var(--navy);border-top:1px solid rgba(255,255,255,.12)}
-@media (min-width:961px){
-  /* Desktop alignment fix: every other section centers its content via
-     max-width:var(--max-w) + margin:auto (see .header-row, .shell), which
-     effectively insets by (100% - 1230px)/2 on wide screens. .page-tabs
-     used a flat var(--edge) padding instead, so its tab links drifted out
-     of alignment as the viewport grew (stuck at 64px while the header's
-     inset reached 665px at 2560px). Fixed with a matching inset formula —
-     kept as padding (not max-width+margin:auto) so the tab bar's own
-     full-bleed navy background is untouched; only the content re-centers. */
-  .page-tabs{padding-left:max(var(--edge), calc((100% - var(--max-w)) / 2));padding-right:max(var(--edge), calc((100% - var(--max-w)) / 2))}
-}
+/* True single-line nav: tabs are now a flex child inside .header-row
+   (same row as the logo/actions), not a full-bleed bar of their own —
+   flex:1 lets them absorb the remaining width, overflow-x:auto lets them
+   scroll horizontally within that space if they don't all fit, rather
+   than wrapping to (or being) a second row. */
+.page-tabs{display:flex;flex:1;min-width:0;gap:22px;overflow-x:auto;white-space:nowrap;padding:0 4px}
 .page-tabs::-webkit-scrollbar{display:none}
 .page-tabs a{position:relative;font:800 10.5px One;letter-spacing:.06em;text-transform:uppercase;color:#c9def5cc;padding:4px 0;border-bottom:2px solid transparent;transition:color .3s var(--ease-smooth),border-color .3s var(--ease-smooth)}
 /* Invisible expanded tap target (44px min) — absolutely positioned, so it
    doesn't affect the tab bar's own rendered height/spacing at all. */
 .page-tabs a:before{content:"";position:absolute;top:-11px;bottom:-11px;left:0;right:0}
 .page-tabs a.active,.page-tabs a:hover{color:#fff;border-color:var(--yellow)}
+/* Breadcrumb is redundant with the tabs now sharing the same row (no room
+   for both) — kept in the DOM, hidden from view. */
+.crumb{display:none}
 
 .kicker{text-align:center;margin:0 0 10px;text-transform:uppercase;font:800 10px One;letter-spacing:.12em}
 .kicker-reveal{opacity:0;letter-spacing:.02em;transition:opacity .7s var(--ease-smooth),letter-spacing .7s var(--ease-smooth)}
@@ -464,26 +461,24 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
     <nav class="crumb" aria-label="Breadcrumb">
       <a href="#top">Home</a><span>/</span><a href="#top">Play</a><span>/</span><b>Buzzy Rabbit</b>
     </nav>
+    <!-- Single-line nav: tabs sit inline in the same row as the logo/actions
+         (not a second stacked row) — flex:1 + overflow-x:auto so they take
+         the remaining space and scroll horizontally if they don't all fit. -->
+    <nav class="page-tabs" aria-label="Section navigation">
+      <a href="#overview" class="active">Overview</a>
+      <a href="#understand">How it works</a>
+      <a href="#safety">Safety</a>
+      <a href="#confidence">Using it</a>
+      <a href="#proof">Reviews &amp; specs</a>
+      <a href="#decision">Delivery</a>
+      <a href="#faq">FAQ</a>
+    </nav>
     <div class="actions">
       <button>Account</button>
       <button>Cart <span class="cart-no">0</span></button>
     </div>
     <button class="hamb" aria-label="Menu"><i></i><i></i><i></i></button>
   </div>
-
-  <!-- ================= PAGE ANCHOR TABS ================= -->
-  <!-- Merged into the same <header> (one sticky nav bar, not two stacked
-       ones) — was previously its own separately-sticky <nav> directly
-       below the header with a different background color. -->
-  <nav class="page-tabs" aria-label="Section navigation">
-    <a href="#overview" class="active">Overview</a>
-    <a href="#understand">How it works</a>
-    <a href="#safety">Safety</a>
-    <a href="#confidence">Using it</a>
-    <a href="#proof">Reviews &amp; specs</a>
-    <a href="#decision">Delivery</a>
-    <a href="#faq">FAQ</a>
-  </nav>
 </header>
 
 <main id="top">
@@ -548,7 +543,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= SAFETY — External play and material =================
      Copy locked verbatim from the live PDP. -->
-<section class="section on-navy" id="safety" style="scroll-margin-top:123px">
+<section class="section on-navy" id="safety" style="scroll-margin-top:79px">
   <div class="shell">
     <div class="pop-card safety-card pop-grid-2 reveal">
       <div>
@@ -569,7 +564,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= CONFIDENCE — How-to and scenarios =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="confidence" style="scroll-margin-top:123px">
+<section class="section on-navy" id="confidence" style="scroll-margin-top:79px">
   <div class="shell">
     <p class="kicker kicker-reveal">Confidence</p>
     <h2 class="title reveal">Three steps. <i style="color:var(--pink)">That's it.</i></h2>
@@ -589,7 +584,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= PROOF — Reviews and specifications =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="proof" style="scroll-margin-top:123px">
+<section class="section on-navy" id="proof" style="scroll-margin-top:79px">
   <div class="shell">
     <p class="kicker kicker-reveal">Proof</p>
     <h2 class="title reveal">A buzz worth <i style="color:var(--pink)">talking about.</i></h2>
@@ -634,7 +629,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= DECISION — Compare and delivery =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="decision" style="scroll-margin-top:123px">
+<section class="section on-navy" id="decision" style="scroll-margin-top:79px">
   <div class="shell">
     <p class="kicker kicker-reveal">Decision</p>
     <h2 class="title reveal">Delivery, <i style="color:var(--pink)">handled discreetly.</i></h2>
@@ -662,7 +657,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 
 <!-- ================= FAQ =================
      Copy locked verbatim. -->
-<section class="section on-navy" id="faq" style="scroll-margin-top:123px">
+<section class="section on-navy" id="faq" style="scroll-margin-top:79px">
   <div class="shell">
     <p class="kicker kicker-reveal">Questions</p>
     <h2 class="title reveal">Before you <i style="color:var(--pink)">buzz.</i></h2>
