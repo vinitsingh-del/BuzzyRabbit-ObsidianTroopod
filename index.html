@@ -873,7 +873,22 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 </div>
 <script>
 document.getElementById('tickerTrack').innerHTML = Array(3).fill(["Discreet Delivery","100% Authentic","69 Store is Live"].map(t=>`<b>${t}</b>`).join('')).join('');
-window.addEventListener('load',()=>{ document.getElementById('loadSplash').classList.add('done'); });
+const loadSplash = document.getElementById('loadSplash');
+let splashDismissed = false;
+function dismissLoadSplash(){
+  if(splashDismissed || !loadSplash) return;
+  splashDismissed = true;
+  loadSplash.classList.add('done');
+}
+/* Release the page as soon as its interface is ready. Large images and video
+   continue loading progressively instead of holding the full-screen splash. */
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', ()=>requestAnimationFrame(dismissLoadSplash), {once:true});
+} else {
+  requestAnimationFrame(dismissLoadSplash);
+}
+window.addEventListener('load', dismissLoadSplash, {once:true});
+setTimeout(dismissLoadSplash, 1600);
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const heroScene = document.getElementById('heroScene');
