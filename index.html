@@ -335,7 +335,10 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
    title and purchase details into the same compressed strip. Keep desktop
    untouched and give each mobile hero element a deliberate reading zone. */
 @media (max-width:960px){
-  #heroScene{height:150vh}
+  /* Keep the enlarged hero on stage until it has fully cleared. This keeps
+     the next "Tap, buzz" title directly below the product instead of letting
+     the two pinned scenes visually overlap during the hand-off. */
+  #heroScene{height:165vh}
   #heroScene + #explodeScene{margin-top:5px}
   #heroScene .pin-inner{
     top:79px;
@@ -575,9 +578,11 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
 .footer-links a,.footer-links small{font:800 10px One;letter-spacing:.06em;text-transform:uppercase;color:#e8f7ffd2}
 @media (max-width:680px){.footer-grid{grid-template-columns:1fr}}
 
-.sticky-bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(0);width:min(760px,calc(100% - 32px));z-index:45;
+.sticky-bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(calc(100% + 32px));width:min(760px,calc(100% - 32px));z-index:45;
   display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:16px;padding:12px 18px;border-radius:15px;
-  background:var(--white);border:3px solid var(--navy-ink);box-shadow:8px 8px 0 rgba(7,29,98,.5)}
+  background:var(--white);border:3px solid var(--navy-ink);box-shadow:8px 8px 0 rgba(7,29,98,.5);
+  opacity:0;visibility:hidden;pointer-events:none;transition:transform .35s var(--ease-smooth),opacity .25s var(--ease-smooth),visibility 0s linear .35s}
+.sticky-bar.is-visible{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
 .sticky-bar .who{display:flex;align-items:center;gap:12px;min-width:0}
 .sticky-bar .who img{width:44px;height:44px;object-fit:cover;border-radius:10px;flex-shrink:0;border:2px solid var(--navy-ink)}
 .sticky-bar p{margin:0 0 2px;text-transform:uppercase;font:800 9px One;color:#5a6a96;white-space:nowrap}
@@ -872,6 +877,20 @@ window.addEventListener('load',()=>{ document.getElementById('loadSplash').class
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const heroScene = document.getElementById('heroScene');
+const stickyBar = document.getElementById('stickyBar');
+
+/* Keep the persistent CTA clear of the complete hero view. It becomes useful
+   only after the hero (and its original Add to bag button) has moved away. */
+function updateStickyBar(){
+  if(!stickyBar || !heroScene) return;
+  const headerBottom = document.querySelector('header')?.getBoundingClientRect().bottom || 0;
+  const show = heroScene.getBoundingClientRect().bottom <= headerBottom;
+  stickyBar.classList.toggle('is-visible', show);
+  stickyBar.setAttribute('aria-hidden', String(!show));
+}
+window.addEventListener('scroll', updateStickyBar, {passive:true});
+window.addEventListener('resize', updateStickyBar, {passive:true});
+updateStickyBar();
 
 /* ---- hero parallax: GIF-turntable plays with scroll (canvas frame-scrub), bg shape drifts, product zooms ---- */
 const heroShape = document.getElementById('heroShape');
