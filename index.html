@@ -42,27 +42,24 @@ body:before{
   position:fixed;
   inset:0;
   z-index:-3;
-  /* Copied exactly (colors, keyframes, timing, background-size at both
-     breakpoints) from https://vinitsingh-del.github.io/durex-bigbang-sale/,
-     verified against that site's live computed styles and its actual
-     @keyframes rule text, not guessed from source. */
+  --gradient-spread:290% 290%;
+  --gradient-focus:125% 125%;
   background-image:linear-gradient(120deg, #ff76e9 0%, #007bff 24%, #082679 45%, #22c55e 66%, #8b3fd9 82%, #ff7ea0 100%);
-  background-size:260% 260%;
-  animation:pop-gradient-cycle 9.3s ease-in-out infinite;
+  background-size:var(--gradient-spread);
+  background-position:0% 50%;
+  animation:pop-gradient-cycle 8.8s ease-in-out infinite;
 }
 @keyframes pop-gradient-cycle{
-  0%  {background-position:0% 25%}
-  20% {background-position:20% 35%}
-  45% {background-position:90% 60%}
-  60% {background-position:100% 15%}
-  80% {background-position:40% 45%}
-  100%{background-position:0% 25%}
+  0%,100%{background-size:var(--gradient-spread);background-position:0% 50%}
+  24%{background-size:var(--gradient-spread);background-position:100% 0%}
+  50%{background-size:var(--gradient-focus);background-position:50% 50%}
+  76%{background-size:var(--gradient-spread);background-position:0% 100%}
 }
 @media (max-width:680px){
-  body:before{background-size:340% 340%;animation-duration:8.5s}
+  body:before{--gradient-spread:340% 340%;--gradient-focus:140% 140%;animation-duration:8.2s}
 }
 @media (prefers-reduced-motion: reduce){
-  body:before{animation:none;background-position:0% 25%}
+  body:before{animation:none;background-size:var(--gradient-focus);background-position:50% 50%}
 }
 img,video{display:block;max-width:100%}
 button,a{font:inherit;cursor:pointer}
@@ -169,9 +166,9 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
    ============================================================ */
 .pin-scene{position:relative}
 .pin-scene + .pin-scene,.pin-scene + .section{margin-top:0}
-#heroScene{height:auto}
+#heroScene{height:190vh}
 .pin-inner{position:sticky;top:130px;height:calc(100vh - 130px);overflow:hidden;display:flex;align-items:center}
-#heroScene .pin-inner{position:relative;top:auto;height:auto;min-height:calc(100svh - 130px);overflow:visible;padding:28px 0}
+#heroScene .pin-inner{position:sticky;top:79px;height:calc(100svh - 79px);min-height:0;overflow:hidden;padding:28px 0}
 .hero-inner-grid{position:relative;z-index:2;width:100%;max-width:var(--max-w);margin:auto;padding:0 var(--edge);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:20px}
 @media (min-width:961px){
   /* Same double-inset bug as .header-row (see note above): centering
@@ -265,7 +262,7 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 }
 @media (prefers-reduced-motion: reduce){.hero-visual canvas{animation:none}}
 @media (max-width:960px){
-  #heroScene{height:auto}
+  #heroScene{height:175vh}
   .hero-inner-grid{grid-template-columns:1fr;gap:4px;padding-top:8px}
   .hero-visual{order:-1;min-height:0;padding:0}
   /* Base formula's -545 offset lowered to -510 (35px) to use some of the
@@ -329,14 +326,14 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
   /* Keep the enlarged hero on stage until it has fully cleared. This keeps
      the next "Tap, buzz" title directly below the product instead of letting
      the two pinned scenes visually overlap during the hand-off. */
-  #heroScene{height:auto}
+  #heroScene{height:175vh}
   #heroScene + #explodeScene{margin-top:0}
   #heroScene .pin-inner{
-    position:relative;
-    top:auto;
-    height:auto;
-    min-height:calc(100svh - 79px);
-    overflow:visible;
+    position:sticky;
+    top:79px;
+    height:calc(100svh - 79px);
+    min-height:0;
+    overflow:hidden;
     padding:8px 0 24px;
     align-items:stretch;
   }
@@ -525,7 +522,7 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 
 .scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:29px}
 .scenario{position:relative;border-radius:15px;overflow:hidden;aspect-ratio:4/3;border:3px solid var(--white);box-shadow:var(--shadow-flat-sm)}
-.scenario img{width:100%;height:100%;object-fit:cover}
+.scenario img{width:100%;height:100%;object-fit:contain}
 .scenario:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,10,50,.85),transparent 55%)}
 .scenario span{position:absolute;left:14px;bottom:12px;z-index:2;font:800 12px One;letter-spacing:.03em;text-transform:uppercase;color:#fff}
 @media (max-width:760px){
@@ -566,7 +563,7 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 .angle-strip figcaption{position:absolute;left:10px;bottom:6px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:var(--navy-ink)}
 @media (max-width:640px){.angle-strip{grid-template-columns:repeat(2,1fr)}}
 .angle-strip-video{display:flex;justify-content:center}
-.angle-video-figure{margin:0;position:relative;width:312px;aspect-ratio:260/462}
+.angle-video-figure{margin:0;position:relative;width:min(312px,100%);aspect-ratio:260/462}
 .angle-video-figure canvas{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 20px rgba(0,0,0,.35))}
 .angle-video-figure figcaption{position:absolute;left:6px;bottom:2px;font:800 9px One;letter-spacing:.06em;text-transform:uppercase;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 
@@ -944,6 +941,7 @@ window.addEventListener('resize', updateStickyBar, {passive:true});
 updateStickyBar();
 
 /* ---- hero: isolated product with a single gentle floating motion ---- */
+const heroProductWrap = document.getElementById('heroProductWrap');
 const heroCanvas = document.getElementById('heroProductImg');
 const heroCtx = heroCanvas ? heroCanvas.getContext('2d') : null;
 const HERO_FRAME_COUNT = 36;
@@ -959,6 +957,27 @@ function drawHeroFrame(idx){
   const clamped = Math.max(0, Math.min(HERO_FRAME_COUNT-1, idx));
   heroCtx.clearRect(0,0,HERO_FRAME_W,HERO_FRAME_H);
   heroCtx.drawImage(heroSprite, 0, clamped*HERO_FRAME_H, HERO_FRAME_W, HERO_FRAME_H, 0,0, HERO_FRAME_W, HERO_FRAME_H);
+}
+
+if(!reduceMotion && heroScene){
+  let tickingHero = false;
+  function updateHeroParallax(){
+    const rect = heroScene.getBoundingClientRect();
+    const total = Math.max(1, heroScene.offsetHeight - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, -rect.top / total));
+    drawHeroFrame(Math.round(progress * (HERO_FRAME_COUNT-1)));
+    if(heroProductWrap){
+      const zoomAmount = window.innerWidth <= 960 ? 0.04 : 0.08;
+      heroProductWrap.style.transform = `scale(${1 + progress * zoomAmount})`;
+    }
+    tickingHero = false;
+  }
+  function requestHeroParallax(){
+    if(!tickingHero){ requestAnimationFrame(updateHeroParallax); tickingHero = true; }
+  }
+  window.addEventListener('scroll', requestHeroParallax, {passive:true});
+  window.addEventListener('resize', requestHeroParallax, {passive:true});
+  updateHeroParallax();
 }
 
 /* ---- signature moment: exploded-view scroll sync (real footage, sprite-sheet) ---- */
@@ -991,7 +1010,8 @@ if(!reduceMotion && explodeScene){
     drawExplodeFrame(Math.round(raw * (SPRITE_FRAME_COUNT-1)));
     // zoom: the video scales up through the scroll, peaking at full explode, easing back on reassembly
     const zoomCurve = raw < 0.6 ? (raw/0.6) : (1 - (raw-0.6)/0.4)*0.3 + 0.7;
-    const scale = 0.88 + zoomCurve * 0.32;
+    const mobileView = window.innerWidth <= 760;
+    const scale = (mobileView ? 0.92 : 0.9) + zoomCurve * (mobileView ? 0.16 : 0.28);
     explodeCanvas.style.transform = `scale(${scale})`;
     facts.forEach((f,i)=>{
       const show = raw > 0.32 + i*0.1 && raw < 0.92;
@@ -1038,7 +1058,7 @@ if(!reduceMotion && specCanvas){
     const progress = Math.min(1, Math.max(0, raw));
     // same zoom-on-scroll treatment as the hero product (updateHeroParallax's
     // zoomScale formula) — applies only to this image-bearing figure, not site-wide
-    const zoomScale = 1 + progress * 0.35;
+    const zoomScale = 1 + progress * (window.innerWidth <= 760 ? 0.08 : 0.22);
     specCanvas.style.transform = `scale(${zoomScale})`;
     tickingSpec = false;
   }
