@@ -6,6 +6,7 @@
 <title>Durex Play · Buzzy Rabbit — Dual-Action Personal Massager</title>
 <meta name="description" content="Durex Play Buzzy Rabbit: 5 tapping modes, 8 vibration intensities, 100% waterproof, body-safe silicone, USB rechargeable. For external use.">
 <meta name="theme-color" content="#082679">
+<link rel="preload" as="image" href="assets/buzzy-rabbit-hero-sprite.webp" type="image/webp">
 <style>
 /* ============================================================
    BRAND-LOCKED FOUNDATION
@@ -211,6 +212,7 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 .hero-product-wrap{will-change:transform;width:auto;height:min(58svh,560px);max-width:100%;max-height:calc(100% - 24px);aspect-ratio:260/519;margin:auto;transform-origin:center center}
 .hero-product-scale{width:100%;height:100%;transform:scale(1.25);transform-origin:center center}
 .hero-media{width:100%;height:100%;object-fit:contain;display:block;animation:heroFloat 3.6s ease-in-out infinite}
+canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
 @media (min-width:961px){
   /* "Hero section overall +20% on desktop" — a fresh, comprehensive size
      bump across every hero text/spacing metric (not just the product
@@ -722,7 +724,7 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
       <div class="hero-visual">
         <div class="hero-product-wrap" id="heroProductWrap">
           <div class="hero-product-scale">
-            <img class="hero-media" id="heroProductImg" src="assets/buzzy-rabbit-hero-transparent.gif" width="360" height="640" alt="Durex Play Buzzy Rabbit dual-action massager">
+            <canvas class="hero-media" id="heroProductCanvas" width="200" height="541" role="img" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
           </div>
         </div>
       </div>
@@ -995,8 +997,30 @@ window.addEventListener('scroll', updateStickyBar, {passive:true});
 window.addEventListener('resize', updateStickyBar, {passive:true});
 updateStickyBar();
 
-/* ---- hero: transparent product GIF with float + scroll parallax ---- */
+/* ---- hero: transparent product rotation with float + scroll parallax ---- */
 const heroProductWrap = document.getElementById('heroProductWrap');
+const heroProductCanvas = document.getElementById('heroProductCanvas');
+const heroProductCtx = heroProductCanvas ? heroProductCanvas.getContext('2d') : null;
+const HERO_FRAME_COUNT = 40;
+const HERO_FRAME_W = 200;
+const HERO_FRAME_H = 541;
+const HERO_SPRITE_COLS = 5;
+const heroProductSprite = new Image();
+let heroProductSpriteReady = false;
+heroProductSprite.src = 'assets/buzzy-rabbit-hero-sprite.webp';
+
+function drawHeroFrame(index){
+  if(!heroProductCtx || !heroProductSpriteReady) return;
+  const frame = Math.max(0,Math.min(HERO_FRAME_COUNT-1,index));
+  const sx = (frame % HERO_SPRITE_COLS) * HERO_FRAME_W;
+  const sy = Math.floor(frame / HERO_SPRITE_COLS) * HERO_FRAME_H;
+  heroProductCtx.clearRect(0,0,HERO_FRAME_W,HERO_FRAME_H);
+  heroProductCtx.drawImage(heroProductSprite,sx,sy,HERO_FRAME_W,HERO_FRAME_H,0,0,HERO_FRAME_W,HERO_FRAME_H);
+}
+heroProductSprite.onload = ()=>{
+  heroProductSpriteReady = true;
+  drawHeroFrame(0);
+};
 
 if(!reduceMotion && heroScene){
   let tickingHero = false;
@@ -1008,6 +1032,7 @@ if(!reduceMotion && heroScene){
       const zoomAmount = window.innerWidth <= 960 ? 0.04 : 0.08;
       heroProductWrap.style.transform = `scale(${1 + progress * zoomAmount})`;
     }
+    drawHeroFrame(Math.round(progress * (HERO_FRAME_COUNT-1)));
     tickingHero = false;
   }
   function requestHeroParallax(){
@@ -1016,6 +1041,11 @@ if(!reduceMotion && heroScene){
   window.addEventListener('scroll', requestHeroParallax, {passive:true});
   window.addEventListener('resize', requestHeroParallax, {passive:true});
   updateHeroParallax();
+} else {
+  heroProductSprite.onload = ()=>{
+    heroProductSpriteReady = true;
+    drawHeroFrame(0);
+  };
 }
 
 /* ---- signature moment: exploded-view scroll sync (real footage, sprite-sheet) ---- */
