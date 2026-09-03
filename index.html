@@ -466,16 +466,19 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 #explodeScene{height:220vh}
 #explodeScene .pin-inner{top:79px;height:calc(100svh - 79px);padding:10px 0 calc(88px + env(safe-area-inset-bottom));align-items:flex-start}
 .explode-shell{height:100%;min-height:0;display:flex;flex-direction:column;justify-content:center}
-.explode-stage{position:relative;width:100%;height:min(47svh,470px);min-height:240px;margin:0 auto;flex:0 1 auto}
+.explode-stage{position:relative;width:100%;height:min(36svh,350px);min-height:220px;margin:0 auto;flex:0 1 auto}
 .explode-visual{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 .explode-visual canvas{width:auto;max-width:100%;height:100%;display:block;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35));transform-origin:center center;will-change:transform}
 .explode-copy{position:relative;z-index:2;text-align:center;padding-top:4px;flex:0 0 auto}
 .explode-copy .kicker{margin-bottom:5px}
 .explode-copy .title{font-size:clamp(26px,3.5vw,44px);margin-bottom:8px}
 .explode-copy .subcopy{max-width:680px;margin-bottom:12px;font-size:13px;line-height:1.45}
-.explode-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.explode-fact{position:static;padding:10px 12px;background:var(--white);color:var(--navy-ink);border:3px solid var(--navy-ink);border-radius:14px;box-shadow:var(--shadow-flat-sm);font:800 11.5px/1.3 One;letter-spacing:-.2px;max-width:none;opacity:0;transition:opacity .4s var(--ease-smooth),transform .4s var(--ease-smooth);text-align:left}
-.explode-fact span{display:block;font:800 9px One;letter-spacing:.08em;text-transform:uppercase;color:var(--magenta);margin-bottom:4px}
+.explode-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.7vw,22px);padding:clamp(13px,1.8vw,20px);background:var(--white);border:3px solid var(--navy-ink);border-radius:18px;box-shadow:var(--shadow-flat-sm)}
+.explode-fact{position:static;min-width:0;color:var(--navy-ink);opacity:0;transition:opacity .4s var(--ease-smooth),transform .4s var(--ease-smooth);text-align:center}
+.explode-fact-media{width:min(11.5vw,132px);aspect-ratio:1;margin:0 auto 9px;border:3px solid var(--navy-ink);border-radius:50%;overflow:hidden;background:#d9f5f7}
+.explode-fact-media img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 57%}
+.explode-fact h3{font:800 clamp(12px,1.15vw,15px)/1.15 One;letter-spacing:-.3px;margin:0 0 4px}
+.explode-fact p{font-size:10.5px;line-height:1.3;color:#667394;margin:0}
 @media (max-width:760px){
   #explodeScene{height:210vh}
   #explodeScene .pin-inner{padding:5px 0 calc(78px + env(safe-area-inset-bottom))}
@@ -484,15 +487,20 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
   .explode-copy .kicker{font-size:8px;margin-bottom:3px}
   .explode-copy .title{font-size:clamp(21px,6.5vw,27px);margin-bottom:5px}
   .explode-copy .subcopy{font-size:10.5px;line-height:1.3;margin-bottom:7px}
-  .explode-facts{grid-template-columns:1fr;gap:5px}
-  .explode-fact{padding:6px 9px;font-size:10.5px;line-height:1.25;opacity:1!important;transform:none!important}
-  .explode-fact span{display:inline;margin:0 6px 0 0;font-size:8px}
+  .explode-facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;padding:10px}
+  .explode-fact{opacity:1!important;transform:none!important}
+  .explode-fact-media{width:66px;margin-bottom:4px;border-width:2px}
+  .explode-fact h3{font-size:10px;margin-bottom:2px}
+  .explode-fact p{font-size:8.5px;line-height:1.2}
 }
 @media (max-width:760px) and (max-height:650px){
   .explode-stage{height:min(27svh,175px);min-height:130px}
   .explode-copy .title{font-size:19px}
   .explode-copy .subcopy{font-size:9.5px;margin-bottom:5px}
-  .explode-fact{padding:4px 7px;font-size:9.5px}
+  .explode-facts{gap:5px 8px;padding:7px 9px}
+  .explode-fact-media{width:50px;margin-bottom:3px}
+  .explode-fact h3{font-size:9px}
+  .explode-fact p{font-size:7.5px}
 }
 
 /* ============================================================
@@ -536,13 +544,15 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 @media (prefers-reduced-motion:reduce){.safety-visual:after{animation:none;display:none}}
 
 /* Confidence how-to */
-.confidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.confidence-card{overflow:hidden}
-.confidence-card .scenario{margin:0;border:0;border-bottom:3px solid var(--navy-ink);border-radius:0;box-shadow:none;aspect-ratio:16/8}
-.howto-card{padding:16px;text-align:left;display:grid;grid-template-columns:auto 1fr;column-gap:11px;align-items:start}
-.howto-card .step-no{width:36px;height:36px;border-radius:50%;background:var(--yellow);color:var(--navy-ink);border:3px solid var(--navy-ink);display:grid;place-items:center;font:800 15px One;margin-bottom:14px}
-.howto-card h3{font:800 14px One;letter-spacing:-.35px;margin:2px 0 5px}
-.howto-card p{grid-column:2;font-size:12px;line-height:1.4;color:#4a5a86}
+.confidence-panel{padding:clamp(22px,3vw,36px)}
+.confidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,42px)}
+.confidence-card{min-width:0;display:grid;grid-template-rows:auto auto auto auto;justify-items:center;text-align:center}
+.confidence-card .scenario{grid-row:2;width:100%;margin:17px 0 14px;border:0;border-radius:14px;box-shadow:none;aspect-ratio:16/10;background:#f2f7ff}
+.confidence-card .scenario img{object-fit:contain}
+.howto-card{display:contents}
+.howto-card .step-no{grid-row:1;width:42px;height:42px;border-radius:50%;background:var(--magenta);color:var(--white);border:0;display:grid;place-items:center;font:800 15px One;margin:0}
+.howto-card h3{grid-row:3;font:800 14px/1.25 One;letter-spacing:-.35px;margin:0 0 6px;text-align:center}
+.howto-card p{grid-row:4;max-width:300px;font-size:11.5px;line-height:1.4;color:#667394;text-align:center;margin:0}
 
 .scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:29px}
 .scenario{position:relative;border-radius:15px;overflow:hidden;aspect-ratio:4/3;border:3px solid var(--white);box-shadow:var(--shadow-flat-sm)}
@@ -551,13 +561,14 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 .scenario span{position:absolute;left:14px;bottom:12px;z-index:2;font:800 12px One;letter-spacing:.03em;text-transform:uppercase;color:#fff}
 @media (max-width:760px){
   .scenarios{grid-template-columns:1fr}
-  .confidence-grid{grid-template-columns:1fr;gap:10px}
-  .confidence-card{display:grid;grid-template-columns:minmax(110px,38%) 1fr}
-  .confidence-card .scenario{height:100%;min-height:145px;aspect-ratio:auto;border:0;border-right:3px solid var(--navy-ink)}
-  .howto-card{padding:13px 12px;column-gap:9px}
-  .howto-card .step-no{width:31px;height:31px;font-size:13px;margin:0}
-  .howto-card h3{font-size:12.5px}
-  .howto-card p{font-size:11px;line-height:1.35}
+  .confidence-panel{padding:20px 15px}
+  .confidence-grid{grid-template-columns:1fr;gap:23px}
+  .confidence-card{padding-bottom:22px;border-bottom:2px solid #e3e9f5}
+  .confidence-card:last-child{padding-bottom:0;border-bottom:0}
+  .confidence-card .scenario{width:min(100%,390px);margin:12px 0 11px;aspect-ratio:16/9}
+  .howto-card .step-no{width:36px;height:36px;font-size:13px}
+  .howto-card h3{font-size:12.5px;margin-bottom:5px}
+  .howto-card p{font-size:10.5px;line-height:1.35}
 }
 
 /* Proof */
@@ -737,9 +748,26 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
         <h2 class="title reveal in" style="color:#fff">Tap, buzz — <i style="color:var(--pink)">or both at once.</i></h2>
         <p class="subcopy reveal in" style="color:#dbe9ffd0">Two independent motors, controlled by two buttons. Start with one, layer in the other, and dial each up on its own.</p>
         <div class="explode-facts">
-        <div class="explode-fact f1" id="fact1"><span>01 · Tapping</span>5 tapping modes — from a slow tease to a fast flutter.</div>
-        <div class="explode-fact f2" id="fact2"><span>02 · Vibration</span>8 vibration intensities — low steady hum to full power.</div>
-        <div class="explode-fact f3" id="fact3"><span>03 · Combine</span>Turn one on, then short-press the other — dual-action, independently tuned.</div>
+          <article class="explode-fact f1" id="fact1">
+            <div class="explode-fact-media"><img src="assets/buzzy-feature-modes.png" alt="Buzzy Rabbit tapping modes" loading="lazy"></div>
+            <h3>Tapping</h3>
+            <p>5 tapping modes — from a slow tease to a fast flutter.</p>
+          </article>
+          <article class="explode-fact f2" id="fact2">
+            <div class="explode-fact-media"><img src="assets/buzzy-feature-vibrations.png" alt="Buzzy Rabbit vibration settings" loading="lazy"></div>
+            <h3>Vibration</h3>
+            <p>8 vibration intensities — low steady hum to full power.</p>
+          </article>
+          <article class="explode-fact f3" id="fact3">
+            <div class="explode-fact-media"><img src="assets/buzzy-feature-waterproof.png" alt="Buzzy Rabbit dual action" loading="lazy"></div>
+            <h3>Combine</h3>
+            <p>Turn one on, then short-press the other — dual-action, independently tuned.</p>
+          </article>
+          <article class="explode-fact f4" id="fact4">
+            <div class="explode-fact-media"><img src="assets/buzzy-feature-runtime.png" alt="Buzzy Rabbit independent controls" loading="lazy"></div>
+            <h3>Either — or both</h3>
+            <p>Start with one, layer in the other, and dial each up on its own.</p>
+          </article>
         </div>
       </div>
     </div>
@@ -774,19 +802,21 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
     <p class="kicker kicker-reveal">Confidence</p>
     <h2 class="title reveal">Three steps. <i style="color:var(--pink)">That's it.</i></h2>
     <p class="subcopy reveal">No manual required — but here's the short version anyway.</p>
-    <div class="confidence-grid stagger">
-      <article class="pop-card confidence-card">
-        <div class="scenario"><img src="assets/buzzy-water-hero.png" alt="Bath and shower use" loading="lazy"><span>The bath</span></div>
-        <div class="howto-card"><div class="step-no">1</div><h3>Press &amp; hold, 3 seconds</h3><p>Hold either the tapping or vibration button for 3 seconds to switch it on.</p></div>
-      </article>
-      <article class="pop-card confidence-card">
-        <div class="scenario"><img src="assets/buzzy-hand-landscape.png" alt="Bedroom use" loading="lazy"><span>The bed</span></div>
-        <div class="howto-card"><div class="step-no">2</div><h3>Short-press to cycle modes</h3><p>Tap the button again to move through the 5 tapping or 8 vibration settings.</p></div>
-      </article>
-      <article class="pop-card confidence-card">
-        <div class="scenario"><img src="assets/buzzy-rabbit.png" alt="Solo use" loading="lazy"><span>Solo, anywhere</span></div>
-        <div class="howto-card"><div class="step-no">3</div><h3>Hold again to switch off</h3><p>Same press-and-hold, 3 seconds, whenever you're done. Rinse and store dry.</p></div>
-      </article>
+    <div class="pop-card confidence-panel">
+      <div class="confidence-grid stagger">
+        <article class="confidence-card">
+          <div class="scenario"><img src="assets/buzzy-water-hero.png" alt="Bath and shower use" loading="lazy"><span>The bath</span></div>
+          <div class="howto-card"><div class="step-no">1</div><h3>Press &amp; hold, 3 seconds</h3><p>Hold either the tapping or vibration button for 3 seconds to switch it on.</p></div>
+        </article>
+        <article class="confidence-card">
+          <div class="scenario"><img src="assets/buzzy-hand-landscape.png" alt="Bedroom use" loading="lazy"><span>The bed</span></div>
+          <div class="howto-card"><div class="step-no">2</div><h3>Short-press to cycle modes</h3><p>Tap the button again to move through the 5 tapping or 8 vibration settings.</p></div>
+        </article>
+        <article class="confidence-card">
+          <div class="scenario"><img src="assets/buzzy-rabbit.png" alt="Solo use" loading="lazy"><span>Solo, anywhere</span></div>
+          <div class="howto-card"><div class="step-no">3</div><h3>Hold again to switch off</h3><p>Same press-and-hold, 3 seconds, whenever you're done. Rinse and store dry.</p></div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -1007,7 +1037,7 @@ function drawExplodeFrame(idx){
   ctx.drawImage(spriteImg, 0, clamped*SPRITE_FRAME_H, SPRITE_FRAME_W, SPRITE_FRAME_H, 0,0, SPRITE_FRAME_W, SPRITE_FRAME_H);
 }
 
-const facts = [document.getElementById('fact1'), document.getElementById('fact2'), document.getElementById('fact3')];
+const facts = Array.from(document.querySelectorAll('.explode-fact'));
 if(!reduceMotion && explodeScene){
   let ticking2 = false;
   function updateExplode(){
