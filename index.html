@@ -496,20 +496,29 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 @media (max-width:760px){.pop-grid-3,.pop-grid-2{grid-template-columns:1fr}}
 
 /* Safety */
-.safety-card{width:min(720px,100%);margin:auto;padding:18px;grid-template-columns:minmax(0,1.35fr) minmax(130px,.65fr);gap:16px;align-items:center}
-.safety-card .kicker{margin-bottom:6px}
-.safety-card .title{font-size:clamp(23px,3vw,32px);line-height:1.02}
-.safety-card > div:first-child > p:not(.kicker){font-size:12.5px!important;line-height:1.45!important}
-.safety-visual{display:flex;align-items:center;justify-content:center}
-.safety-visual img{max-width:145px;filter:drop-shadow(6px 6px 0 rgba(7,29,98,.15))}
-.safety-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
-.safety-list li{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;line-height:1.35}
-.safety-list svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;stroke:var(--magenta)}
+.safety-card{width:min(1050px,100%);margin:auto;padding:0;display:grid;grid-template-columns:minmax(290px,.9fr) minmax(0,1.1fr);gap:0;align-items:stretch;overflow:hidden;transform-style:preserve-3d;will-change:transform}
+.safety-copy{position:relative;z-index:2;padding:clamp(24px,3.7vw,46px);display:flex;flex-direction:column;justify-content:center;background:var(--white)}
+.safety-card .kicker{margin-bottom:7px}
+.safety-card .title{font-size:clamp(28px,3.6vw,44px);line-height:1.01;margin-bottom:13px!important}
+.safety-copy > p:not(.kicker){font-size:14px!important;line-height:1.5!important}
+.safety-visual{position:relative;min-height:430px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 55% 42%,var(--pink),var(--magenta) 48%,var(--navy) 125%);perspective:900px}
+.safety-visual:after{content:"";position:absolute;inset:-30%;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.2) 48%,transparent 58%);transform:translateX(-65%) rotate(8deg);animation:safetySheen 5.4s ease-in-out infinite;pointer-events:none}
+@keyframes safetySheen{0%,24%{transform:translateX(-65%) rotate(8deg)}62%,100%{transform:translateX(65%) rotate(8deg)}}
+.safety-visual img{width:100%;height:100%;max-width:none;object-fit:contain;padding:10px;filter:drop-shadow(0 18px 24px rgba(4,18,63,.32));transform:scale(1.03);will-change:transform}
+.safety-list{list-style:none;margin:15px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.safety-list li{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.38}
+.safety-list svg{width:18px;height:18px;flex-shrink:0;margin-top:1px;stroke:var(--magenta)}
 @media (max-width:760px){
-  .safety-card{width:min(100%,430px);grid-template-columns:1fr;padding:15px;gap:10px}
-  .safety-visual{grid-row:1}
-  .safety-visual img{max-width:110px}
+  .safety-card{width:min(100%,430px);grid-template-columns:1fr}
+  .safety-visual{min-height:0;height:clamp(220px,63vw,285px)}
+  .safety-visual img{padding:7px;transform:scale(1.02)}
+  .safety-copy{padding:20px 18px 21px}
+  .safety-card .title{font-size:clamp(25px,7.8vw,32px);margin-bottom:10px!important}
+  .safety-copy > p:not(.kicker){font-size:12.5px!important;line-height:1.45!important}
+  .safety-list{margin-top:12px;gap:7px}
+  .safety-list li{font-size:11.5px;line-height:1.34}
 }
+@media (prefers-reduced-motion:reduce){.safety-visual:after{animation:none;display:none}}
 
 /* Confidence how-to */
 .confidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -725,8 +734,9 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
      Copy locked verbatim from the live PDP. -->
 <section class="section on-navy" id="safety" style="scroll-margin-top:79px">
   <div class="shell">
-    <div class="pop-card safety-card pop-grid-2 reveal">
-      <div>
+    <div class="pop-card safety-card reveal" id="safetyCard">
+      <div class="safety-visual"><img id="safetyProduct" src="assets/buzzy-pack-hero.png" alt="Buzzy Rabbit massager with retail pack" loading="lazy"></div>
+      <div class="safety-copy">
         <p class="kicker kicker-reveal" style="color:var(--magenta);text-align:left">Safety</p>
         <h2 class="title" style="text-align:left;margin-bottom:16px;color:var(--navy-ink)">Made for <i style="color:var(--magenta)">external play.</i></h2>
         <p style="font-size:14.5px;line-height:1.65;color:#4a5a86;max-width:440px">Buzzy Rabbit is designed for external stimulation only — around the clitoral area or other sensitive zones. It's not meant for internal insertion.</p>
@@ -737,7 +747,6 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
           <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/></svg>Manufactured by Odeco Ltd.; marketed in India by Reckitt Benckiser (India) Pvt. Ltd.</li>
         </ul>
       </div>
-      <div class="safety-visual"><img src="assets/buzzy-rabbit-stage.png" alt="Buzzy Rabbit soft-touch silicone" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1025,6 +1034,32 @@ if(!reduceMotion && explodeScene){
 } else if(facts[0]) {
   facts.forEach(f=>{ f.style.opacity='1'; });
   if(ctx){ spriteImg.onload = ()=>{ spriteReady=true; drawExplodeFrame(24); }; }
+}
+
+/* ---- Safety banner: contained card and product depth on scroll ---- */
+const safetyCard = document.getElementById('safetyCard');
+const safetyProduct = document.getElementById('safetyProduct');
+if(!reduceMotion && safetyCard && safetyProduct){
+  let tickingSafety = false;
+  function updateSafetyParallax(){
+    const rect = safetyCard.getBoundingClientRect();
+    const progress = Math.min(1,Math.max(0,(window.innerHeight-rect.top)/(window.innerHeight+rect.height)));
+    const depth = progress-.5;
+    const mobileView = window.innerWidth<=760;
+    if(safetyCard.classList.contains('in')){
+      safetyCard.style.transform = mobileView
+        ? `translate3d(0,${depth*-8}px,0)`
+        : `perspective(1100px) translate3d(0,${depth*-12}px,0) rotateX(${depth*-2.4}deg)`;
+    }
+    safetyProduct.style.transform = `translate3d(0,${depth*(mobileView?-12:-22)}px,28px) scale(${mobileView?1.04:1.07})`;
+    tickingSafety=false;
+  }
+  function requestSafetyParallax(){
+    if(!tickingSafety){requestAnimationFrame(updateSafetyParallax);tickingSafety=true;}
+  }
+  window.addEventListener('scroll',requestSafetyParallax,{passive:true});
+  window.addEventListener('resize',requestSafetyParallax,{passive:true});
+  updateSafetyParallax();
 }
 
 /* ---- scroll reveal (single + staggered groups) ---- */
