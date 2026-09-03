@@ -573,6 +573,29 @@ canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
   .howto-card p{font-size:10.5px;line-height:1.35}
 }
 
+/* Illustrated how-to */
+.works-panel{padding:clamp(30px,4.6vw,60px) clamp(20px,4vw,48px) clamp(28px,4vw,50px);background:var(--white)}
+.works-title{max-width:900px;margin:0 auto clamp(24px,3.5vw,42px);text-align:center;color:var(--navy-ink);font:800 clamp(30px,4.7vw,58px)/1.02 One;letter-spacing:-.045em}
+.works-title i{color:var(--magenta)}
+.works-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,42px)}
+.works-step{min-width:0;display:grid;grid-template-rows:auto auto auto 1fr;justify-items:center;text-align:center}
+.works-number{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--magenta);color:var(--white);font:800 15px/1 One;box-shadow:0 7px 0 rgba(7,29,98,.12)}
+.works-media{width:100%;height:clamp(220px,25vw,330px);margin:12px 0 4px;display:grid;place-items:center;overflow:hidden}
+.works-media img{width:100%;height:100%;object-fit:contain;display:block}
+.works-step h3{font:800 clamp(16px,1.6vw,21px)/1.2 One;letter-spacing:-.035em;color:var(--navy-ink);margin:0 0 8px}
+.works-step p{max-width:320px;margin:0;color:#667394;font-size:12px;line-height:1.48}
+@media (max-width:760px){
+  .works-panel{padding:27px 16px 24px}
+  .works-title{font-size:clamp(28px,9vw,39px);margin-bottom:25px}
+  .works-grid{grid-template-columns:1fr;gap:28px}
+  .works-step{padding-bottom:27px;border-bottom:2px solid #e3e9f5}
+  .works-step:last-child{padding-bottom:0;border-bottom:0}
+  .works-number{width:40px;height:40px;font-size:13px}
+  .works-media{width:min(100%,360px);height:auto;aspect-ratio:1;margin:5px 0 0}
+  .works-step h3{font-size:16px;margin-bottom:7px}
+  .works-step p{max-width:300px;font-size:11px;line-height:1.42}
+}
+
 /* Proof */
 .proof-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:16px;align-items:start;margin-bottom:35px}
 .rating-card{text-align:center;padding:24px 16px}
@@ -817,6 +840,35 @@ footer p{font:18px One,Arial,sans-serif;color:#eaf8ffc4;margin:0}
         <article class="confidence-card">
           <div class="scenario"><img src="assets/buzzy-rabbit.png" alt="Solo use" loading="lazy"><span>Solo, anywhere</span></div>
           <div class="howto-card"><div class="step-no">3</div><h3>Hold again to switch off</h3><p>Same press-and-hold, 3 seconds, whenever you're done. Rinse and store dry.</p></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ILLUSTRATED HOW-TO — Three simple steps ================= -->
+<section class="section on-navy" id="how-it-works" style="scroll-margin-top:79px">
+  <div class="shell">
+    <div class="pop-card works-panel reveal">
+      <h2 class="works-title">How Buzzy Rabbit <i>works</i></h2>
+      <div class="works-grid stagger">
+        <article class="works-step">
+          <span class="works-number">1</span>
+          <div class="works-media"><img src="assets/buzzy-step-power.webp" alt="Press and hold the power control" loading="lazy" width="900" height="900"></div>
+          <h3>Press &amp; hold, 3 seconds</h3>
+          <p>Hold either the tapping or vibration button for 3 seconds to switch it on.</p>
+        </article>
+        <article class="works-step">
+          <span class="works-number">2</span>
+          <div class="works-media"><img src="assets/buzzy-step-modes.webp" alt="Short-press to move through the settings" loading="lazy" width="900" height="900"></div>
+          <h3>Short-press to cycle modes</h3>
+          <p>Tap the button again to move through the 5 tapping or 8 vibration settings.</p>
+        </article>
+        <article class="works-step">
+          <span class="works-number">3</span>
+          <div class="works-media"><img src="assets/buzzy-step-rinse.webp" alt="Switch off, rinse and store dry" loading="lazy" width="900" height="900"></div>
+          <h3>Hold again to switch off</h3>
+          <p>Same press-and-hold, 3 seconds, whenever you're done. Rinse and store dry.</p>
         </article>
       </div>
     </div>
