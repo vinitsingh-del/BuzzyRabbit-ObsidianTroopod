@@ -922,6 +922,414 @@ main{position:relative;isolation:isolate}
   .confidence-card .scenario img,.works-media img,.final-buy-visual img{transform:none!important;transition:none!important}
 }
 
+/* ============================================================
+   EDITORIAL POP SYSTEM — attached-reference feel
+   Hero, global animated background, typography, copy and order locked.
+   ============================================================ */
+:root{
+  --pop-sky:#55c7ef;
+  --pop-pink:#ff5aae;
+  --pop-yellow:#fff43b;
+  --pop-blue:#1974e8;
+  --pop-plum:#a90078;
+}
+
+/* Remove the post-hero glass, glow and decorative overlay layer. */
+.section:before,
+#explodeScene:before,
+.explode-stage:before,
+.safety-visual:before,
+.safety-visual:after,
+.confidence-grid:before,
+.confidence-card .scenario:after,
+.final-buy-card:before,
+.final-buy-visual:before{display:none!important}
+
+#safety .pop-card,
+#confidence .pop-card,
+#how-it-works .pop-card,
+#proof .pop-card,
+#decision .pop-card,
+#faq .pop-card,
+#final-buy .pop-card{
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+
+/* Understand — same pinned product/parallax, simplified into bold tiles. */
+.explode-visual canvas{
+  filter:drop-shadow(0 26px 32px rgba(4,18,63,.42));
+}
+.explode-facts{
+  gap:0;
+  padding:0;
+  overflow:hidden;
+  border-radius:0;
+  background:transparent;
+}
+.explode-fact{
+  min-height:184px;
+  padding:18px 14px 20px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:var(--pop-sky);
+  color:var(--navy-ink);
+}
+.explode-fact:nth-child(2){background:var(--pop-yellow)}
+.explode-fact:nth-child(3){background:var(--pop-pink)}
+.explode-fact:nth-child(4){background:var(--pop-blue);color:#fff}
+.explode-fact:nth-child(4) p{color:#fff}
+.explode-fact-media{
+  width:min(10vw,118px);
+  background:transparent;
+  border:0;
+  border-radius:50%;
+  box-shadow:none;
+}
+.explode-fact h3{font-size:16px}
+.explode-fact p{color:rgba(7,29,98,.72)}
+
+/* Safety — a clean two-colour banner with the real pack shot leading. */
+#safety{padding-top:clamp(30px,4vw,54px)}
+.safety-card{
+  width:min(1120px,100%);
+  grid-template-columns:minmax(360px,1.08fr) minmax(0,.92fr);
+  background:var(--pop-pink);
+  overflow:hidden;
+}
+.safety-visual{
+  min-height:590px;
+  background:var(--pop-sky);
+}
+.safety-visual img{
+  width:100%;
+  height:100%;
+  padding:18px;
+  filter:drop-shadow(0 24px 26px rgba(4,18,63,.3));
+}
+.safety-copy{
+  padding:clamp(38px,5vw,68px);
+  background:var(--pop-pink);
+  color:var(--navy-ink);
+}
+.safety-copy .kicker{color:var(--navy-ink)!important}
+.safety-copy .title{color:#fff!important}
+.safety-copy .title i{color:var(--pop-yellow)!important}
+.safety-copy>p:not(.kicker){color:var(--navy-ink)!important}
+.safety-list{gap:0;margin-top:28px}
+.safety-list li{
+  padding:14px 0;
+  border-top:2px solid rgba(7,29,98,.16);
+  color:var(--navy-ink);
+}
+.safety-list svg{stroke:var(--navy-ink)}
+
+/* Confidence — one continuous colour story instead of floating cards. */
+#confidence>.shell{
+  padding:clamp(34px,5vw,62px);
+  background:var(--pop-plum);
+}
+#confidence .kicker{color:var(--pop-yellow)}
+#confidence>.shell>.title{color:#fff}
+.confidence-panel{
+  padding:0;
+  background:transparent;
+}
+.confidence-grid{gap:0}
+.confidence-card{
+  padding:24px 20px 30px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  background:var(--pop-sky);
+  color:var(--navy-ink);
+}
+.confidence-card:nth-child(2){background:var(--pop-yellow)}
+.confidence-card:nth-child(3){background:var(--pop-pink)}
+.confidence-card .scenario{
+  width:100%;
+  margin:14px 0 20px;
+  aspect-ratio:4/3;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  overflow:hidden;
+}
+.confidence-card .scenario img{
+  padding:0;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 18px rgba(4,18,63,.18));
+}
+.confidence-card .scenario span{
+  left:12px;
+  bottom:10px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#fff;
+  color:var(--navy-ink);
+  font-size:10px;
+}
+.howto-card .step-no{
+  width:48px;
+  height:48px;
+  background:var(--navy-ink);
+  color:#fff;
+  box-shadow:none;
+}
+.howto-card h3{color:var(--navy-ink);font-size:18px}
+.howto-card p{color:rgba(7,29,98,.72);font-size:14px}
+
+/* How it works — same sequence and assets, now a stacked editorial panel. */
+.works-panel{
+  padding:clamp(38px,5vw,64px);
+  background:var(--pop-sky);
+  overflow:hidden;
+}
+.works-title{color:var(--navy-ink)}
+.works-title i{color:var(--pop-plum)}
+.works-grid{gap:0}
+.works-step{
+  padding:24px 20px 30px;
+  border:0;
+  border-radius:0;
+  background:var(--pop-pink);
+}
+.works-step:nth-child(2){background:var(--pop-yellow)}
+.works-step:nth-child(3){background:var(--pop-blue)}
+.works-step:nth-child(3) h3,
+.works-step:nth-child(3) p{color:#fff}
+.works-media{
+  height:clamp(270px,28vw,390px);
+  margin:8px 0 18px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.works-media img{
+  padding:4px;
+  filter:drop-shadow(0 20px 22px rgba(4,18,63,.22));
+}
+.works-number{
+  width:46px;
+  height:46px;
+  background:#fff;
+  color:var(--navy-ink);
+  box-shadow:none;
+}
+.works-step h3{font-size:19px;color:var(--navy-ink)}
+.works-step p{font-size:14px;color:rgba(7,29,98,.72)}
+
+/* Proof — speech-bubble reviews and bright, flat specification bands. */
+#proof>.shell{
+  padding:clamp(34px,5vw,62px);
+  background:var(--pop-pink);
+}
+#proof .kicker{color:var(--navy-ink)}
+#proof>.shell>.title{color:#fff}
+.proof-top{gap:0;margin-bottom:0}
+.rating-card{
+  min-height:360px;
+  padding:34px;
+  background:var(--pop-yellow);
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+.rating-card .big{color:var(--navy-ink)}
+.rating-card .stars{color:var(--magenta);filter:none}
+.rating-card p{color:var(--navy-ink)}
+.review-list{
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  padding:clamp(24px,4vw,44px);
+  background:var(--pop-blue);
+}
+.review-card-pop{
+  position:relative;
+  padding:26px 22px;
+  border:0;
+  border-radius:18px;
+  background:#fff;
+  box-shadow:none;
+}
+.review-card-pop:after{
+  content:"";
+  position:absolute;
+  left:26px;
+  bottom:-14px;
+  width:0;
+  height:0;
+  border:14px solid transparent;
+  border-top-color:#fff;
+  border-left:0;
+}
+.review-card-pop .stars{filter:none}
+.spec-grid{gap:0;margin-top:0}
+.spec-tile{
+  min-height:118px;
+  padding:22px 18px;
+  border:0;
+  border-radius:0;
+  background:var(--pop-sky);
+  color:var(--navy-ink);
+  box-shadow:none;
+  backdrop-filter:none;
+}
+.spec-tile:nth-child(2),.spec-tile:nth-child(5){background:var(--pop-yellow)}
+.spec-tile:nth-child(3),.spec-tile:nth-child(4){background:#fff}
+.spec-tile:nth-child(6){background:var(--pop-plum);color:#fff}
+.spec-tile .icon-ring{
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.72);
+}
+.spec-tile svg{stroke:var(--navy-ink)}
+.spec-tile span{color:rgba(7,29,98,.7)}
+.spec-tile:nth-child(6) span{color:rgba(255,255,255,.78)}
+.angle-strip-video{
+  margin-top:0;
+  padding:32px;
+  border:0;
+  border-radius:0;
+  background:var(--pop-sky);
+}
+.angle-video-figure{width:min(420px,100%)}
+
+/* Decision — bright flat panels; commerce behavior and copy unchanged. */
+#decision>.shell{
+  padding:clamp(34px,5vw,62px);
+  background:var(--pop-blue);
+}
+#decision .kicker{color:var(--pop-yellow)}
+#decision>.shell>.title{color:#fff}
+.pop-grid-2{gap:0}
+.decision-card-pop{
+  padding:clamp(30px,4vw,50px);
+  border:0;
+  border-radius:0;
+  background:var(--pop-yellow);
+  color:var(--navy-ink);
+}
+.decision-card-pop:nth-child(2){background:var(--pop-sky)}
+.decision-card-pop h3{color:var(--navy-ink)}
+.decision-card-pop p,.box-contents li{color:rgba(7,29,98,.74)}
+.pincode-row input{background:#fff}
+.pincode-row button{box-shadow:none}
+.risk-module{
+  margin-top:0;
+  padding:clamp(30px,4vw,50px);
+  border:0;
+  border-radius:0;
+  background:var(--pop-pink);
+  color:var(--navy-ink);
+  box-shadow:none;
+}
+.risk-module .kicker{color:var(--navy-ink)}
+.risk-module h3{color:#fff}
+.risk-module p{color:var(--navy-ink)}
+
+/* FAQ — a single sky banner with clean white answer rows. */
+#faq>.shell{
+  padding:clamp(34px,5vw,62px);
+  background:var(--pop-sky);
+}
+#faq .kicker{color:var(--navy-ink)}
+#faq>.shell>.title{color:var(--navy-ink)}
+#faq>.shell>.title i{color:var(--pop-plum)!important}
+.faq-list{max-width:900px;gap:8px}
+.faq-item{
+  border:0;
+  border-radius:0;
+  background:#fff;
+  box-shadow:none;
+}
+.faq-item[open]{box-shadow:none}
+.faq-item summary{color:var(--navy-ink)}
+
+/* Closing purchase banner — flat brand colour, no overlay effects. */
+.final-buy-card{
+  min-height:520px;
+  border:0;
+  border-radius:0;
+  background:var(--pop-plum);
+  box-shadow:none;
+}
+.final-buy-copy{background:var(--pop-plum)}
+.final-buy-copy .kicker{color:var(--pop-yellow)}
+.final-buy-copy>p{color:rgba(255,255,255,.84)}
+.final-buy-visual{
+  min-height:520px;
+  background:var(--pop-sky);
+}
+.final-buy-visual img{
+  filter:drop-shadow(0 24px 26px rgba(4,18,63,.28));
+}
+
+@media (max-width:760px){
+  .explode-facts{gap:0;padding:0}
+  .explode-fact{min-height:126px;padding:10px 8px 12px;border-radius:0}
+  .explode-fact-media{width:58px}
+  .explode-fact h3{font-size:12px}
+  .explode-fact p{font-size:10px}
+
+  #safety,#confidence,#how-it-works,#proof,#decision,#faq{padding:24px 0}
+  .safety-card{width:100%;grid-template-columns:1fr}
+  .safety-visual{min-height:0;height:clamp(300px,88vw,390px)}
+  .safety-visual img{padding:8px}
+  .safety-copy{padding:28px 20px 30px}
+
+  #confidence>.shell,
+  #proof>.shell,
+  #decision>.shell,
+  #faq>.shell{padding:28px 0 0}
+  #confidence>.shell>.kicker,
+  #confidence>.shell>.title,
+  #proof>.shell>.kicker,
+  #proof>.shell>.title,
+  #decision>.shell>.kicker,
+  #decision>.shell>.title,
+  #faq>.shell>.kicker,
+  #faq>.shell>.title{padding-left:20px;padding-right:20px}
+
+  .confidence-panel{padding:0}
+  .confidence-grid{gap:0}
+  .confidence-card{padding:22px 16px 28px;border:0}
+  .confidence-card .scenario{margin:10px 0 16px;aspect-ratio:4/3}
+  .howto-card h3{font-size:17px}
+  .howto-card p{font-size:13px}
+
+  .works-panel{padding:30px 0 0}
+  .works-title{padding:0 20px}
+  .works-grid{gap:0}
+  .works-step{padding:22px 16px 28px;border:0}
+  .works-media{width:100%;height:auto;aspect-ratio:4/3;margin:4px 0 14px}
+
+  .proof-top{grid-template-columns:1fr;margin-bottom:0}
+  .rating-card{min-height:260px}
+  .review-list{grid-template-columns:1fr;padding:28px 20px 38px}
+  .spec-grid{grid-template-columns:1fr}
+  .spec-tile{min-height:94px}
+  .angle-strip-video{padding:24px 14px}
+
+  .decision-card-pop{padding:28px 20px}
+  .risk-module{grid-template-columns:1fr;padding:28px 20px;gap:14px}
+
+  .faq-list{padding:0 12px 22px}
+  .faq-item summary{padding:17px 15px}
+  .faq-item p{margin:0 40px 20px 15px}
+
+  .final-buy-card{grid-template-columns:1fr;min-height:0}
+  .final-buy-visual{min-height:360px;height:48svh}
+  .final-buy-copy{padding:32px 20px 34px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .review-card-pop:after{transition:none}
+}
+
 </style>
 </head>
 <body>
