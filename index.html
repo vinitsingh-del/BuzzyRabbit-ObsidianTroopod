@@ -1377,9 +1377,12 @@ main>.section{
 }
 main>.section+section{margin-top:0}
 main>.section>.shell{
+  padding-left:0;
+  padding-right:0;
   border:0;
   box-shadow:none;
 }
+#safety{padding:12px 0 0}
 footer{margin-top:12px}
 
 .pop-card,
@@ -1505,6 +1508,7 @@ footer{margin-top:12px}
 #how-it-works .works-step{grid-template-rows:auto auto auto 1fr}
 #confidence .confidence-card .scenario,
 #how-it-works .works-media{
+  position:relative;
   width:100%;
   margin:12px 0 16px;
   aspect-ratio:4/3;
@@ -1709,6 +1713,10 @@ footer{margin-top:12px}
   object-fit:contain;
   transform:translate3d(0,var(--depth-y,0),0) scale(var(--card-media-zoom));
   transform-origin:center;
+}
+.works-media img{
+  position:absolute;
+  inset:0;
 }
 .final-buy-visual img{padding:18px}
 @media (hover:hover){
@@ -2555,4 +2563,3 @@ buyBtns.forEach(btn=>{
 </script>
 </body>
 </html>
-
