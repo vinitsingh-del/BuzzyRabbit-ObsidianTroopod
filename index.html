@@ -1331,16 +1331,29 @@ main{position:relative;isolation:isolate}
 }
 
 /* ============================================================
-   PRECISION PASS — media motion locked, flat full-width system
+   PRECISION RESPONSIVE ALIGNMENT SYSTEM
+   Alignment, containment and media framing only. Locked hero and
+   Tap/Buzz canvas dimensions, transforms and scroll logic untouched.
    ============================================================ */
+:root{
+  --content-max:1220px;
+  --desktop-edge:clamp(24px,4.7vw,64px);
+  --mobile-edge:16px;
+  --card-radius:24px;
+  --card-gap:clamp(16px,1.5vw,20px);
+  --card-pad:clamp(24px,2.4vw,32px);
+  --card-media-zoom:1.05;
+  --glass-light:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,255,255,.58));
+  --glass-dark:linear-gradient(145deg,rgba(4,18,63,.76),rgba(8,38,121,.5));
+  --glass-line:rgba(255,255,255,.48);
+  --glass-shadow:0 22px 58px rgba(4,18,63,.24),inset 0 1px 0 rgba(255,255,255,.72);
+  --glass-blur:blur(22px) saturate(135%);
+}
 
-/* Keep the hero product and Tap/Buzz canvases untouched; remove only
-   their surrounding decorative overlays and dark/grey edge treatment. */
 body:after,
 #heroScene:before,
 .hero-visual:before,
 .hero-visual:after{display:none!important}
-
 .hero-trust span{
   padding:6px 0;
   border:0;
@@ -1349,48 +1362,46 @@ body:after,
   backdrop-filter:none;
 }
 
-/* Full-width colour fields remove the dark corner rails. */
-main>.section{
-  margin:0!important;
-  padding:12px 0 0!important;
+header .header-row,
+.hero-inner-grid,
+#explodeScene .explode-shell,
+main>.section>.shell,
+footer>.shell{
+  width:min(var(--content-max),calc(100% - 2 * var(--desktop-edge)));
+  max-width:var(--content-max);
+  margin-inline:auto;
 }
-main>.section>.shell{
-  width:100%;
-  max-width:none;
+main>.section{
   margin:0;
+  padding:12px 0 0;
+}
+main>.section+section{margin-top:0}
+main>.section>.shell{
   border:0;
-  border-radius:0;
   box-shadow:none;
 }
-.safety-card,
-.works-panel,
-.final-buy-card{width:100%;max-width:none;margin:0;border-radius:0}
-
-/* One exact vertical rhythm on desktop and mobile. */
-main>.section+section{margin-top:0!important}
 footer{margin-top:12px}
 
-@media (max-width:760px){
-  main>.section{padding:12px 0 0!important}
-  main>.section>.shell{width:100%;max-width:none}
-  .hero-trust span{padding:5px 0}
+.pop-card,
+.explode-fact,
+#safety .safety-card,
+#confidence .confidence-panel,
+#confidence .confidence-card,
+#how-it-works .works-panel,
+#how-it-works .works-step,
+#proof .rating-card,
+#proof .review-card-pop,
+#proof .spec-tile,
+#proof .angle-strip-video,
+#decision .decision-card-pop,
+#decision .risk-module,
+#faq .faq-item,
+#final-buy .final-buy-card{
+  min-width:0;
+  max-width:100%;
+  border-radius:var(--card-radius);
+  box-sizing:border-box;
 }
-
-/* ============================================================
-   UNIFIED GLASS CARD SYSTEM
-   Card surfaces only. Structure, content, color tokens, type,
-   imagery, spacing, motion and commerce behavior remain intact.
-   ============================================================ */
-:root{
-  --glass-light:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,255,255,.58));
-  --glass-dark:linear-gradient(145deg,rgba(4,18,63,.76),rgba(8,38,121,.5));
-  --glass-line:rgba(255,255,255,.48);
-  --glass-shadow:0 22px 58px rgba(4,18,63,.24),inset 0 1px 0 rgba(255,255,255,.72);
-  --glass-blur:blur(22px) saturate(135%);
-}
-
-/* Shared light glass cards. The section-specific selectors intentionally
-   match the editorial overrides above so every card receives one finish. */
 .pop-card,
 .explode-fact,
 #safety .safety-card,
@@ -1402,118 +1413,194 @@ footer{margin-top:12px}
 #decision .decision-card-pop,
 #decision .risk-module,
 #faq .faq-item{
-  background:var(--glass-light)!important;
-  border:1px solid var(--glass-line)!important;
-  border-radius:24px!important;
-  box-shadow:var(--glass-shadow)!important;
+  background:var(--glass-light);
+  border:1px solid var(--glass-line);
+  box-shadow:var(--glass-shadow);
   -webkit-backdrop-filter:var(--glass-blur);
   backdrop-filter:var(--glass-blur);
-  background-clip:padding-box!important;
+  background-clip:padding-box;
 }
-
-/* Card groups stay transparent so the individual glass panes read clearly. */
+#confidence .confidence-panel,
+#proof .spec-tile,
+#proof .angle-strip-video,
+#final-buy .final-buy-card{
+  background:var(--glass-dark);
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:0 28px 72px rgba(4,18,63,.34),inset 0 1px 0 rgba(255,255,255,.28);
+  -webkit-backdrop-filter:blur(24px) saturate(140%);
+  backdrop-filter:blur(24px) saturate(140%);
+  background-clip:padding-box;
+}
 .explode-facts,
 .confidence-grid,
 .works-grid,
 .review-list,
 .spec-grid,
 .pop-grid-2,
-.faq-list{background:transparent!important}
-
-/* Safety remains a single split card; both halves become translucent panes
-   without changing its grid or product position. */
-#safety .safety-card{overflow:hidden}
+.faq-list{background:transparent}
+#safety .safety-card,
+#how-it-works .works-panel,
+#final-buy .final-buy-card{
+  width:100%;
+  max-width:100%;
+  margin-inline:0;
+  overflow:hidden;
+}
 #safety .safety-copy{
-  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.5))!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.5));
+  padding:var(--card-pad);
   -webkit-backdrop-filter:blur(18px) saturate(130%);
   backdrop-filter:blur(18px) saturate(130%);
 }
 #safety .safety-visual{
-  background:linear-gradient(145deg,rgba(255,118,233,.46),rgba(8,38,121,.32))!important;
+  background:linear-gradient(145deg,rgba(255,118,233,.46),rgba(8,38,121,.32));
   border-right:1px solid rgba(255,255,255,.36);
 }
-
-/* Dark glass is retained where the existing copy is white. */
-#confidence .confidence-panel,
-#proof .spec-tile,
-#final-buy .final-buy-card{
-  background:var(--glass-dark)!important;
-  border:1px solid rgba(255,255,255,.3)!important;
-  border-radius:28px!important;
-  box-shadow:0 28px 72px rgba(4,18,63,.34),inset 0 1px 0 rgba(255,255,255,.28)!important;
-  -webkit-backdrop-filter:blur(24px) saturate(140%);
-  backdrop-filter:blur(24px) saturate(140%);
-  background-clip:padding-box!important;
-}
-
-#confidence .confidence-panel{padding:clamp(18px,2.8vw,34px)}
-#proof .spec-tile{border-radius:20px!important}
-#proof .angle-strip-video{
-  background:linear-gradient(145deg,rgba(4,18,63,.54),rgba(255,255,255,.1))!important;
-  border:1px solid rgba(255,255,255,.3)!important;
-  border-radius:26px!important;
-  box-shadow:0 24px 62px rgba(4,18,63,.28),inset 0 1px 0 rgba(255,255,255,.3)!important;
-  -webkit-backdrop-filter:blur(22px) saturate(135%);
-  backdrop-filter:blur(22px) saturate(135%);
-}
-
-/* Glass media wells keep each real product asset legible. */
 .explode-fact-media,
 .confidence-card .scenario,
 .works-media,
 .spec-tile .icon-ring{
-  background:rgba(255,255,255,.2)!important;
-  border:1px solid rgba(255,255,255,.38)!important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.46),0 12px 28px rgba(4,18,63,.12)!important;
+  background:rgba(255,255,255,.2);
+  border:1px solid rgba(255,255,255,.38);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.46),0 12px 28px rgba(4,18,63,.12);
   -webkit-backdrop-filter:blur(10px);
   backdrop-filter:blur(10px);
 }
 
-/* The persistent purchase surface follows the same glass system. */
-.sticky-bar{
-  background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,255,255,.66))!important;
-  border:1px solid rgba(255,255,255,.66)!important;
-  border-radius:20px!important;
-  box-shadow:0 22px 58px rgba(4,18,63,.32),inset 0 1px 0 rgba(255,255,255,.86)!important;
-  -webkit-backdrop-filter:blur(24px) saturate(145%);
-  backdrop-filter:blur(24px) saturate(145%);
+.explode-facts{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:var(--card-gap);
+  padding:0;
+  border:0;
+  box-shadow:none;
+  align-items:stretch;
+}
+.explode-fact{
+  height:100%;
+  min-height:0;
+  padding:var(--card-pad);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.explode-fact-media{
+  width:min(110px,42%);
+  flex:0 0 auto;
+  margin:0 auto 14px;
+}
+#confidence .confidence-panel{padding:var(--card-pad)}
+#confidence .confidence-grid,
+#how-it-works .works-grid{
+  gap:var(--card-gap);
+  align-items:stretch;
+}
+#confidence .confidence-card,
+#how-it-works .works-step{
+  height:100%;
+  padding:var(--card-pad);
+  display:grid;
+}
+#confidence .confidence-card{grid-template-rows:auto auto auto 1fr}
+#how-it-works .works-step{grid-template-rows:auto auto auto 1fr}
+#confidence .confidence-card .scenario,
+#how-it-works .works-media{
+  width:100%;
+  margin:12px 0 16px;
+  aspect-ratio:4/3;
+  height:auto;
+}
+#how-it-works .works-panel{padding:var(--card-pad)}
+#how-it-works .works-title{margin-bottom:32px}
+
+#proof .proof-top{
+  grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr);
+  gap:var(--card-gap);
+  align-items:stretch;
+  margin-bottom:32px;
+}
+#proof .rating-card,
+#proof .review-card-pop{
+  height:100%;
+  padding:var(--card-pad);
+}
+#proof .review-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--card-gap);
+  align-items:stretch;
+}
+#proof .review-card-pop{
+  display:flex;
+  flex-direction:column;
+}
+#proof .review-card-pop .who{margin-top:auto}
+#proof .spec-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:var(--card-gap);
+  align-items:stretch;
+}
+#proof .spec-tile{
+  height:100%;
+  min-height:0;
+  padding:20px 22px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:center;
+}
+#proof .angle-strip-video{
+  min-height:0;
+  height:auto;
+  margin-top:32px;
+  padding:24px;
+  display:flex;
+  justify-content:center;
+  overflow:visible;
+}
+#proof .angle-video-figure{
+  width:min(300px,100%);
+  margin-inline:auto;
+}
+#proof .angle-video-figure canvas{
+  width:100%;
+  height:auto;
+  max-width:100%;
+  object-fit:contain;
 }
 
-@media (hover:hover){
-  .pop-card,.explode-fact,.confidence-card,.works-step,.spec-tile,.faq-item{
-    transition:transform .38s var(--ease-smooth),border-color .38s var(--ease-smooth),box-shadow .38s var(--ease-smooth);
-  }
-  .pop-card:hover,.explode-fact:hover,.confidence-card:hover,.works-step:hover,.spec-tile:hover,.faq-item:hover{
-    transform:translateY(-3px);
-    border-color:rgba(255,255,255,.72)!important;
-    box-shadow:0 28px 68px rgba(4,18,63,.3),inset 0 1px 0 rgba(255,255,255,.82)!important;
-  }
+#decision .pop-grid-2{
+  gap:var(--card-gap);
+  align-items:stretch;
 }
-
-@media (max-width:760px){
-  :root{--glass-blur:blur(15px) saturate(125%)}
-  .pop-card,.explode-fact,#safety .safety-card,#confidence .confidence-card,
-  #how-it-works .works-panel,#how-it-works .works-step,#proof .rating-card,
-  #proof .review-card-pop,#decision .decision-card-pop,#decision .risk-module,
-  #faq .faq-item{border-radius:19px!important}
-  #confidence .confidence-panel,#final-buy .final-buy-card{border-radius:22px!important}
-  #safety .safety-visual{border-right:0;border-bottom:1px solid rgba(255,255,255,.36)}
+#decision .decision-card-pop{
+  height:100%;
+  padding:var(--card-pad);
 }
-
-@media (prefers-reduced-transparency:reduce){
-  .pop-card,.explode-fact,.confidence-card,.works-step,.spec-tile,.faq-item,
-  .sticky-bar{background:rgba(255,255,255,.94)!important;backdrop-filter:none;-webkit-backdrop-filter:none}
-  #confidence .confidence-panel,#proof .spec-tile,#final-buy .final-buy-card{background:rgba(4,18,63,.94)!important}
+#decision .risk-module{
+  margin-top:var(--card-gap);
+  padding:var(--card-pad);
 }
+#decision .pincode-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+}
+#decision .pincode-row input,
+#decision .pincode-row button{max-width:100%;box-sizing:border-box}
+#faq .faq-list{
+  width:100%;
+  max-width:none;
+  margin-inline:0;
+  gap:12px;
+  padding:0;
+}
+#faq .faq-item summary{
+  padding:18px 56px 18px 24px;
+  min-width:0;
+}
+#faq .faq-item p{margin:0 56px 20px 24px}
+#final-buy .final-buy-copy{padding:var(--card-pad)}
 
-/* ============================================================
-   CARD TYPOGRAPHY + TIGHT MEDIA SCALE
-   A consistent type hierarchy and controlled asset zoom for
-   desktop and mobile without changing the page-level layout.
-   ============================================================ */
-:root{--card-media-zoom:1.1}
-
-/* One disciplined title rhythm across every card family. */
 .explode-fact h3,
 .howto-card h3,
 .works-step h3,
@@ -1521,58 +1608,53 @@ footer{margin-top:12px}
 .risk-module h3,
 .spec-tile b,
 .faq-item summary{
-  font-family:var(--font-display)!important;
-  font-weight:800!important;
-  letter-spacing:-.035em!important;
+  max-width:100%;
+  font-family:var(--font-display);
+  font-weight:800;
+  letter-spacing:-.035em;
+  overflow-wrap:break-word;
+  word-break:normal;
   text-wrap:balance;
 }
 .explode-fact h3,
 .howto-card h3,
 .works-step h3,
 .decision-card-pop h3{
-  font-size:clamp(18px,1.55vw,22px)!important;
-  line-height:1.08!important;
-  margin-bottom:8px!important;
+  font-size:clamp(18px,1.55vw,22px);
+  line-height:1.15;
+  margin-bottom:8px;
 }
 .risk-module h3{
-  font-size:clamp(24px,2.55vw,34px)!important;
-  line-height:1.04!important;
-  margin:0!important;
+  font-size:clamp(24px,2.55vw,34px);
+  line-height:1.1;
+  margin:0;
 }
-.spec-tile b{
-  font-size:16px!important;
-  line-height:1.14!important;
-  margin-bottom:4px;
-}
-.faq-item summary{
-  font-size:16px!important;
-  line-height:1.2!important;
-}
-
-/* Large titles inside cards keep their hierarchy but no longer overpower
-   the card body or wrap awkwardly. */
+.spec-tile b{font-size:16px;line-height:1.18;margin-bottom:4px}
+.faq-item summary{font-size:16px;line-height:1.22}
 #safety .safety-card .title{
-  font-size:clamp(34px,3.25vw,44px)!important;
-  line-height:.98!important;
-  letter-spacing:-.045em!important;
-  margin-bottom:14px!important;
+  max-width:100%;
+  font-size:clamp(34px,3.25vw,44px);
+  line-height:1;
+  letter-spacing:-.045em;
+  margin-bottom:14px;
+  overflow-wrap:break-word;
   text-wrap:balance;
 }
 #how-it-works .works-title{
-  font-size:clamp(36px,4.4vw,58px)!important;
-  line-height:.98!important;
-  letter-spacing:-.045em!important;
-  margin-bottom:34px!important;
+  max-width:100%;
+  font-size:clamp(36px,4.4vw,58px);
+  line-height:1;
+  letter-spacing:-.045em;
   text-wrap:balance;
 }
 #final-buy .final-buy-copy h2{
-  font-size:clamp(44px,5.4vw,68px)!important;
-  line-height:.94!important;
-  letter-spacing:-.055em!important;
+  max-width:100%;
+  font-size:clamp(44px,5.4vw,68px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  overflow-wrap:break-word;
   text-wrap:balance;
 }
-
-/* Supporting copy is readable, compact and consistent. */
 .explode-fact p,
 .howto-card p,
 .works-step p,
@@ -1581,8 +1663,10 @@ footer{margin-top:12px}
 .risk-module>p,
 .faq-item p,
 .spec-tile span{
-  font-family:var(--font-body)!important;
-  letter-spacing:0!important;
+  max-width:100%;
+  font-family:var(--font-body);
+  letter-spacing:0;
+  overflow-wrap:break-word;
 }
 .explode-fact p,
 .howto-card p,
@@ -1590,95 +1674,203 @@ footer{margin-top:12px}
 .decision-card-pop p,
 .risk-module>p,
 .faq-item p{
-  font-size:14px!important;
-  line-height:1.46!important;
+  font-size:14px;
+  line-height:1.5;
 }
-.review-card-pop p{font-size:15px!important;line-height:1.5!important}
-.review-card-pop .who{font-size:11px!important;line-height:1.35!important;letter-spacing:.06em!important}
-.spec-tile span{font-size:12.5px!important;line-height:1.35!important}
-.rating-card .big{font-family:var(--font-display)!important;line-height:.82!important}
-.rating-card>p{font-size:14px!important;line-height:1.3!important}
+.review-card-pop p{font-size:15px;line-height:1.5}
+.review-card-pop .who{font-size:11px;line-height:1.35;letter-spacing:.06em}
+.spec-tile span{font-size:12.5px;line-height:1.4}
+.rating-card .big{font-family:var(--font-display);line-height:.86}
+.rating-card>p{font-size:14px;line-height:1.4}
 
-/* Tighten internal space only—the section widths and order stay untouched. */
-.explode-fact{min-height:166px!important;padding:14px 13px 16px!important}
-#confidence .confidence-panel{padding:22px!important}
-#confidence .confidence-grid{gap:14px!important}
-#confidence .confidence-card{padding:12px 12px 20px!important}
-#confidence .confidence-card .scenario{margin:10px 0 14px!important}
-#how-it-works .works-panel{padding:clamp(30px,4vw,50px)!important}
-#how-it-works .works-grid{gap:14px!important}
-#how-it-works .works-step{padding:12px 12px 20px!important}
-#how-it-works .works-media{margin:2px 0 14px!important}
-#proof .proof-top{gap:14px!important;margin-bottom:38px!important}
-#proof .review-list{gap:12px!important}
-#proof .rating-card{padding:26px 18px!important}
-#proof .review-card-pop{padding:21px 20px!important}
-#proof .spec-grid{gap:10px!important}
-#proof .spec-tile{min-height:92px!important;padding:15px 14px!important}
-#decision .pop-grid-2{gap:14px!important}
-#decision .decision-card-pop{padding:30px 26px!important}
-#decision .risk-module{margin-top:14px!important;padding:28px 26px!important}
-#faq .faq-list{gap:9px!important}
-#faq .faq-item summary{padding:17px 20px!important}
-#faq .faq-item p{margin:0 48px 18px 20px!important}
-#final-buy .final-buy-copy{padding:clamp(34px,4.5vw,58px)!important}
-
-/* Controlled image enlargement: tighter framing while keeping complete
-   product assets inside their existing media wells. */
-.explode-fact-media img{transform:scale(1.08);transform-origin:center}
+.explode-fact-media img{
+  width:100%;
+  height:100%;
+  max-width:100%;
+  object-fit:cover;
+  transform:scale(1.04);
+  transform-origin:center;
+}
 #safety .safety-visual img{
-  width:110%!important;
-  height:110%!important;
-  max-width:none!important;
+  width:100%;
+  height:100%;
+  max-width:100%;
   margin:auto;
+  padding:24px;
+  object-fit:contain;
 }
 .confidence-card .scenario img,
 .works-media img,
 .final-buy-visual img{
-  transform:translate3d(0,var(--depth-y,0),0) scale(var(--card-media-zoom))!important;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  padding:8px;
+  object-fit:contain;
+  transform:translate3d(0,var(--depth-y,0),0) scale(var(--card-media-zoom));
   transform-origin:center;
 }
-
+.final-buy-visual img{padding:18px}
 @media (hover:hover){
+  .pop-card,.explode-fact,.confidence-card,.works-step,.spec-tile,.faq-item{
+    transition:transform .38s var(--ease-smooth),border-color .38s var(--ease-smooth),box-shadow .38s var(--ease-smooth);
+  }
+  .pop-card:hover,.explode-fact:hover,.confidence-card:hover,.works-step:hover,.spec-tile:hover,.faq-item:hover{
+    transform:translateY(-3px);
+    border-color:rgba(255,255,255,.72);
+    box-shadow:0 28px 68px rgba(4,18,63,.3),inset 0 1px 0 rgba(255,255,255,.82);
+  }
   .confidence-card:hover .scenario img,
   .works-step:hover .works-media img{
-    transform:translate3d(0,var(--depth-y,0),0) scale(calc(var(--card-media-zoom) + .025))!important;
+    transform:translate3d(0,var(--depth-y,0),0) scale(var(--card-media-zoom));
   }
+}
+
+.sticky-bar{
+  width:min(760px,calc(100% - 2 * var(--mobile-edge)));
+  max-width:calc(100% - 2 * var(--mobile-edge));
+  bottom:calc(14px + env(safe-area-inset-bottom));
+  padding:8px 14px;
+  gap:10px;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  border:1px solid rgba(255,255,255,.66);
+  border-radius:20px;
+  background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,255,255,.66));
+  box-shadow:0 22px 58px rgba(4,18,63,.32),inset 0 1px 0 rgba(255,255,255,.86);
+  -webkit-backdrop-filter:blur(24px) saturate(145%);
+  backdrop-filter:blur(24px) saturate(145%);
+}
+.sticky-bar .who{min-width:0}
+.sticky-bar .who>div{min-width:0}
+.sticky-bar p,
+.sticky-bar strong{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+@media (max-width:860px){
+  #proof .proof-top{grid-template-columns:1fr}
+  #proof .review-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #proof .spec-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
 @media (max-width:760px){
-  :root{--card-media-zoom:1.1}
+  :root{
+    --card-radius:20px;
+    --card-gap:12px;
+    --card-pad:18px;
+    --card-media-zoom:1.03;
+    --glass-blur:blur(15px) saturate(125%);
+  }
+  header .header-row,
+  .hero-inner-grid,
+  #explodeScene .explode-shell,
+  main>.section>.shell,
+  footer>.shell{
+    width:calc(100% - 2 * var(--mobile-edge));
+    max-width:none;
+    margin-inline:auto;
+  }
+  main>.section{padding:12px 0 0}
+  .hero-trust span{padding:5px 0}
+
+  .explode-facts{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+  .explode-fact{padding:16px;min-height:0}
+  .explode-fact-media{width:66px;margin-bottom:10px}
+  #confidence .confidence-grid,
+  #how-it-works .works-grid{grid-template-columns:1fr;gap:12px}
+  #confidence .confidence-card,
+  #how-it-works .works-step{padding:18px}
+  #confidence .confidence-card .scenario,
+  #how-it-works .works-media{
+    width:100%;
+    margin:10px 0 14px;
+    aspect-ratio:4/3;
+  }
+  #how-it-works .works-panel{padding:18px}
+  #how-it-works .works-title{margin-bottom:24px}
+
+  #proof .proof-top{gap:12px;margin-bottom:24px}
+  #proof .rating-card{min-height:0;padding:18px}
+  #proof .review-list{grid-template-columns:1fr;gap:12px}
+  #proof .review-card-pop{padding:18px}
+  #proof .spec-grid{grid-template-columns:1fr;gap:12px}
+  #proof .spec-tile{padding:16px 18px}
+  #proof .angle-strip-video{margin-top:24px;padding:18px}
+  #proof .angle-video-figure{width:min(260px,100%)}
+
+  #decision .pop-grid-2{grid-template-columns:1fr;gap:12px}
+  #decision .decision-card-pop,
+  #decision .risk-module{padding:18px}
+  #decision .risk-module{grid-template-columns:1fr;gap:12px;margin-top:12px}
+
+  #faq .faq-list{gap:10px}
+  #faq .faq-item summary{padding:16px 52px 16px 18px}
+  #faq .faq-item p{margin:0 52px 18px 18px}
+  #final-buy .final-buy-card{grid-template-columns:1fr;min-height:0}
+  #final-buy .final-buy-visual{min-height:0;height:auto;aspect-ratio:4/3;grid-row:1}
+  #final-buy .final-buy-copy{grid-row:2;padding:18px}
+
   .explode-fact h3,.howto-card h3,.works-step h3,.decision-card-pop h3{
-    font-size:17px!important;line-height:1.08!important;margin-bottom:6px!important;
+    font-size:17px;
+    line-height:1.2;
+    margin-bottom:6px;
   }
-  .risk-module h3{font-size:24px!important;line-height:1.05!important}
-  .spec-tile b{font-size:15px!important}
-  .faq-item summary{font-size:15px!important;line-height:1.22!important}
-  #safety .safety-card .title{font-size:clamp(27px,8.2vw,34px)!important;margin-bottom:11px!important}
-  #how-it-works .works-title{font-size:clamp(31px,9.5vw,42px)!important;margin-bottom:24px!important}
-  #final-buy .final-buy-copy h2{font-size:clamp(38px,11.5vw,50px)!important}
+  .risk-module h3{font-size:24px;line-height:1.15}
+  .spec-tile b{font-size:15px;line-height:1.2}
+  .faq-item summary{font-size:15px;line-height:1.25}
+  #safety .safety-card .title{font-size:clamp(27px,8.2vw,34px);line-height:1.05;margin-bottom:11px}
+  #how-it-works .works-title{font-size:clamp(31px,9.5vw,42px);line-height:1.02}
+  #final-buy .final-buy-copy h2{font-size:clamp(38px,11.5vw,50px);line-height:1}
   .explode-fact p,.howto-card p,.works-step p,.decision-card-pop p,.risk-module>p,.faq-item p{
-    font-size:13px!important;line-height:1.42!important;
+    font-size:13px;
+    line-height:1.5;
   }
-  .review-card-pop p{font-size:14px!important;line-height:1.46!important}
-  .spec-tile span{font-size:12px!important}
-  .explode-fact{min-height:142px!important;padding:11px 10px 13px!important}
-  #confidence .confidence-panel{padding:12px!important}
-  #confidence .confidence-grid,#how-it-works .works-grid{gap:10px!important}
-  #confidence .confidence-card,#how-it-works .works-step{padding:10px 10px 17px!important}
-  #confidence .confidence-card .scenario,#how-it-works .works-media{margin:7px 0 11px!important}
-  #how-it-works .works-panel{padding:24px 10px 12px!important}
-  #proof .proof-top{gap:10px!important;margin-bottom:30px!important}
-  #proof .review-list,#proof .spec-grid{gap:9px!important}
-  #proof .rating-card{min-height:220px!important;padding:22px 14px!important}
-  #proof .review-card-pop{padding:18px 16px!important}
-  #proof .spec-tile{min-height:84px!important;padding:13px 12px!important}
-  #decision .pop-grid-2{gap:10px!important}
-  #decision .decision-card-pop,#decision .risk-module{padding:21px 17px!important}
-  #faq .faq-list{gap:7px!important}
-  #faq .faq-item summary{padding:15px 16px!important}
-  #faq .faq-item p{margin:0 38px 16px 16px!important}
-  #final-buy .final-buy-copy{padding:26px 18px 21px!important}
+  .review-card-pop p{font-size:14px;line-height:1.5}
+  .spec-tile span{font-size:12px;line-height:1.45}
+
+  #safety .safety-card{grid-template-columns:1fr}
+  #safety .safety-visual{
+    min-height:0;
+    height:auto;
+    aspect-ratio:4/3;
+    border-right:0;
+    border-bottom:1px solid rgba(255,255,255,.36);
+    grid-row:1;
+  }
+  #safety .safety-copy{grid-row:2;padding:18px}
+  #safety .safety-visual img{padding:14px}
+  .explode-fact-media img{transform:scale(1.02)}
+  .confidence-card .scenario img,
+  .works-media img,
+  .final-buy-visual img{padding:7px}
+  .final-buy-visual img{padding:14px}
+
+  .sticky-bar{
+    width:calc(100% - 2 * var(--mobile-edge));
+    max-width:calc(100% - 2 * var(--mobile-edge));
+    padding:7px 10px;
+    gap:8px;
+  }
+  .sticky-bar .who{gap:8px}
+  .sticky-bar .who img{width:36px;height:36px}
+  .sticky-bar .buy-btn{min-width:0;padding:12px 14px;font-size:11px}
+}
+@media (max-width:420px){
+  .sticky-bar .qty-stepper{display:none}
+  .sticky-bar{grid-template-columns:minmax(0,1fr) auto}
+  .sticky-bar .who p{display:none}
+}
+@media (max-width:370px){
+  :root{--card-pad:16px}
+  .explode-fact{padding:16px 12px}
+  .sticky-bar .buy-btn{padding-inline:12px}
+}
+
+@media (prefers-reduced-transparency:reduce){
+  .pop-card,.explode-fact,.confidence-card,.works-step,.spec-tile,.faq-item,
+  .sticky-bar{background:rgba(255,255,255,.94);backdrop-filter:none;-webkit-backdrop-filter:none}
+  #confidence .confidence-panel,#proof .spec-tile,#final-buy .final-buy-card{background:rgba(4,18,63,.94)}
 }
 </style>
 </head>
@@ -2363,3 +2555,4 @@ buyBtns.forEach(btn=>{
 </script>
 </body>
 </html>
+
