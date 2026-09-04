@@ -1505,6 +1505,181 @@ footer{margin-top:12px}
   .sticky-bar{background:rgba(255,255,255,.94)!important;backdrop-filter:none;-webkit-backdrop-filter:none}
   #confidence .confidence-panel,#proof .spec-tile,#final-buy .final-buy-card{background:rgba(4,18,63,.94)!important}
 }
+
+/* ============================================================
+   CARD TYPOGRAPHY + TIGHT MEDIA SCALE
+   A consistent type hierarchy and controlled asset zoom for
+   desktop and mobile without changing the page-level layout.
+   ============================================================ */
+:root{--card-media-zoom:1.1}
+
+/* One disciplined title rhythm across every card family. */
+.explode-fact h3,
+.howto-card h3,
+.works-step h3,
+.decision-card-pop h3,
+.risk-module h3,
+.spec-tile b,
+.faq-item summary{
+  font-family:var(--font-display)!important;
+  font-weight:800!important;
+  letter-spacing:-.035em!important;
+  text-wrap:balance;
+}
+.explode-fact h3,
+.howto-card h3,
+.works-step h3,
+.decision-card-pop h3{
+  font-size:clamp(18px,1.55vw,22px)!important;
+  line-height:1.08!important;
+  margin-bottom:8px!important;
+}
+.risk-module h3{
+  font-size:clamp(24px,2.55vw,34px)!important;
+  line-height:1.04!important;
+  margin:0!important;
+}
+.spec-tile b{
+  font-size:16px!important;
+  line-height:1.14!important;
+  margin-bottom:4px;
+}
+.faq-item summary{
+  font-size:16px!important;
+  line-height:1.2!important;
+}
+
+/* Large titles inside cards keep their hierarchy but no longer overpower
+   the card body or wrap awkwardly. */
+#safety .safety-card .title{
+  font-size:clamp(34px,3.25vw,44px)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+  margin-bottom:14px!important;
+  text-wrap:balance;
+}
+#how-it-works .works-title{
+  font-size:clamp(36px,4.4vw,58px)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+  margin-bottom:34px!important;
+  text-wrap:balance;
+}
+#final-buy .final-buy-copy h2{
+  font-size:clamp(44px,5.4vw,68px)!important;
+  line-height:.94!important;
+  letter-spacing:-.055em!important;
+  text-wrap:balance;
+}
+
+/* Supporting copy is readable, compact and consistent. */
+.explode-fact p,
+.howto-card p,
+.works-step p,
+.review-card-pop p,
+.decision-card-pop p,
+.risk-module>p,
+.faq-item p,
+.spec-tile span{
+  font-family:var(--font-body)!important;
+  letter-spacing:0!important;
+}
+.explode-fact p,
+.howto-card p,
+.works-step p,
+.decision-card-pop p,
+.risk-module>p,
+.faq-item p{
+  font-size:14px!important;
+  line-height:1.46!important;
+}
+.review-card-pop p{font-size:15px!important;line-height:1.5!important}
+.review-card-pop .who{font-size:11px!important;line-height:1.35!important;letter-spacing:.06em!important}
+.spec-tile span{font-size:12.5px!important;line-height:1.35!important}
+.rating-card .big{font-family:var(--font-display)!important;line-height:.82!important}
+.rating-card>p{font-size:14px!important;line-height:1.3!important}
+
+/* Tighten internal space only—the section widths and order stay untouched. */
+.explode-fact{min-height:166px!important;padding:14px 13px 16px!important}
+#confidence .confidence-panel{padding:22px!important}
+#confidence .confidence-grid{gap:14px!important}
+#confidence .confidence-card{padding:12px 12px 20px!important}
+#confidence .confidence-card .scenario{margin:10px 0 14px!important}
+#how-it-works .works-panel{padding:clamp(30px,4vw,50px)!important}
+#how-it-works .works-grid{gap:14px!important}
+#how-it-works .works-step{padding:12px 12px 20px!important}
+#how-it-works .works-media{margin:2px 0 14px!important}
+#proof .proof-top{gap:14px!important;margin-bottom:38px!important}
+#proof .review-list{gap:12px!important}
+#proof .rating-card{padding:26px 18px!important}
+#proof .review-card-pop{padding:21px 20px!important}
+#proof .spec-grid{gap:10px!important}
+#proof .spec-tile{min-height:92px!important;padding:15px 14px!important}
+#decision .pop-grid-2{gap:14px!important}
+#decision .decision-card-pop{padding:30px 26px!important}
+#decision .risk-module{margin-top:14px!important;padding:28px 26px!important}
+#faq .faq-list{gap:9px!important}
+#faq .faq-item summary{padding:17px 20px!important}
+#faq .faq-item p{margin:0 48px 18px 20px!important}
+#final-buy .final-buy-copy{padding:clamp(34px,4.5vw,58px)!important}
+
+/* Controlled image enlargement: tighter framing while keeping complete
+   product assets inside their existing media wells. */
+.explode-fact-media img{transform:scale(1.08);transform-origin:center}
+#safety .safety-visual img{
+  width:110%!important;
+  height:110%!important;
+  max-width:none!important;
+  margin:auto;
+}
+.confidence-card .scenario img,
+.works-media img,
+.final-buy-visual img{
+  transform:translate3d(0,var(--depth-y,0),0) scale(var(--card-media-zoom))!important;
+  transform-origin:center;
+}
+
+@media (hover:hover){
+  .confidence-card:hover .scenario img,
+  .works-step:hover .works-media img{
+    transform:translate3d(0,var(--depth-y,0),0) scale(calc(var(--card-media-zoom) + .025))!important;
+  }
+}
+
+@media (max-width:760px){
+  :root{--card-media-zoom:1.1}
+  .explode-fact h3,.howto-card h3,.works-step h3,.decision-card-pop h3{
+    font-size:17px!important;line-height:1.08!important;margin-bottom:6px!important;
+  }
+  .risk-module h3{font-size:24px!important;line-height:1.05!important}
+  .spec-tile b{font-size:15px!important}
+  .faq-item summary{font-size:15px!important;line-height:1.22!important}
+  #safety .safety-card .title{font-size:clamp(27px,8.2vw,34px)!important;margin-bottom:11px!important}
+  #how-it-works .works-title{font-size:clamp(31px,9.5vw,42px)!important;margin-bottom:24px!important}
+  #final-buy .final-buy-copy h2{font-size:clamp(38px,11.5vw,50px)!important}
+  .explode-fact p,.howto-card p,.works-step p,.decision-card-pop p,.risk-module>p,.faq-item p{
+    font-size:13px!important;line-height:1.42!important;
+  }
+  .review-card-pop p{font-size:14px!important;line-height:1.46!important}
+  .spec-tile span{font-size:12px!important}
+  .explode-fact{min-height:142px!important;padding:11px 10px 13px!important}
+  #confidence .confidence-panel{padding:12px!important}
+  #confidence .confidence-grid,#how-it-works .works-grid{gap:10px!important}
+  #confidence .confidence-card,#how-it-works .works-step{padding:10px 10px 17px!important}
+  #confidence .confidence-card .scenario,#how-it-works .works-media{margin:7px 0 11px!important}
+  #how-it-works .works-panel{padding:24px 10px 12px!important}
+  #proof .proof-top{gap:10px!important;margin-bottom:30px!important}
+  #proof .review-list,#proof .spec-grid{gap:9px!important}
+  #proof .rating-card{min-height:220px!important;padding:22px 14px!important}
+  #proof .review-card-pop{padding:18px 16px!important}
+  #proof .spec-tile{min-height:84px!important;padding:13px 12px!important}
+  #decision .pop-grid-2{gap:10px!important}
+  #decision .decision-card-pop,#decision .risk-module{padding:21px 17px!important}
+  #faq .faq-list{gap:7px!important}
+  #faq .faq-item summary{padding:15px 16px!important}
+  #faq .faq-item p{margin:0 38px 16px 16px!important}
+  #final-buy .final-buy-copy{padding:26px 18px 21px!important}
+}
 </style>
 </head>
 <body>
