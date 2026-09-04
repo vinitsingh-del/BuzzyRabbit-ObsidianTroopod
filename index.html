@@ -2382,13 +2382,19 @@ if(!reduceMotion && heroScene){
   let heroTargetProgress = 0;
   let heroCurrentProgress = 0;
   let heroAnimationFrame = 0;
+  let heroLastRenderTime = 0;
   function readHeroProgress(){
     const rect = heroScene.getBoundingClientRect();
     const total = Math.max(1, heroScene.offsetHeight - window.innerHeight);
     return Math.min(1,Math.max(0,-rect.top/total));
   }
-  function renderHeroParallax(){
-    heroCurrentProgress += (heroTargetProgress-heroCurrentProgress)*.16;
+  function renderHeroParallax(timestamp){
+    const delta = heroLastRenderTime
+      ? Math.min(80,Math.max(8,timestamp-heroLastRenderTime))
+      : 16;
+    heroLastRenderTime = timestamp;
+    const blend = 1-Math.exp(-delta/70);
+    heroCurrentProgress += (heroTargetProgress-heroCurrentProgress)*blend;
     if(Math.abs(heroTargetProgress-heroCurrentProgress)<.0005){
       heroCurrentProgress = heroTargetProgress;
     }
@@ -2408,11 +2414,13 @@ if(!reduceMotion && heroScene){
       heroAnimationFrame = requestAnimationFrame(renderHeroParallax);
     } else {
       heroAnimationFrame = 0;
+      heroLastRenderTime = 0;
     }
   }
   function requestHeroParallax(){
     heroTargetProgress = readHeroProgress();
     if(!heroAnimationFrame){
+      heroLastRenderTime = 0;
       heroAnimationFrame = requestAnimationFrame(renderHeroParallax);
     }
   }
