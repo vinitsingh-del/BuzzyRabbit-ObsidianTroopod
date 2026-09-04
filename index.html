@@ -1376,6 +1376,135 @@ footer{margin-top:12px}
   .hero-trust span{padding:5px 0}
 }
 
+/* ============================================================
+   UNIFIED GLASS CARD SYSTEM
+   Card surfaces only. Structure, content, color tokens, type,
+   imagery, spacing, motion and commerce behavior remain intact.
+   ============================================================ */
+:root{
+  --glass-light:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,255,255,.58));
+  --glass-dark:linear-gradient(145deg,rgba(4,18,63,.76),rgba(8,38,121,.5));
+  --glass-line:rgba(255,255,255,.48);
+  --glass-shadow:0 22px 58px rgba(4,18,63,.24),inset 0 1px 0 rgba(255,255,255,.72);
+  --glass-blur:blur(22px) saturate(135%);
+}
+
+/* Shared light glass cards. The section-specific selectors intentionally
+   match the editorial overrides above so every card receives one finish. */
+.pop-card,
+.explode-fact,
+#safety .safety-card,
+#confidence .confidence-card,
+#how-it-works .works-panel,
+#how-it-works .works-step,
+#proof .rating-card,
+#proof .review-card-pop,
+#decision .decision-card-pop,
+#decision .risk-module,
+#faq .faq-item{
+  background:var(--glass-light)!important;
+  border:1px solid var(--glass-line)!important;
+  border-radius:24px!important;
+  box-shadow:var(--glass-shadow)!important;
+  -webkit-backdrop-filter:var(--glass-blur);
+  backdrop-filter:var(--glass-blur);
+  background-clip:padding-box!important;
+}
+
+/* Card groups stay transparent so the individual glass panes read clearly. */
+.explode-facts,
+.confidence-grid,
+.works-grid,
+.review-list,
+.spec-grid,
+.pop-grid-2,
+.faq-list{background:transparent!important}
+
+/* Safety remains a single split card; both halves become translucent panes
+   without changing its grid or product position. */
+#safety .safety-card{overflow:hidden}
+#safety .safety-copy{
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.5))!important;
+  -webkit-backdrop-filter:blur(18px) saturate(130%);
+  backdrop-filter:blur(18px) saturate(130%);
+}
+#safety .safety-visual{
+  background:linear-gradient(145deg,rgba(255,118,233,.46),rgba(8,38,121,.32))!important;
+  border-right:1px solid rgba(255,255,255,.36);
+}
+
+/* Dark glass is retained where the existing copy is white. */
+#confidence .confidence-panel,
+#proof .spec-tile,
+#final-buy .final-buy-card{
+  background:var(--glass-dark)!important;
+  border:1px solid rgba(255,255,255,.3)!important;
+  border-radius:28px!important;
+  box-shadow:0 28px 72px rgba(4,18,63,.34),inset 0 1px 0 rgba(255,255,255,.28)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(140%);
+  backdrop-filter:blur(24px) saturate(140%);
+  background-clip:padding-box!important;
+}
+
+#confidence .confidence-panel{padding:clamp(18px,2.8vw,34px)}
+#proof .spec-tile{border-radius:20px!important}
+#proof .angle-strip-video{
+  background:linear-gradient(145deg,rgba(4,18,63,.54),rgba(255,255,255,.1))!important;
+  border:1px solid rgba(255,255,255,.3)!important;
+  border-radius:26px!important;
+  box-shadow:0 24px 62px rgba(4,18,63,.28),inset 0 1px 0 rgba(255,255,255,.3)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(135%);
+  backdrop-filter:blur(22px) saturate(135%);
+}
+
+/* Glass media wells keep each real product asset legible. */
+.explode-fact-media,
+.confidence-card .scenario,
+.works-media,
+.spec-tile .icon-ring{
+  background:rgba(255,255,255,.2)!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.46),0 12px 28px rgba(4,18,63,.12)!important;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+
+/* The persistent purchase surface follows the same glass system. */
+.sticky-bar{
+  background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,255,255,.66))!important;
+  border:1px solid rgba(255,255,255,.66)!important;
+  border-radius:20px!important;
+  box-shadow:0 22px 58px rgba(4,18,63,.32),inset 0 1px 0 rgba(255,255,255,.86)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(145%);
+  backdrop-filter:blur(24px) saturate(145%);
+}
+
+@media (hover:hover){
+  .pop-card,.explode-fact,.confidence-card,.works-step,.spec-tile,.faq-item{
+    transition:transform .38s var(--ease-smooth),border-color .38s var(--ease-smooth),box-shadow .38s var(--ease-smooth);
+  }
+  .pop-card:hover,.explode-fact:hover,.confidence-card:hover,.works-step:hover,.spec-tile:hover,.faq-item:hover{
+    transform:translateY(-3px);
+    border-color:rgba(255,255,255,.72)!important;
+    box-shadow:0 28px 68px rgba(4,18,63,.3),inset 0 1px 0 rgba(255,255,255,.82)!important;
+  }
+}
+
+@media (max-width:760px){
+  :root{--glass-blur:blur(15px) saturate(125%)}
+  .pop-card,.explode-fact,#safety .safety-card,#confidence .confidence-card,
+  #how-it-works .works-panel,#how-it-works .works-step,#proof .rating-card,
+  #proof .review-card-pop,#decision .decision-card-pop,#decision .risk-module,
+  #faq .faq-item{border-radius:19px!important}
+  #confidence .confidence-panel,#final-buy .final-buy-card{border-radius:22px!important}
+  #safety .safety-visual{border-right:0;border-bottom:1px solid rgba(255,255,255,.36)}
+}
+
+@media (prefers-reduced-transparency:reduce){
+  .pop-card,.explode-fact,.confidence-card,.works-step,.spec-tile,.faq-item,
+  .sticky-bar{background:rgba(255,255,255,.94)!important;backdrop-filter:none;-webkit-backdrop-filter:none}
+  #confidence .confidence-panel,#proof .spec-tile,#final-buy .final-buy-card{background:rgba(4,18,63,.94)!important}
+}
 </style>
 </head>
 <body>
