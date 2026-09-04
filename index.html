@@ -209,10 +209,32 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 .hero-trust svg{width:16px;height:16px;flex-shrink:0;stroke:var(--yellow)}
 
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-width:0;min-height:0;padding:clamp(18px,3vh,32px) 0;overflow:hidden}
-.hero-product-wrap{will-change:transform;width:auto;height:min(58svh,560px);max-width:100%;max-height:calc(100% - 24px);aspect-ratio:260/519;margin:auto;transform-origin:center center}
+.hero-product-wrap{position:relative;z-index:2;will-change:transform;width:auto;height:min(58svh,560px);max-width:100%;max-height:calc(100% - 24px);aspect-ratio:260/519;margin:auto;transform-origin:center center}
 .hero-product-scale{width:100%;height:100%;transform:scale(1.25);transform-origin:center center}
 .hero-media{width:100%;height:100%;object-fit:contain;display:block;animation:heroFloat 3.6s ease-in-out infinite}
 canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
+.hero-usp-stage{position:absolute;inset:0;z-index:1;pointer-events:none;perspective:900px}
+.hero-usp-card{
+  position:absolute;
+  top:50%;
+  width:clamp(138px,12vw,166px);
+  padding:16px 15px;
+  opacity:0;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.07));
+  box-shadow:0 18px 44px rgba(4,18,63,.2),inset 0 1px 0 rgba(255,255,255,.34);
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  backdrop-filter:blur(18px) saturate(135%);
+  transform:translate3d(0,-50%,0) scale(.86);
+  transform-origin:center;
+  will-change:transform,opacity;
+}
+.hero-usp-card--left{left:clamp(0px,2vw,18px);text-align:left}
+.hero-usp-card--right{right:clamp(0px,2vw,18px);text-align:right}
+.hero-usp-card strong{display:block;margin-bottom:5px;font:800 15px/1.08 'One Night Sans black',One,sans-serif;letter-spacing:-.025em}
+.hero-usp-card span{display:block;font:500 11px/1.35 'One Night Sans',One,sans-serif;color:rgba(255,255,255,.82)}
 @media (min-width:961px){
   /* "Hero section overall +20% on desktop" — a fresh, comprehensive size
      bump across every hero text/spacing metric (not just the product
@@ -409,6 +431,18 @@ canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
     margin:auto;
     transform-origin:center center;
   }
+  .hero-usp-card{
+    top:48%;
+    width:clamp(94px,28vw,122px);
+    padding:10px 9px;
+    border-radius:14px;
+    -webkit-backdrop-filter:blur(12px) saturate(125%);
+    backdrop-filter:blur(12px) saturate(125%);
+  }
+  .hero-usp-card--left{left:0}
+  .hero-usp-card--right{right:0}
+  .hero-usp-card strong{margin-bottom:3px;font-size:11px;line-height:1.1}
+  .hero-usp-card span{font-size:9px;line-height:1.25}
   .hero-product-scale{
     width:100%;
     height:100%;
@@ -1952,6 +1986,16 @@ footer{margin-top:12px}
         </div>
       </div>
       <div class="hero-visual">
+        <div class="hero-usp-stage" id="heroUSPStage" aria-hidden="true">
+          <article class="hero-usp-card hero-usp-card--left">
+            <strong>Sensual feel</strong>
+            <span>Soft-touch, body-safe silicone</span>
+          </article>
+          <article class="hero-usp-card hero-usp-card--right">
+            <strong>Feel the buzz</strong>
+            <span>5 tapping modes. 8 vibration intensities.</span>
+          </article>
+        </div>
         <div class="hero-product-wrap" id="heroProductWrap">
           <div class="hero-product-scale">
             <canvas class="hero-media" id="heroProductCanvas" width="200" height="541" role="img" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
@@ -2279,16 +2323,19 @@ window.addEventListener('scroll', updateStickyBar, {passive:true});
 window.addEventListener('resize', updateStickyBar, {passive:true});
 updateStickyBar();
 
-/* ---- hero: transparent product rotation with float + scroll parallax ---- */
+/* ---- hero: transparent product rotation with float + smooth scroll parallax ---- */
 const heroProductWrap = document.getElementById('heroProductWrap');
 const heroProductCanvas = document.getElementById('heroProductCanvas');
 const heroProductCtx = heroProductCanvas ? heroProductCanvas.getContext('2d') : null;
+const heroUSPStage = document.getElementById('heroUSPStage');
+const heroUSPCards = Array.from(document.querySelectorAll('.hero-usp-card'));
 const HERO_FRAME_COUNT = 40;
 const HERO_FRAME_W = 200;
 const HERO_FRAME_H = 541;
 const HERO_SPRITE_COLS = 5;
 const heroProductSprite = new Image();
 let heroProductSpriteReady = false;
+let lastHeroFrame = 0;
 heroProductSprite.src = 'assets/buzzy-rabbit-hero-sprite.webp';
 
 function drawHeroFrame(index){
@@ -2301,29 +2348,79 @@ function drawHeroFrame(index){
 }
 heroProductSprite.onload = ()=>{
   heroProductSpriteReady = true;
-  drawHeroFrame(0);
+  drawHeroFrame(lastHeroFrame);
 };
 
+function smoothHeroStep(from,to,value){
+  const t = Math.min(1,Math.max(0,(value-from)/(to-from)));
+  return t*t*(3-2*t);
+}
+function renderHeroUSPCards(progress){
+  if(!heroUSPStage || heroUSPCards.length!==2) return;
+  const enter = smoothHeroStep(.08,.3,progress);
+  const leave = smoothHeroStep(.72,.94,progress);
+  const visibility = Math.max(0,enter*(1-leave));
+  const stageWidth = heroUSPStage.clientWidth;
+  const mobileView = window.innerWidth<=960;
+  heroUSPCards.forEach((card,index)=>{
+    const cardWidth = card.offsetWidth;
+    const style = getComputedStyle(card);
+    const inset = parseFloat(index===0 ? style.left : style.right) || 0;
+    const homeDistance = Math.max(0,stageWidth/2-inset-cardWidth/2);
+    const direction = index===0 ? 1 : -1;
+    const entryX = direction*homeDistance*(1-enter);
+    const exitX = -direction*(mobileView?18:34)*leave;
+    const lift = (1-visibility)*6;
+    const cardScale = .86+.14*enter-.04*leave;
+    card.style.opacity = visibility.toFixed(3);
+    card.style.transform = `translate3d(${(entryX+exitX).toFixed(2)}px,calc(-50% + ${lift.toFixed(2)}px),0) scale(${cardScale.toFixed(4)})`;
+  });
+  heroUSPStage.setAttribute('aria-hidden',String(visibility<.08));
+}
+
 if(!reduceMotion && heroScene){
-  let tickingHero = false;
-  function updateHeroParallax(){
+  let heroTargetProgress = 0;
+  let heroCurrentProgress = 0;
+  let heroAnimationFrame = 0;
+  function readHeroProgress(){
     const rect = heroScene.getBoundingClientRect();
     const total = Math.max(1, heroScene.offsetHeight - window.innerHeight);
-    const progress = Math.min(1, Math.max(0, -rect.top / total));
+    return Math.min(1,Math.max(0,-rect.top/total));
+  }
+  function renderHeroParallax(){
+    heroCurrentProgress += (heroTargetProgress-heroCurrentProgress)*.16;
+    if(Math.abs(heroTargetProgress-heroCurrentProgress)<.0005){
+      heroCurrentProgress = heroTargetProgress;
+    }
+    const progress = heroCurrentProgress;
     if(heroProductWrap){
       const zoomAmount = window.innerWidth <= 960 ? 0.04 : 0.08;
-      heroProductWrap.style.transform = `scale(${1 + progress * zoomAmount})`;
+      const liftAmount = window.innerWidth <= 960 ? -8 : -16;
+      heroProductWrap.style.transform = `translate3d(0,${(progress*liftAmount).toFixed(2)}px,0) scale(${(1+progress*zoomAmount).toFixed(4)})`;
     }
-    drawHeroFrame(Math.round(progress * (HERO_FRAME_COUNT-1)));
-    tickingHero = false;
+    const nextFrame = Math.round(progress*(HERO_FRAME_COUNT-1));
+    if(nextFrame!==lastHeroFrame){
+      lastHeroFrame = nextFrame;
+      drawHeroFrame(nextFrame);
+    }
+    renderHeroUSPCards(progress);
+    if(heroCurrentProgress!==heroTargetProgress){
+      heroAnimationFrame = requestAnimationFrame(renderHeroParallax);
+    } else {
+      heroAnimationFrame = 0;
+    }
   }
   function requestHeroParallax(){
-    if(!tickingHero){ requestAnimationFrame(updateHeroParallax); tickingHero = true; }
+    heroTargetProgress = readHeroProgress();
+    if(!heroAnimationFrame){
+      heroAnimationFrame = requestAnimationFrame(renderHeroParallax);
+    }
   }
   window.addEventListener('scroll', requestHeroParallax, {passive:true});
   window.addEventListener('resize', requestHeroParallax, {passive:true});
-  updateHeroParallax();
+  requestHeroParallax();
 } else {
+  renderHeroUSPCards(.5);
   heroProductSprite.onload = ()=>{
     heroProductSpriteReady = true;
     drawHeroFrame(0);
