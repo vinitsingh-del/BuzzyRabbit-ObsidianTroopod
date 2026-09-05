@@ -6,7 +6,7 @@
 <title>Durex Play · Buzzy Rabbit — Dual-Action Personal Massager</title>
 <meta name="description" content="Durex Play Buzzy Rabbit: 5 tapping modes, 8 vibration intensities, 100% waterproof, body-safe silicone, USB rechargeable. For external use.">
 <meta name="theme-color" content="#082679">
-<link rel="preload" as="image" href="assets/buzzy-rabbit-hero-sprite-pink.webp" type="image/webp">
+<link rel="preload" as="image" href="assets/hero-turntable-sprite.png" type="image/png">
 <style>
 /* ============================================================
    BRAND-LOCKED FOUNDATION
@@ -212,7 +212,7 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 .hero-product-wrap{position:relative;z-index:2;will-change:transform;width:auto;height:min(58svh,560px);max-width:100%;max-height:calc(100% - 24px);aspect-ratio:260/519;margin:auto;transform-origin:center center}
 .hero-product-scale{width:100%;height:100%;transform:scale(1.25);transform-origin:center center}
 .hero-media{width:100%;height:100%;object-fit:contain;display:block;animation:heroFloat 3.6s ease-in-out infinite}
-canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
+canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:260/519}
 .hero-usp-stage{position:absolute;inset:0;z-index:1;pointer-events:none;perspective:900px}
 .hero-usp-card{
   position:absolute;
@@ -2013,7 +2013,7 @@ footer{margin-top:12px}
         </div>
         <div class="hero-product-wrap" id="heroProductWrap">
           <div class="hero-product-scale">
-            <canvas class="hero-media" id="heroProductCanvas" width="200" height="541" role="img" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
+            <canvas class="hero-media" id="heroProductCanvas" width="260" height="519" role="img" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
           </div>
         </div>
       </div>
@@ -2344,14 +2344,14 @@ const heroProductCanvas = document.getElementById('heroProductCanvas');
 const heroProductCtx = heroProductCanvas ? heroProductCanvas.getContext('2d') : null;
 const heroUSPStage = document.getElementById('heroUSPStage');
 const heroUSPCards = Array.from(document.querySelectorAll('.hero-usp-card'));
-const HERO_FRAME_COUNT = 40;
-const HERO_FRAME_W = 200;
-const HERO_FRAME_H = 541;
-const HERO_SPRITE_COLS = 5;
+const HERO_FRAME_COUNT = 36;
+const HERO_FRAME_W = 260;
+const HERO_FRAME_H = 519;
+const HERO_SPRITE_COLS = 1;
 const heroProductSprite = new Image();
 let heroProductSpriteReady = false;
 let lastHeroFrame = 0;
-heroProductSprite.src = 'assets/buzzy-rabbit-hero-sprite-pink.webp';
+heroProductSprite.src = 'assets/hero-turntable-sprite.png';
 
 function drawHeroFrame(index){
   if(!heroProductCtx || !heroProductSpriteReady) return;
