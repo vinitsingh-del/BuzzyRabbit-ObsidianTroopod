@@ -6,7 +6,7 @@
 <title>Durex Play · Buzzy Rabbit — Dual-Action Personal Massager</title>
 <meta name="description" content="Durex Play Buzzy Rabbit: 5 tapping modes, 8 vibration intensities, 100% waterproof, body-safe silicone, USB rechargeable. For external use.">
 <meta name="theme-color" content="#082679">
-<link rel="preload" as="image" href="assets/hero-turntable-sprite.png" type="image/png">
+<link rel="preload" as="image" href="assets/buzzy-rabbit-hero-sprite-bright-pink.webp" type="image/webp">
 <style>
 /* ============================================================
    BRAND-LOCKED FOUNDATION
@@ -210,9 +210,9 @@ header{position:sticky;top:0;z-index:40;background:var(--navy);border-bottom:3px
 
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-width:0;min-height:0;padding:clamp(18px,3vh,32px) 0;overflow:hidden}
 .hero-product-wrap{position:relative;z-index:2;will-change:transform;width:auto;height:min(58svh,560px);max-width:100%;max-height:calc(100% - 24px);aspect-ratio:260/519;margin:auto;transform-origin:center center}
-.hero-product-scale{width:100%;height:100%;transform:scale(1.75);transform-origin:center center}
+.hero-product-scale{width:100%;height:100%;transform:scale(1.25);transform-origin:center center}
 .hero-media{width:100%;height:100%;object-fit:contain;display:block;animation:heroFloat 3.6s ease-in-out infinite}
-canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:260/519}
+canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
 .hero-usp-stage{position:absolute;inset:0;z-index:1;pointer-events:none;perspective:900px}
 .hero-usp-card{
   position:absolute;
@@ -446,7 +446,7 @@ canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:260/519}
   .hero-product-scale{
     width:100%;
     height:100%;
-    transform:scale(1.75);
+    transform:scale(1.25);
     transform-origin:center center;
   }
   .hero-media{width:100%;height:100%;object-fit:contain}
@@ -1936,6 +1936,23 @@ footer{margin-top:12px}
   .sticky-bar{background:rgba(255,255,255,.94);backdrop-filter:none;-webkit-backdrop-filter:none}
   #confidence .confidence-panel,#proof .spec-tile,#final-buy .final-buy-card{background:rgba(4,18,63,.94)}
 }
+
+/* Remove only the five attached solid-colour outer cards. */
+#confidence>.shell,
+#proof>.shell,
+#decision>.shell,
+#faq>.shell,
+#final-buy .final-buy-card,
+#final-buy .final-buy-copy,
+#final-buy .final-buy-visual{
+  background:transparent;
+}
+#final-buy .final-buy-card{
+  border:0;
+  box-shadow:none;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
 </style>
 </head>
 <body>
@@ -2013,7 +2030,7 @@ footer{margin-top:12px}
         </div>
         <div class="hero-product-wrap" id="heroProductWrap">
           <div class="hero-product-scale">
-            <canvas class="hero-media" id="heroProductCanvas" width="260" height="519" role="img" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
+            <canvas class="hero-media" id="heroProductCanvas" width="200" height="541" role="img" aria-label="Durex Play Buzzy Rabbit dual-action massager"></canvas>
           </div>
         </div>
       </div>
@@ -2344,22 +2361,24 @@ const heroProductCanvas = document.getElementById('heroProductCanvas');
 const heroProductCtx = heroProductCanvas ? heroProductCanvas.getContext('2d') : null;
 const heroUSPStage = document.getElementById('heroUSPStage');
 const heroUSPCards = Array.from(document.querySelectorAll('.hero-usp-card'));
-const HERO_FRAME_COUNT = 36;
-const HERO_FRAME_W = 260;
-const HERO_FRAME_H = 519;
-const HERO_SPRITE_COLS = 1;
+const HERO_FRAME_COUNT = 40;
+const HERO_FRAME_W = 200;
+const HERO_FRAME_H = 541;
+const HERO_SPRITE_COLS = 5;
+const HERO_SOURCE_FRAME_W = 95;
+const HERO_SOURCE_FRAME_H = 256;
 const heroProductSprite = new Image();
 let heroProductSpriteReady = false;
 let lastHeroFrame = 0;
-heroProductSprite.src = 'assets/hero-turntable-sprite.png';
+heroProductSprite.src = 'assets/buzzy-rabbit-hero-sprite-bright-pink.webp';
 
 function drawHeroFrame(index){
   if(!heroProductCtx || !heroProductSpriteReady) return;
   const frame = Math.max(0,Math.min(HERO_FRAME_COUNT-1,index));
-  const sx = (frame % HERO_SPRITE_COLS) * HERO_FRAME_W;
-  const sy = Math.floor(frame / HERO_SPRITE_COLS) * HERO_FRAME_H;
+  const sx = (frame % HERO_SPRITE_COLS) * HERO_SOURCE_FRAME_W;
+  const sy = Math.floor(frame / HERO_SPRITE_COLS) * HERO_SOURCE_FRAME_H;
   heroProductCtx.clearRect(0,0,HERO_FRAME_W,HERO_FRAME_H);
-  heroProductCtx.drawImage(heroProductSprite,sx,sy,HERO_FRAME_W,HERO_FRAME_H,0,0,HERO_FRAME_W,HERO_FRAME_H);
+  heroProductCtx.drawImage(heroProductSprite,sx,sy,HERO_SOURCE_FRAME_W,HERO_SOURCE_FRAME_H,0,0,HERO_FRAME_W,HERO_FRAME_H);
 }
 heroProductSprite.onload = ()=>{
   heroProductSpriteReady = true;
