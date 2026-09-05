@@ -6,7 +6,7 @@
 <title>Durex Play · Buzzy Rabbit — Dual-Action Personal Massager</title>
 <meta name="description" content="Durex Play Buzzy Rabbit: 5 tapping modes, 8 vibration intensities, 100% waterproof, body-safe silicone, USB rechargeable. For external use.">
 <meta name="theme-color" content="#082679">
-<link rel="preload" as="image" href="assets/buzzy-rabbit-hero-sprite.webp" type="image/webp">
+<link rel="preload" as="image" href="assets/buzzy-rabbit-hero-sprite-pink.webp" type="image/webp">
 <style>
 /* ============================================================
    BRAND-LOCKED FOUNDATION
@@ -221,12 +221,12 @@ canvas.hero-media{width:auto;height:100%;max-width:100%;aspect-ratio:200/541}
   padding:16px 15px;
   opacity:0;
   color:#fff;
-  border:1px solid rgba(255,255,255,.34);
+  border:1px solid rgba(255,255,255,.64);
   border-radius:18px;
-  background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.07));
-  box-shadow:0 18px 44px rgba(4,18,63,.2),inset 0 1px 0 rgba(255,255,255,.34);
-  -webkit-backdrop-filter:blur(18px) saturate(135%);
-  backdrop-filter:blur(18px) saturate(135%);
+  background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(255,118,233,.14) 55%,rgba(25,116,232,.1));
+  box-shadow:0 18px 44px rgba(4,18,63,.24),0 0 28px rgba(255,118,233,.16),inset 0 1px 0 rgba(255,255,255,.52);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);
+  backdrop-filter:blur(22px) saturate(155%);
   transform:translate3d(0,-50%,0) scale(.86);
   transform-origin:center;
   will-change:transform,opacity;
@@ -1377,11 +1377,11 @@ main{position:relative;isolation:isolate}
   --card-gap:clamp(16px,1.5vw,20px);
   --card-pad:clamp(24px,2.4vw,32px);
   --card-media-zoom:1.05;
-  --glass-light:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,255,255,.58));
-  --glass-dark:linear-gradient(145deg,rgba(4,18,63,.76),rgba(8,38,121,.5));
-  --glass-line:rgba(255,255,255,.48);
-  --glass-shadow:0 22px 58px rgba(4,18,63,.24),inset 0 1px 0 rgba(255,255,255,.72);
-  --glass-blur:blur(22px) saturate(135%);
+  --glass-light:linear-gradient(145deg,rgba(255,255,255,.42),rgba(255,118,233,.16) 54%,rgba(25,116,232,.12));
+  --glass-dark:linear-gradient(145deg,rgba(4,18,63,.56),rgba(8,38,121,.3) 58%,rgba(213,0,109,.16));
+  --glass-line:rgba(255,255,255,.68);
+  --glass-shadow:0 22px 58px rgba(4,18,63,.26),0 0 34px rgba(25,116,232,.14),inset 0 1px 0 rgba(255,255,255,.72);
+  --glass-blur:blur(26px) saturate(155%);
 }
 
 body:after,
@@ -1465,14 +1465,13 @@ footer{margin-top:12px}
   background-clip:padding-box;
 }
 #confidence .confidence-panel,
-#proof .spec-tile,
 #proof .angle-strip-video,
 #final-buy .final-buy-card{
   background:var(--glass-dark);
-  border:1px solid rgba(255,255,255,.3);
-  box-shadow:0 28px 72px rgba(4,18,63,.34),inset 0 1px 0 rgba(255,255,255,.28);
-  -webkit-backdrop-filter:blur(24px) saturate(140%);
-  backdrop-filter:blur(24px) saturate(140%);
+  border:1px solid rgba(255,255,255,.5);
+  box-shadow:0 28px 72px rgba(4,18,63,.34),0 0 38px rgba(213,0,109,.14),inset 0 1px 0 rgba(255,255,255,.36);
+  -webkit-backdrop-filter:blur(26px) saturate(155%);
+  backdrop-filter:blur(26px) saturate(155%);
   background-clip:padding-box;
 }
 .explode-facts,
@@ -1491,7 +1490,7 @@ footer{margin-top:12px}
   overflow:hidden;
 }
 #safety .safety-copy{
-  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.5));
+  background:linear-gradient(145deg,rgba(255,255,255,.48),rgba(255,118,233,.16));
   padding:var(--card-pad);
   -webkit-backdrop-filter:blur(18px) saturate(130%);
   backdrop-filter:blur(18px) saturate(130%);
@@ -1784,8 +1783,8 @@ footer{margin-top:12px}
   grid-template-columns:minmax(0,1fr) auto auto;
   border:1px solid rgba(255,255,255,.66);
   border-radius:20px;
-  background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,255,255,.66));
-  box-shadow:0 22px 58px rgba(4,18,63,.32),inset 0 1px 0 rgba(255,255,255,.86);
+  background:var(--glass-light);
+  box-shadow:var(--glass-shadow);
   -webkit-backdrop-filter:blur(24px) saturate(145%);
   backdrop-filter:blur(24px) saturate(145%);
 }
@@ -1793,6 +1792,20 @@ footer{margin-top:12px}
 .sticky-bar .who>div{min-width:0}
 .sticky-bar p,
 .sticky-bar strong{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+.buy-btn,
+.pincode-row button{
+  background:var(--blue-accent);
+}
+.buy-btn{
+  box-shadow:0 14px 34px rgba(25,116,232,.42),0 0 0 6px rgba(85,199,239,.14);
+}
+.buy-btn:hover{
+  box-shadow:0 20px 42px rgba(25,116,232,.5),0 0 0 8px rgba(85,199,239,.16);
+}
+.review-card-pop:after{
+  border-top-color:rgba(255,255,255,.34);
+}
 
 @media (max-width:860px){
   #proof .proof-top{grid-template-columns:1fr}
@@ -2336,7 +2349,7 @@ const HERO_SPRITE_COLS = 5;
 const heroProductSprite = new Image();
 let heroProductSpriteReady = false;
 let lastHeroFrame = 0;
-heroProductSprite.src = 'assets/buzzy-rabbit-hero-sprite.webp';
+heroProductSprite.src = 'assets/buzzy-rabbit-hero-sprite-pink.webp';
 
 function drawHeroFrame(index){
   if(!heroProductCtx || !heroProductSpriteReady) return;
