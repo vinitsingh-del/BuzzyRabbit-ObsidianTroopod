@@ -47,13 +47,13 @@ body:before{
   z-index:-3;
   background-image:
     radial-gradient(ellipse at center, #ff76e9 0%, transparent 38%),
-    radial-gradient(ellipse at center, #ffe03b 0%, transparent 34%),
+    radial-gradient(ellipse at center, #7428d6 0%, transparent 36%),
     radial-gradient(ellipse at center, #8b3fd9 0%, transparent 40%),
-    radial-gradient(ellipse at center, #ff7a1a 0%, transparent 38%),
+    radial-gradient(ellipse at center, #9b102f 0%, transparent 38%),
     linear-gradient(135deg, #007bff 0%, #082679 55%, #007bff 100%);
   background-size:170% 170%,180% 180%,175% 175%,185% 185%,140% 140%;
   background-position:0% 20%,100% 0%,90% 100%,0% 100%,50% 50%;
-  animation:water-gradient-flow 16s ease-in-out infinite alternate;
+  animation:water-gradient-flow 8s ease-in-out infinite alternate;
   will-change:background-position,transform;
 }
 @keyframes water-gradient-flow{
@@ -63,7 +63,7 @@ body:before{
   100%{background-position:30% 85%,80% 55%,10% 40%,100% 10%,50% 50%;transform:translate3d(0,1%,0) scale(1.05)}
 }
 @media (max-width:680px){
-  body:before{background-size:210% 210%,220% 220%,215% 215%,225% 225%,170% 170%;animation-duration:13s}
+  body:before{background-size:210% 210%,220% 220%,215% 215%,225% 225%,170% 170%;animation-duration:7s}
 }
 @media (prefers-reduced-motion: reduce){
   body:before{animation:none;transform:none;background-position:40% 45%,65% 30%,60% 70%,35% 70%,50% 50%}
